@@ -7,3 +7,6 @@ C:\Users\Maria\Documents\לימודים\שנה ב\סמסטר ב\תכנות מת�
 C:\Users\Maria\Documents\לימודים\שנה ב\סמסטר ב\תכנות מתקדם\תרגילים\MyNewService\MyNewService\obj\Debug\MyNewService.exe
 C:\Users\Maria\Documents\לימודים\שנה ב\סמסטר ב\תכנות מתקדם\תרגילים\MyNewService\MyNewService\obj\Debug\MyNewService.pdb
 C:\Users\Maria\Documents\לימודים\שנה ב\סמסטר ב\תכנות מתקדם\תרגילים\MyNewService\MyNewService\obj\Debug\MyNewService.ProjectInstaller.resources
+C:\Users\linoy cohen\Documents\GitHub\Advanced-Programming-2\MyNewService\bin\Debug\MyNewService.exe.config
+C:\Users\linoy cohen\Documents\GitHub\Advanced-Programming-2\MyNewService\obj\Debug\MyNewService.exe
+C:\Users\linoy cohen\Documents\GitHub\Advanced-Programming-2\MyNewService\obj\Debug\MyNewService.pdb
