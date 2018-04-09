@@ -13,6 +13,7 @@ namespace ImageService.Server
 {
     public class ImageServer
     {
+
         #region Members
         private IImageController m_controller;
         private ILoggingService m_logging;
@@ -23,6 +24,19 @@ namespace ImageService.Server
         // The event that notifies about a new Command being recieved
         #endregion
 
+        public ImageServer(ILoggingService logging, IImageController imageController)
+        {
+            m_logging = logging;
+            m_controller = imageController;
+            readPath();
+        }
+        public void readPath()
+        {
+            string paths = ConfigurationManager.AppSettings["Handler"];
+            string[] pathArray = paths.Split(';');
+             
+
+        }
 
     }
 }

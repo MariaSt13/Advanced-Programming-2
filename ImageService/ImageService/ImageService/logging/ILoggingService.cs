@@ -7,7 +7,7 @@ using ImageService.logging.Modal;
 
 namespace ImageService
 {
-    interface ILoggingService
+    public interface ILoggingService
     {
         event EventHandler<MessageRecievedEventArgs> MessageRecieved;
         void Log(string message, MessageTypeEnum type);           // Logging the Message
