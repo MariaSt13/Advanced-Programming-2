@@ -74,6 +74,7 @@ namespace ImageService
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
             eventLog1.WriteEntry("In OnStart");
+
             // Set up a timer to trigger every minute.  
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Interval = 60000; // 60 seconds  
