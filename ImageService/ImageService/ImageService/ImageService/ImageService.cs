@@ -8,6 +8,9 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using ImageService.Logging;
+using ImageService.Server;
+using ImageService.Logging.Modal;
 
 namespace ImageService
 {
@@ -16,6 +19,10 @@ namespace ImageService
     {
         private System.Diagnostics.EventLog eventLog1;
         private int eventId = 1;
+        private ImageServer m_imageServer;          // The Image Server
+        private IImageServiceModal modal;
+        private IImageController controller;
+        private ILoggingService logging;
 
         public enum ServiceState
         {
@@ -84,8 +91,16 @@ namespace ImageService
             // Update the service state to Running.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-        }
 
+            //create logging modal and server
+            this.logging = new LoggingService();
+            this.m_imageServer = new ImageServer(this.logging, this.controller);
+            logging.MessageRecieved += onMessage;
+        }
+        public void onMessage(object sender, MessageRecievedEventArgs args)
+        {
+            eventLog1.WriteEntry(args.Message);
+        }
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
             // TODO: Insert monitoring activities here.  
@@ -99,7 +114,9 @@ namespace ImageService
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
             serviceStatus.dwWaitHint = 100000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
             eventLog1.WriteEntry("In onStop.");
+
             // Update the service state to Running.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
