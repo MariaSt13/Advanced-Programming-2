@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing.Imaging;
 
 namespace ImageService.Modal
 {
@@ -13,10 +14,12 @@ namespace ImageService.Modal
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
 
         #endregion
-        public ImageServiceModal()
+        public ImageServiceModal(string outputFolder, int size)
         {
-
+            this.m_OutputFolder = outputFolder;
+            this.m_thumbnailSize = size;
         }
+
         public string AddFile(string path, out bool result) 
         {
 
