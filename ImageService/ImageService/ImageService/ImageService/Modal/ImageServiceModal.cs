@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
 
 namespace ImageService.Modal
 {
@@ -33,15 +35,16 @@ namespace ImageService.Modal
             getDate(path);
         }
 
-        private string getDate(string path)
+        private DateTime getDate(string path)
         {
+            Regex r = new Regex(":");
             using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-        using (Image myImage = Image.FromStream(fs, false, false))
-        {
-            PropertyItem propItem = myImage.GetPropertyItem(36867);
-            string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
-            return DateTime.Parse(dateTaken);
-        }
+            using (Image myImage = Image.FromStream(fs, false, false))
+            {
+                PropertyItem propItem = myImage.GetPropertyItem(36867);
+                string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
+                return DateTime.Parse(dateTaken);
+            }
         }
     }
 }
