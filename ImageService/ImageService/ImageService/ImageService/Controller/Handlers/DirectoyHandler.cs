@@ -6,10 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ImageService.Infrastructure.Enums;
 
 namespace ImageService.Controller.Handlers
 {
-    class DirectoyHandler : IDirectoyHandler
+    public class DirectoyHandler : IDirectoyHandler
     {
         #region Members
         private IImageController m_controller;              // The Image Processing Controller
@@ -21,9 +22,26 @@ namespace ImageService.Controller.Handlers
         // The Event That Notifies that the Directory is being closed
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;
 
+        public DirectoyHandler(IImageController imageController, ILoggingService loggingService)
+        {
+            this.m_controller = imageController;
+            this.m_logging = loggingService;
+        }
+
         public void StartHandleDirectory(string dirPath)
         {
-            
+            this.m_path = dirPath;
+            this.m_dirWatcher = new FileSystemWatcher(m_path, "*.jpg,*.png,*.gif,*.bmp");
+            this.m_dirWatcher.Created += new FileSystemEventHandler(OnCreate); ;
+        }
+
+
+        // Define the event handlers.
+        private void OnCreate(object source, FileSystemEventArgs e)
+        {
+            string[] args = {e.FullPath};
+            bool result;
+            this.m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, args, out result);
         }
 
         //for the close only !!!!!!!!!!!
