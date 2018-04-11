@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImageService.Modal;
+using ImageService.Commands;
 
 namespace ImageService.Controller
 {
-    class ImageController : IImageController
+    public class ImageController : IImageController
     {
         // The Modal Object
         private IImageServiceModal m_modal;

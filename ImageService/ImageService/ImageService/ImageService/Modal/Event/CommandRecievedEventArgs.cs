@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ImageService.Modal.Event
 {
-    class CommandRecievedEventArgs : EventArgs
+    public class CommandRecievedEventArgs : EventArgs
     {
         public int CommandID { get; set; }      // The Command ID
         public string[] Args { get; set; }

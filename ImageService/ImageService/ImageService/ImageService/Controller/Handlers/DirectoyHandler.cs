@@ -26,9 +26,15 @@ namespace ImageService.Controller.Handlers
             
         }
 
+        //for the close only !!!!!!!!!!!
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
             
+        }
+
+        public void OnClose()
+        {
+            throw new NotImplementedException();
         }
 
         // Implement Here!

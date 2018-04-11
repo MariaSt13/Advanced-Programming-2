@@ -15,5 +15,6 @@ namespace ImageService.Controller.Handlers
         void StartHandleDirectory(string dirPath);
         // The Event that will be activated upon new Command
         void OnCommandRecieved(object sender, CommandRecievedEventArgs e);
+        void OnClose();
     }
 }

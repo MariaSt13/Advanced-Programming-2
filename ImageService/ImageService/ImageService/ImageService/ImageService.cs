@@ -11,6 +11,8 @@ using System.Runtime.InteropServices;
 using ImageService.Logging;
 using ImageService.Server;
 using ImageService.Logging.Modal;
+using ImageService.Modal;
+using ImageService.Controller;
 
 namespace ImageService
 {
