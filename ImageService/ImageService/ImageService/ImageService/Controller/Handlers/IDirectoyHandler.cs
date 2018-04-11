@@ -7,7 +7,7 @@ using ImageService.Modal.Event;
 
 namespace ImageService.Controller.Handlers
 {
-    interface IDirectoyHandler
+    public interface IDirectoyHandler
     {
         // The Event That Notifies that the Directory is being closed
         event EventHandler<DirectoryCloseEventArgs> DirectoryClose;

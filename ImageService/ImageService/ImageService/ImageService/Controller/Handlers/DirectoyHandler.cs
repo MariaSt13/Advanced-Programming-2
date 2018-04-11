@@ -52,7 +52,7 @@ namespace ImageService.Controller.Handlers
 
         public void OnClose()
         {
-            throw new NotImplementedException();
+           
         }
 
         // Implement Here!
