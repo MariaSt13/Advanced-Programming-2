@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,25 @@ namespace ImageService.Modal
         }
         public string AddFile(string path, out bool result) 
         {
+            result = true;
+            //check if outputDir doesnt exists - create it.
+            if (!Directory.Exists(m_OutputFolder))
+            {
+                // Try to create the directory.
+                Directory.CreateDirectory(m_OutputFolder);
+            }
+            getDate(path);
+        }
 
+        private string getDate(string path)
+        {
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+        using (Image myImage = Image.FromStream(fs, false, false))
+        {
+            PropertyItem propItem = myImage.GetPropertyItem(36867);
+            string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
+            return DateTime.Parse(dateTaken);
+        }
         }
     }
 }
