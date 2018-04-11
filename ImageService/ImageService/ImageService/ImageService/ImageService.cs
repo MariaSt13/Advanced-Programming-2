@@ -13,6 +13,7 @@ using ImageService.Server;
 using ImageService.Logging.Modal;
 using ImageService.Modal;
 using ImageService.Controller;
+using System.Configuration;
 
 namespace ImageService
 {
@@ -94,9 +95,16 @@ namespace ImageService
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-            //create logging modal and server
+            // get OutputDir path and Thumbnail size from app config
+            string outputFolder = ConfigurationManager.AppSettings["OutputDir"];
+            int size = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
+
+            //create logging modal, image modal, controller and server
+            this.modal = new ImageServiceModal(outputFolder, size);
+            this.controller = new ImageController(modal);
             this.logging = new LoggingService();
             this.m_imageServer = new ImageServer(this.logging, this.controller);
+
             logging.MessageRecieved += onMessage;
         }
         public void onMessage(object sender, MessageRecievedEventArgs args)
