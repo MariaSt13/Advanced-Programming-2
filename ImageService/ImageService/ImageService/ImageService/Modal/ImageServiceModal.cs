@@ -26,13 +26,43 @@ namespace ImageService.Modal
         public string AddFile(string path, out bool result) 
         {
             result = true;
+            string strReturn = "file added successfully";
+            if (!File.Exists(path))
+            {
+                result = false;
+                return "error: file doesnt exist";
+            }
             //check if outputDir doesnt exists - create it.
             if (!Directory.Exists(m_OutputFolder))
             {
                 // Try to create the directory.
                 Directory.CreateDirectory(m_OutputFolder);
             }
-            getDate(path);
+
+            string thumbnailsPath = m_OutputFolder + "\\Thumbnails";
+
+            //check if thumbnailsPath doesnt exists - create it.
+            if (!Directory.Exists(thumbnailsPath))
+            {
+                // Try to create the directory.
+                Directory.CreateDirectory(thumbnailsPath);
+            }
+
+            DateTime picDate = getDate(path);
+            string folderPathByDate = createFolder(picDate,this.m_OutputFolder);
+            string fileName = Path.GetFileName(path);
+            if (File.Exists(folderPathByDate + "\\" + fileName))
+            {
+                fileName += "1";
+                string directoryName = Path.GetDirectoryName(path);
+                path = "";
+                path = directoryName + "\\" + fileName;
+                strReturn = "error: file name was changed";
+            }
+            string thumbnailsPathByDate = createFolder(picDate, thumbnailsPath);
+            createThumbnails(path, thumbnailsPathByDate);
+            File.Move(path, folderPathByDate);
+            return strReturn;
         }
 
         private DateTime getDate(string path)
@@ -46,5 +76,32 @@ namespace ImageService.Modal
                 return DateTime.Parse(dateTaken);
             }
         }
+
+        private string createFolder(DateTime dateTime, string path)
+        {
+            int year =  dateTime.Year;
+            int month = dateTime.Month;
+            string newpath = path + "\\" + year;
+            if (!Directory.Exists(newpath))
+            {
+                // Try to create the directory.
+                Directory.CreateDirectory(newpath);
+            }
+            path += "/" + month;
+            if (!Directory.Exists(newpath))
+            {
+                // Try to create the directory.
+                Directory.CreateDirectory(newpath);
+            }
+            return newpath;
+        }
+
+        
+        private void createThumbnails(string path,string thumbnailsPathByDate) {
+            Image image = Image.FromFile(path);
+            Image thumb = image.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
+            thumb.Save(Path.ChangeExtension(thumbnailsPathByDate, Path.GetFileName(path)));
+        }
+
     }
 }
