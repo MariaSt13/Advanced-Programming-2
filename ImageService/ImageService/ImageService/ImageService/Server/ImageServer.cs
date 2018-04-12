@@ -18,6 +18,7 @@ namespace ImageService.Server
         #region Members
         private IImageController m_controller;
         private ILoggingService m_logging;
+
         #endregion
 
         #region Properties
@@ -35,8 +36,17 @@ namespace ImageService.Server
         {
             string paths = ConfigurationManager.AppSettings["Handler"];
             string[] pathArray = paths.Split(';');
-             
-
+            for ( int i =0; i < pathArray.Length; i++)
+            {
+                IDirectoyHandler handle = new DirectoyHandler(this.m_controller,this.m_logging);
+                CommandRecieved += handle.OnCommandRecieved;
+                handle.DirectoryClose += OnDirctoryClose;
+            }
+        }
+        public void OnDirctoryClose(object sender, DirectoryCloseEventArgs args)
+        {
+            IDirectoyHandler handler = (IDirectoyHandler)sender;
+            CommandRecieved -= handler.OnCommandRecieved;
         }
 
     }

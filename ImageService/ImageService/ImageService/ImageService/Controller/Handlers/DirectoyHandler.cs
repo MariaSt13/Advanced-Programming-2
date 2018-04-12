@@ -47,7 +47,10 @@ namespace ImageService.Controller.Handlers
         //for the close only !!!!!!!!!!!
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
-            
+            if (e.CommandID == (int) CommandEnum.CloseCommand)
+            {
+                DirectoryClose.Invoke(this, e.)
+            }
         }
 
         public void OnClose()
