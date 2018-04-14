@@ -26,6 +26,7 @@ namespace ImageService.Controller.Handlers
         {
             this.m_controller = imageController;
             this.m_logging = loggingService;
+            this.m_logging.Log("handler : constractor", Logging.Modal.MessageTypeEnum.INFO);
         }
 
         public void StartHandleDirectory(string dirPath)
@@ -33,12 +34,14 @@ namespace ImageService.Controller.Handlers
             this.m_path = dirPath;
             this.m_dirWatcher = new FileSystemWatcher(m_path, "*.jpg,*.png,*.gif,*.bmp");
             this.m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
+            this.m_logging.Log("handler : StartHandleDirectory", Logging.Modal.MessageTypeEnum.INFO);
         }
 
 
         // Define the event handlers.
         private void OnCreated(object source, FileSystemEventArgs e)
         {
+            this.m_logging.Log("handler : OnCreated", Logging.Modal.MessageTypeEnum.INFO);
             string[] args = {e.FullPath};
             bool result;
             string strResult = this.m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, args, out result);
@@ -48,6 +51,7 @@ namespace ImageService.Controller.Handlers
         //for the close only !!!!!!!!!!!
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
+            this.m_logging.Log("handler : OnCommandRecieved", Logging.Modal.MessageTypeEnum.INFO);
             switch (e.CommandID)
             {
                 //close command
@@ -65,6 +69,7 @@ namespace ImageService.Controller.Handlers
 
         public void OnClose()
         {
+            this.m_logging.Log("handler : OnClose", Logging.Modal.MessageTypeEnum.INFO);
             this.m_dirWatcher.Created -= OnCreated;
             DirectoryClose?.Invoke(this,new DirectoryCloseEventArgs(m_path,"close directory"));
         }
