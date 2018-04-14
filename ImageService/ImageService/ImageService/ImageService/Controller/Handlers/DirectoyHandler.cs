@@ -62,6 +62,7 @@ namespace ImageService.Controller.Handlers
 
         public void OnClose()
         {
+            this.m_dirWatcher.Created -= OnCreated;
             DirectoryClose?.Invoke(this,new DirectoryCloseEventArgs(m_path,"close directory"));
         }
 
