@@ -41,7 +41,8 @@ namespace ImageService.Controller.Handlers
         {
             string[] args = {e.FullPath};
             bool result;
-            this.m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, args, out result);
+            string strResult = this.m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, args, out result);
+            this.m_logging.Log(strResult, Logging.Modal.MessageTypeEnum.INFO);
         }
 
         //for the close only !!!!!!!!!!!
@@ -51,11 +52,13 @@ namespace ImageService.Controller.Handlers
             {
                 //close command
                 case ((int)CommandEnum.CloseCommand):
+                    this.m_logging.Log("close directory +" + this.m_path , Logging.Modal.MessageTypeEnum.INFO);
                     this.OnClose();
                     break;
 
                 //add new file command
                 case ((int)CommandEnum.NewFileCommand):
+                    this.m_logging.Log("add file to directory +" + this.m_path, Logging.Modal.MessageTypeEnum.INFO);
                     break;
             }
         }
