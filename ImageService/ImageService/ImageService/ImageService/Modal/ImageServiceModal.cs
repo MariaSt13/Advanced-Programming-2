@@ -102,14 +102,11 @@ namespace ImageService.Modal
                 Directory.CreateDirectory(thumbnailsPathByYearAndMonth);
             }
             createThumbnails(path, thumbnailsPathByYearAndMonth + "\\");
-            this.m_logging.Log("sorce: " + path + " dest " + folderPathByYearAndMonth + "\\" + Path.GetFileName(path), Logging.Modal.MessageTypeEnum.INFO);
+            this.m_logging.Log("sorce::: " + path + " dest " + folderPathByYearAndMonth + "\\" + Path.GetFileName(path), Logging.Modal.MessageTypeEnum.INFO);
             try
             {
-                StreamReader sr = new StreamReader(path);
                 File.Copy(path, folderPathByYearAndMonth +"\\"+ Path.GetFileName(path));
-                sr.Dispose();
                 File.Delete(path);
-                //File.Move(path, folderPathByYearAndMonth);
             }
             catch (IOException ex)
             {
@@ -169,6 +166,7 @@ namespace ImageService.Modal
             Image image = Image.FromFile(path);
             Image thumb = image.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
             thumb.Save(Path.ChangeExtension(thumbnailsPathByDate, Path.GetFileName(path)));
+            image.Dispose();
         }
 
     }
