@@ -32,12 +32,12 @@ namespace ImageService.Controller.Handlers
         {
             this.m_path = dirPath;
             this.m_dirWatcher = new FileSystemWatcher(m_path, "*.jpg,*.png,*.gif,*.bmp");
-            this.m_dirWatcher.Created += new FileSystemEventHandler(OnCreate); ;
+            this.m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
         }
 
 
         // Define the event handlers.
-        private void OnCreate(object source, FileSystemEventArgs e)
+        private void OnCreated(object source, FileSystemEventArgs e)
         {
             string[] args = {e.FullPath};
             bool result;
@@ -47,17 +47,23 @@ namespace ImageService.Controller.Handlers
         //for the close only !!!!!!!!!!!
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
-            if (e.CommandID == (int) CommandEnum.CloseCommand)
+            switch (e.CommandID)
             {
-                DirectoryClose.Invoke(this, e.)
+                //close command
+                case ((int)CommandEnum.CloseCommand):
+                    this.OnClose();
+                    break;
+
+                //add new file command
+                case ((int)CommandEnum.NewFileCommand):
+                    break;
             }
         }
 
         public void OnClose()
         {
-           
+            DirectoryClose?.Invoke(this,new DirectoryCloseEventArgs(m_path,"close directory"));
         }
 
-        // Implement Here!
     }
 }

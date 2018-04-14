@@ -32,6 +32,7 @@ namespace ImageService.Server
             m_controller = imageController;
             readPath();
         }
+
         public void readPath()
         {
             string paths = ConfigurationManager.AppSettings["Handler"];
@@ -41,12 +42,18 @@ namespace ImageService.Server
                 IDirectoyHandler handle = new DirectoyHandler(this.m_controller,this.m_logging);
                 CommandRecieved += handle.OnCommandRecieved;
                 handle.DirectoryClose += OnDirctoryClose;
+                handle.StartHandleDirectory(pathArray[i]);
             }
         }
         public void OnDirctoryClose(object sender, DirectoryCloseEventArgs args)
         {
             IDirectoyHandler handler = (IDirectoyHandler)sender;
             CommandRecieved -= handler.OnCommandRecieved;
+        }
+
+        public void Close()
+        {
+            CommandRecieved?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CloseCommand,null,null));
         }
 
     }
