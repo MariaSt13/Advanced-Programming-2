@@ -32,9 +32,13 @@ namespace ImageService.Controller.Handlers
         public void StartHandleDirectory(string dirPath)
         {
             this.m_path = dirPath;
-            this.m_dirWatcher = new FileSystemWatcher(m_path, "*.jpg,*.png,*.gif,*.bmp");
+            this.m_dirWatcher = new FileSystemWatcher();
+            this.m_dirWatcher.Path = this.m_path;
+            this.m_dirWatcher.Filter = "*";
             this.m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
-            this.m_logging.Log("handler : StartHandleDirectory", Logging.Modal.MessageTypeEnum.INFO);
+            // Begin watching.
+            this.m_dirWatcher.EnableRaisingEvents = true;
+            this.m_logging.Log("handler : StartHandleDirectory*", Logging.Modal.MessageTypeEnum.INFO);
         }
 
 
