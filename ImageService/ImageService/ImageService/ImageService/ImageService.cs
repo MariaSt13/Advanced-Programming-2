@@ -88,7 +88,7 @@ namespace ImageService
             // Set up a timer to trigger every minute.  
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Interval = 60000; // 60 seconds  
-            //timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
+           // timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
             timer.Start();
 
             // Update the service state to Running.  
@@ -101,11 +101,12 @@ namespace ImageService
 
             //create logging modal, image modal, controller and server
             this.logging = new LoggingService();
+            logging.MessageRecieved += onMessage;
             this.modal = new ImageServiceModal(outputFolder, size,logging);
             this.controller = new ImageController(modal, logging);
             this.m_imageServer = new ImageServer(this.logging, this.controller);
 
-            logging.MessageRecieved += onMessage;
+            
         }
         public void onMessage(object sender, MessageRecievedEventArgs args)
         {
