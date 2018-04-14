@@ -28,10 +28,11 @@ namespace ImageService.Server
 
         public ImageServer(ILoggingService logging, IImageController imageController)
         {
-            this.m_logging.Log("server: constructor", Logging.Modal.MessageTypeEnum.INFO);
             m_logging = logging;
             m_controller = imageController;
+            this.m_logging.Log("server: constructor", Logging.Modal.MessageTypeEnum.INFO);
             readPath();
+           
         }
 
         public void readPath()

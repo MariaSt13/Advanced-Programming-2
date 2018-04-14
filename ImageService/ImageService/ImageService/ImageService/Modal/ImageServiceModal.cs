@@ -23,6 +23,7 @@ namespace ImageService.Modal
             this.m_logging = m_logging;
             this.m_OutputFolder = outputFolder;
             this.m_thumbnailSize = size;
+            this.m_logging.Log("ImageModal: constructor", Logging.Modal.MessageTypeEnum.INFO);
         }
 
         public string AddFile(string path, out bool result) 
