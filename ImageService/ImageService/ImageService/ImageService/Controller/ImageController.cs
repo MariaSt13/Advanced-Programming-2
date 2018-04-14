@@ -24,14 +24,22 @@ namespace ImageService.Controller
             this.logger = logging;
             commands = new Dictionary<int, ICommand>()
             {
-                { 1, new NewFileCommand(m_modal, logger) }
+                {0, new NewFileCommand(m_modal, logger) }
             };
             this.logger.Log("Controller : constractor", Logging.Modal.MessageTypeEnum.INFO);
         }
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
-            this.logger.Log("Controller : executeCommand", Logging.Modal.MessageTypeEnum.INFO);
+            this.logger.Log("Controller* : executeCommand" + "command id " + commandID, Logging.Modal.MessageTypeEnum.INFO);
+            if (!this.commands.ContainsKey(commandID))
+            {
+                resultSuccesful = false;
+                this.logger.Log("Controller : executeCommand no such command " , Logging.Modal.MessageTypeEnum.INFO);
+                return "no such command";
+            }
+
             ICommand command = this.commands[commandID];
+            this.logger.Log("Controller : command", Logging.Modal.MessageTypeEnum.INFO);
             return command.Execute(args, out resultSuccesful);
         }
     }
