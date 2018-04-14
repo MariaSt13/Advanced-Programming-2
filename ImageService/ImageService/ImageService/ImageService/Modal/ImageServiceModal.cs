@@ -120,22 +120,29 @@ namespace ImageService.Modal
         //retrieves the datetime WITHOUT loading the whole image
         public DateTime GetDateTakenFromImage(string path)
         {
-            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-            using (Image myImage = Image.FromStream(fs, false, false))
-              
+            try
             {
-                PropertyItem propItem = null;
-                try
-                {
-                    propItem = myImage.GetPropertyItem(36867);
-                }
-                catch (ArgumentException e)
-                {
-                    this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.INFO);
-                }
+                using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+                using (Image myImage = Image.FromStream(fs, false, false))
 
-                string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
-                return DateTime.Parse(dateTaken);
+                {
+                    PropertyItem propItem = null;
+                    try
+                    {
+                        propItem = myImage.GetPropertyItem(36867);
+                    }
+                    catch (ArgumentException e)
+                    {
+                        this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.INFO);
+                    }
+
+                    string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
+                    return DateTime.Parse(dateTaken);
+                }
+            } catch(Exception e)
+            {
+                this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.FAIL);
+                return DateTime.Now;
             }
         }
 
