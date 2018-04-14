@@ -100,9 +100,9 @@ namespace ImageService
             int size = int.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
 
             //create logging modal, image modal, controller and server
-            this.modal = new ImageServiceModal(outputFolder, size);
-            this.controller = new ImageController(modal);
             this.logging = new LoggingService();
+            this.modal = new ImageServiceModal(outputFolder, size,logging);
+            this.controller = new ImageController(modal, logging);
             this.m_imageServer = new ImageServer(this.logging, this.controller);
 
             logging.MessageRecieved += onMessage;
@@ -111,11 +111,11 @@ namespace ImageService
         {
             eventLog1.WriteEntry(args.Message);
         }
-        public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
+      /*  public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
             // TODO: Insert monitoring activities here.  
             eventLog1.WriteEntry("Monitoring the System", EventLogEntryType.Information, eventId++);
-        }
+        }*/
 
         protected override void OnStop()
         {
