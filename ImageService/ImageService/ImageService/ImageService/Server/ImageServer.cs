@@ -28,6 +28,7 @@ namespace ImageService.Server
 
         public ImageServer(ILoggingService logging, IImageController imageController)
         {
+            this.m_logging.Log("server: constructor", Logging.Modal.MessageTypeEnum.INFO);
             m_logging = logging;
             m_controller = imageController;
             readPath();
@@ -35,10 +36,12 @@ namespace ImageService.Server
 
         public void readPath()
         {
+            this.m_logging.Log("server: read path", Logging.Modal.MessageTypeEnum.INFO);
             string paths = ConfigurationManager.AppSettings["Handler"];
             string[] pathArray = paths.Split(';');
             for ( int i =0; i < pathArray.Length; i++)
             {
+                this.m_logging.Log("server: read path in loop. the path:" + pathArray[i], Logging.Modal.MessageTypeEnum.INFO);
                 IDirectoyHandler handle = new DirectoyHandler(this.m_controller,this.m_logging);
                 CommandRecieved += handle.OnCommandRecieved;
                 handle.DirectoryClose += OnDirctoryClose;
@@ -47,12 +50,14 @@ namespace ImageService.Server
         }
         public void OnDirctoryClose(object sender, DirectoryCloseEventArgs args)
         {
+            this.m_logging.Log("server: OnDirctoryClose", Logging.Modal.MessageTypeEnum.INFO);
             IDirectoyHandler handler = (IDirectoyHandler)sender;
             CommandRecieved -= handler.OnCommandRecieved;
         }
 
         public void Close()
         {
+            this.m_logging.Log("server: Close", Logging.Modal.MessageTypeEnum.INFO);
             CommandRecieved?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CloseCommand,null,null));
         }
 

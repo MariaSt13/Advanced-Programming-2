@@ -15,26 +15,31 @@ namespace ImageService.Modal
         #region Members
         private string m_OutputFolder;            // The Output Folder
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
+        private ILoggingService m_logging;
 
         #endregion
-        public ImageServiceModal(string outputFolder, int size)
+        public ImageServiceModal(string outputFolder, int size, ILoggingService m_logging)
         {
+            this.m_logging = m_logging;
             this.m_OutputFolder = outputFolder;
             this.m_thumbnailSize = size;
         }
 
         public string AddFile(string path, out bool result) 
         {
+            this.m_logging.Log("ImageModal: AddFile", Logging.Modal.MessageTypeEnum.INFO);
             result = true;
             string strReturn = "file added successfully";
             if (!File.Exists(path))
             {
+                this.m_logging.Log("ImageModal: AddFile. File not exist", Logging.Modal.MessageTypeEnum.INFO);
                 result = false;
                 return "error: file doesnt exist";
             }
             //check if outputDir doesnt exists - create it.
             if (!Directory.Exists(m_OutputFolder))
             {
+                this.m_logging.Log("ImageModal: AddFile. outputDir not exist", Logging.Modal.MessageTypeEnum.INFO);
                 // Try to create the directory.
                 Directory.CreateDirectory(m_OutputFolder);
             }
@@ -44,8 +49,9 @@ namespace ImageService.Modal
             //check if thumbnailsPath doesnt exists - create it.
             if (!Directory.Exists(thumbnailsPath))
             {
+                this.m_logging.Log("ImageModal: AddFile. thumbnailsPath not exist", Logging.Modal.MessageTypeEnum.INFO);
                 // Try to create the directory.
-                Directory.CreateDirectory(thumbnailsPath);
+               Directory.CreateDirectory(thumbnailsPath);
             }
 
             DateTime picDate = getDate(path);
@@ -53,6 +59,7 @@ namespace ImageService.Modal
             string fileName = Path.GetFileName(path);
             if (File.Exists(folderPathByDate + "\\" + fileName))
             {
+                this.m_logging.Log("ImageModal: AddFile. file name was changed", Logging.Modal.MessageTypeEnum.INFO);
                 fileName += "1";
                 string directoryName = Path.GetDirectoryName(path);
                 path = "";
@@ -67,6 +74,7 @@ namespace ImageService.Modal
 
         private DateTime getDate(string path)
         {
+            this.m_logging.Log("ImageModal: getDate", Logging.Modal.MessageTypeEnum.INFO);
             Regex r = new Regex(":");
             using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
             using (Image myImage = Image.FromStream(fs, false, false))
@@ -79,6 +87,8 @@ namespace ImageService.Modal
 
         private string createFolder(DateTime dateTime, string path)
         {
+            this.m_logging.Log("ImageModal: createFolder", Logging.Modal.MessageTypeEnum.INFO);
+
             int year =  dateTime.Year;
             int month = dateTime.Month;
             string newpath = path + "\\" + year;
@@ -98,6 +108,7 @@ namespace ImageService.Modal
 
         
         private void createThumbnails(string path,string thumbnailsPathByDate) {
+            this.m_logging.Log("ImageModal: createThumbnails", Logging.Modal.MessageTypeEnum.INFO);
             Image image = Image.FromFile(path);
             Image thumb = image.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
             thumb.Save(Path.ChangeExtension(thumbnailsPathByDate, Path.GetFileName(path)));
