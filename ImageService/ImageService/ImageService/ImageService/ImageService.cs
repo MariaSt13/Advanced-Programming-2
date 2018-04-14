@@ -88,7 +88,11 @@ namespace ImageService
             // Set up a timer to trigger every minute.  
             System.Timers.Timer timer = new System.Timers.Timer();
             timer.Interval = 60000; // 60 seconds  
+<<<<<<< HEAD
            // timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
+=======
+            timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
+>>>>>>> f29e272a7808c476a9aa8af9d887b1aa99ac0daf
             timer.Start();
 
             // Update the service state to Running.  
