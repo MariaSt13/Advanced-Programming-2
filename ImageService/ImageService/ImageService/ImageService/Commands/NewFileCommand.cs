@@ -12,16 +12,25 @@ namespace ImageService.Commands
         private IImageServiceModal m_modal;
         private ILoggingService logger;
 
+        /// <summary>
+        /// constructor.
+        /// </summary>
+        /// <param name="modal">IImageServiceModal object</param>
+        /// <param name="logging">ILoggingService object</param>
         public NewFileCommand(IImageServiceModal modal, ILoggingService logging)
         {
             m_modal = modal;            // Storing the Modal
             logger = logging;
-            this.logger.Log("NewFileCommand : constractor", Logging.Modal.MessageTypeEnum.INFO);
         }
 
+        /// <summary>
+        /// Execute the command by calling function of m_modal.
+        /// </summary>
+        /// <param name="args">Function arguments</param>
+        /// <param name="result">If the value is true then the process is successfully completed</param>
+        /// <returns></returns>
         public string Execute(string[] args, out bool result)
         {
-            this.logger.Log("NewFileCommand : execute", Logging.Modal.MessageTypeEnum.INFO);
             // The String Will Return the New Path if result = true, and will return the error message
             System.Threading.Thread.Sleep(500);
             return m_modal.AddFile(args[0], out result);

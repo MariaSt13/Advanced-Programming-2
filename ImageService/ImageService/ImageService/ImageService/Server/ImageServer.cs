@@ -49,6 +49,12 @@ namespace ImageService.Server
                 handle.StartHandleDirectory(pathArray[i]);
             }
         }
+
+        /// <summary>
+        /// This function is called when the Handler is closed.
+        /// </summary>
+        /// <param name="sender"> The Hendler that was closed</param>
+        /// <param name="args"></param>
         public void OnDirctoryClose(object sender, DirectoryCloseEventArgs args)
         {
             this.m_logging.Log("server: OnDirctoryClose", Logging.Modal.MessageTypeEnum.INFO);
@@ -56,6 +62,9 @@ namespace ImageService.Server
             CommandRecieved -= handler.OnCommandRecieved;
         }
 
+        /// <summary>
+        /// This function closes all handlers by invoke CommandRecieved event.
+        /// </summary>
         public void Close()
         {
             this.m_logging.Log("server: Close", Logging.Modal.MessageTypeEnum.INFO);
