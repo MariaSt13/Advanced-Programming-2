@@ -49,7 +49,6 @@ namespace ImageService.Modal
             //check if file exist
             if (!File.Exists(@path))
             {
-                this.m_logging.Log("ImageModal: AddFile. File not exist", Logging.Modal.MessageTypeEnum.INFO);
                 result = false;
                 return "error: file doesnt exist";
             }
@@ -109,7 +108,7 @@ namespace ImageService.Modal
                 string directoryName = Path.GetDirectoryName(newPath);
                 newPath = "";
                 newPath = directoryName + "\\" + fileName;
-                strReturn = "error: file name was changed";
+                strReturn = "file name was changed";
             }
 
             string thumbnailsPathByYear = thumbnailsPath + "\\" + picDate.Year;
@@ -199,7 +198,6 @@ namespace ImageService.Modal
         /// <param name="thumbnailsPathByDate">Path of the thumbnail</param>
         private void createThumbnails(string path, string thumbnailsPathByDate)
         {
-            this.m_logging.Log("ImageModal: createThumbnails", Logging.Modal.MessageTypeEnum.INFO);
             Image image = Image.FromFile(path);
             Image thumb = image.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
             thumb.Save(Path.ChangeExtension(thumbnailsPathByDate, Path.GetFileNameWithoutExtension(path) + ".thumb"));
