@@ -35,7 +35,6 @@ namespace ImageService.Server
         {
             m_logging = logging;
             m_controller = imageController;
-            this.m_logging.Log("server: constructor", Logging.Modal.MessageTypeEnum.INFO);
             readPath();
            
         }
@@ -74,7 +73,6 @@ namespace ImageService.Server
         /// </summary>
         public void Close()
         {
-            this.m_logging.Log("Close server", Logging.Modal.MessageTypeEnum.INFO);
             CommandRecieved?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CloseCommand,null,null));
         }
 
