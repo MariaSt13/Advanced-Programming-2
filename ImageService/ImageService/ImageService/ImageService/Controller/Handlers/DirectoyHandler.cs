@@ -67,7 +67,15 @@ namespace ImageService.Controller.Handlers
             if (legalExtensions.Contains(fileExtension))
             {
                 string strResult = this.m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, args, out result);
-                this.m_logging.Log(strResult, Logging.Modal.MessageTypeEnum.INFO);
+                if (result == true)
+                {
+                    this.m_logging.Log(strResult, Logging.Modal.MessageTypeEnum.INFO);
+                }
+                else
+                {
+                    this.m_logging.Log(strResult, Logging.Modal.MessageTypeEnum.FAIL);
+                }
+           
             }
         }
 

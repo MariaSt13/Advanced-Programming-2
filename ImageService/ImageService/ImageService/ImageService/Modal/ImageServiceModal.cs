@@ -200,7 +200,7 @@ namespace ImageService.Modal
         {
             Image image = Image.FromFile(path);
             Image thumb = image.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
-            thumb.Save(Path.ChangeExtension(thumbnailsPathByDate, Path.GetFileNameWithoutExtension(path) + ".jpg"));
+            thumb.Save(Path.ChangeExtension(thumbnailsPathByDate + "//" + Path.GetFileName(path),   ".jpg"));
             thumb.Dispose();
             image.Dispose();
         }
