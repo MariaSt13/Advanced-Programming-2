@@ -22,30 +22,41 @@ namespace ImageService.Controller.Handlers
         // The Event That Notifies that the Directory is being closed
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="imageController">the controller</param>
+        /// <param name="loggingService">the logger</param>
         public DirectoyHandler(IImageController imageController, ILoggingService loggingService)
         {
             this.m_controller = imageController;
             this.m_logging = loggingService;
-            this.m_logging.Log("handler : constractor", Logging.Modal.MessageTypeEnum.INFO);
         }
 
+        /// <summary>
+        /// starts to handle a given directory
+        /// </summary>
+        /// <param name="dirPath">the path to the directoryto start handling </param>
         public void StartHandleDirectory(string dirPath)
         {
             this.m_path = dirPath;
+            // create a file ststem watcher
             this.m_dirWatcher = new FileSystemWatcher();
             this.m_dirWatcher.Path = this.m_path;
             this.m_dirWatcher.Filter = "*";
             this.m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
             // Begin watching.
             this.m_dirWatcher.EnableRaisingEvents = true;
-            this.m_logging.Log("handler : StartHandleDirectory*", Logging.Modal.MessageTypeEnum.INFO);
         }
 
 
-        // Define the event handlers.
+        /// <summary>
+        /// Define the event handlers. 
+        /// </summary>
+        /// <param name="source">sender</param>
+        /// <param name="e">args</param>
         private void OnCreated(object source, FileSystemEventArgs e)
         {
-            this.m_logging.Log("handler : OnCreated", Logging.Modal.MessageTypeEnum.INFO);
             bool result;
             string path = e.FullPath;
             string[] args = { path };
@@ -56,33 +67,38 @@ namespace ImageService.Controller.Handlers
             if (legalExtensions.Contains(fileExtension))
             {
                 string strResult = this.m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, args, out result);
-                this.m_logging.Log(strResult, Logging.Modal.MessageTypeEnum.INFO);
             }
         }
 
-        //for the close only !!!!!!!!!!!
+        /// <summary>
+        /// function happnes when on command recived event is invoked
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
-            this.m_logging.Log("handler : OnCommandRecieved", Logging.Modal.MessageTypeEnum.INFO);
+            // check which command is recieved
             switch (e.CommandID)
             {
                 //close command
                 case ((int)CommandEnum.CloseCommand):
-                    this.m_logging.Log("close directory +" + this.m_path , Logging.Modal.MessageTypeEnum.INFO);
                     this.OnClose();
                     break;
 
                 //add new file command
                 case ((int)CommandEnum.NewFileCommand):
-                    this.m_logging.Log("add file to directory +" + this.m_path, Logging.Modal.MessageTypeEnum.INFO);
                     break;
             }
         }
 
+        /// <summary>
+        /// when close command recieved
+        /// </summary>
         public void OnClose()
         {
-            this.m_logging.Log("handler : OnClose", Logging.Modal.MessageTypeEnum.INFO);
+            // unsubscribe to event
             this.m_dirWatcher.Created -= OnCreated;
+            // envoke DirectoryClose event
             DirectoryClose?.Invoke(this,new DirectoryCloseEventArgs(m_path,"close directory"));
         }
 

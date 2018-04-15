@@ -11,35 +11,45 @@ namespace ImageService.Controller
 {
     public class ImageController : IImageController
     {
-        // The Modal Object
         private IImageServiceModal m_modal;
         private Dictionary<int, ICommand> commands;
         private ILoggingService logger;
 
+        /// <summary>
+        /// constractor. 
+        /// </summary>
+        /// <param name="modal">The modal object</param>
+        /// <param name="logging"> The logger </param>
         public ImageController(IImageServiceModal modal, ILoggingService logging)
         {
-      
             // Storing the Modal Of The System
             m_modal = modal;
             this.logger = logging;
+
+            //Dictinpry of commands
             commands = new Dictionary<int, ICommand>()
             {
                 {0, new NewFileCommand(m_modal, logger) }
             };
-            this.logger.Log("Controller : constractor", Logging.Modal.MessageTypeEnum.INFO);
         }
+        /// <summary>
+        /// Exucte sent command
+        /// </summary>
+        /// <param name="commandID"> the id of command</param>
+        /// <param name="args"> the args for the command</param>
+        /// <param name="resultSuccesful"> if action ended succesfully</param>
+        /// <returns></returns>
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
-            this.logger.Log("Controller* : executeCommand" + "command id " + commandID, Logging.Modal.MessageTypeEnum.INFO);
+            // check if command in dictionary
             if (!this.commands.ContainsKey(commandID))
             {
                 resultSuccesful = false;
-                this.logger.Log("Controller : executeCommand no such command " , Logging.Modal.MessageTypeEnum.INFO);
                 return "no such command";
             }
 
             ICommand command = this.commands[commandID];
-            this.logger.Log("Controller : command", Logging.Modal.MessageTypeEnum.INFO);
+            // execute the command
             return command.Execute(args, out resultSuccesful);
         }
     }
