@@ -27,7 +27,7 @@ namespace ImageService.Modal
             this.m_logging.Log("ImageModal: constructor", Logging.Modal.MessageTypeEnum.INFO);
         }
 
-        public string AddFile(string path, out bool result) 
+        public string AddFile(string path, out bool result)
         {
             this.m_logging.Log("ImageModal::: AddFile " + path, Logging.Modal.MessageTypeEnum.INFO);
             result = true;
@@ -54,11 +54,20 @@ namespace ImageService.Modal
             {
                 this.m_logging.Log("ImageModal: AddFile. thumbnailsPath not exist", Logging.Modal.MessageTypeEnum.INFO);
                 // Try to create the directory.
-               Directory.CreateDirectory(thumbnailsPath);
+                Directory.CreateDirectory(thumbnailsPath);
             }
 
             this.m_logging.Log("ImageModal: getDate " + path, Logging.Modal.MessageTypeEnum.INFO);
-            DateTime picDate = GetDateTakenFromImage(path);
+            DateTime picDate = new DateTime();
+            try
+            {
+               picDate = GetDateTakenFromImage(path);
+            }
+            catch (Exception e)
+            {
+                this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.INFO);
+            }
+            
             this.m_logging.Log("ImageModal: getDate reutrn year" + picDate.Year, Logging.Modal.MessageTypeEnum.INFO);
 
             string folderPathByYear = m_OutputFolder + "\\" + picDate.Year;
@@ -75,15 +84,19 @@ namespace ImageService.Modal
                 Directory.CreateDirectory(folderPathByYearAndMonth);
             }
 
-
+            string newPath = path;
             string fileName = Path.GetFileName(path);
-            if (File.Exists(folderPathByYearAndMonth + "\\" + fileName))
+            while (File.Exists(folderPathByYearAndMonth + "\\" + fileName))
             {
+                fileName = Path.GetFileNameWithoutExtension(newPath);
+                string extension = Path.GetExtension(newPath);
                 this.m_logging.Log("ImageModal: AddFile. file name was changed", Logging.Modal.MessageTypeEnum.INFO);
                 fileName += "1";
-                string directoryName = Path.GetDirectoryName(path);
-                path = "";
-                path = directoryName + "\\" + fileName;
+                fileName = fileName + extension;
+                string directoryName = Path.GetDirectoryName(newPath);
+                newPath = "";
+                newPath = directoryName + "\\" + fileName;
+                this.m_logging.Log("ImageModal:" + newPath, Logging.Modal.MessageTypeEnum.INFO);
                 strReturn = "error: file name was changed";
             }
 
@@ -101,48 +114,41 @@ namespace ImageService.Modal
                 // Try to create the directory.
                 Directory.CreateDirectory(thumbnailsPathByYearAndMonth);
             }
-            createThumbnails(path, thumbnailsPathByYearAndMonth + "\\");
-            this.m_logging.Log("sorce::: " + path + " dest " + folderPathByYearAndMonth + "\\" + Path.GetFileName(path), Logging.Modal.MessageTypeEnum.INFO);
+            
+            this.m_logging.Log("sorce::: " + path + " dest " + folderPathByYearAndMonth + "\\" + Path.GetFileName(newPath), Logging.Modal.MessageTypeEnum.INFO);
             try
             {
-                File.Copy(path, folderPathByYearAndMonth +"\\"+ Path.GetFileName(path));
+                File.Copy(path, folderPathByYearAndMonth + "\\" + Path.GetFileName(newPath));
                 File.Delete(path);
             }
+          
             catch (IOException ex)
             {
                 this.m_logging.Log(ex.Message + Path.GetFileName(path), Logging.Modal.MessageTypeEnum.INFO);
             }
-           
+            createThumbnails(folderPathByYearAndMonth + "\\" + Path.GetFileName(newPath), thumbnailsPathByYearAndMonth + "\\");
             return strReturn;
         }
-        
-        
+
+
         //retrieves the datetime WITHOUT loading the whole image
         public DateTime GetDateTakenFromImage(string path)
         {
-            try
-            {
-                using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-                using (Image myImage = Image.FromStream(fs, false, false))
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (Image myImage = Image.FromStream(fs, false, false))
 
+            {
+                PropertyItem propItem = null;
+                try
                 {
-                    PropertyItem propItem = null;
-                    try
-                    {
-                        propItem = myImage.GetPropertyItem(36867);
-                    }
-                    catch (ArgumentException e)
-                    {
-                        this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.INFO);
-                    }
-
-                    string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
-                    return DateTime.Parse(dateTaken);
+                    propItem = myImage.GetPropertyItem(36867);
                 }
-            } catch(Exception e)
-            {
-                this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.FAIL);
-                return DateTime.Now;
+                catch (ArgumentException e)
+                {
+                    this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.INFO);
+                }
+                string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
+                return DateTime.Parse(dateTaken);
             }
         }
 
@@ -150,7 +156,7 @@ namespace ImageService.Modal
         {
             this.m_logging.Log("ImageModal: createFolder", Logging.Modal.MessageTypeEnum.INFO);
 
-            int year =  dateTime.Year;
+            int year = dateTime.Year;
             int month = dateTime.Month;
             string newpath = path + "\\" + year;
             if (!Directory.Exists(newpath))
@@ -167,13 +173,15 @@ namespace ImageService.Modal
             return newpath;
         }
 
-        
-        private void createThumbnails(string path,string thumbnailsPathByDate) {
+
+        private void createThumbnails(string path, string thumbnailsPathByDate)
+        {
             this.m_logging.Log("ImageModal: createThumbnails", Logging.Modal.MessageTypeEnum.INFO);
             Image image = Image.FromFile(path);
             Image thumb = image.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
-            thumb.Save(Path.ChangeExtension(thumbnailsPathByDate, Path.GetFileName(path)));
-            image.Dispose(); 
+            thumb.Save(Path.ChangeExtension(thumbnailsPathByDate, Path.GetFileNameWithoutExtension(path) + ".thumb"));
+            thumb.Dispose();
+            image.Dispose();
         }
 
     }

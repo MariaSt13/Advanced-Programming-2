@@ -23,6 +23,7 @@ namespace ImageService.Commands
         {
             this.logger.Log("NewFileCommand : execute", Logging.Modal.MessageTypeEnum.INFO);
             // The String Will Return the New Path if result = true, and will return the error message
+            System.Threading.Thread.Sleep(500);
             return m_modal.AddFile(args[0], out result);
         }
     }
