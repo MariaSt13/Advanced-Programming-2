@@ -71,7 +71,7 @@
     </Compile>
     <Compile Include="Logging\LoggingService.cs" />
     <Compile Include="Logging\Modal\MessageRecievedEventArgs.cs" />
-    <Compile Include="Logging\MessageTypeEnum.cs" />
+    <Compile Include="Logging\Modal\MessageTypeEnum.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>

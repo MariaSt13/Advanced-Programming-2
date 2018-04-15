@@ -7,9 +7,20 @@ using ImageService.Logging.Modal;
 
 namespace ImageService
 {
+    /// <summary>
+    /// Interface handle writing to logger.
+    /// </summary>
     public interface ILoggingService
     {
+        /// <summary>
+        /// event for gitting a message.
+        /// </summary>
         event EventHandler<MessageRecievedEventArgs> MessageRecieved;
-        void Log(string message, MessageTypeEnum type);           // Logging the Message
+        /// <summary>
+        /// Logging the Message
+        /// </summary>
+        /// <param name="message">The message to write in the log</param>
+        /// <param name="type"> type of message </param>
+        void Log(string message, MessageTypeEnum type);          
     }
 }
