@@ -24,7 +24,7 @@ namespace ImageService.Commands
         }
 
         /// <summary>
-        /// Execute the command by calling function of m_modal.
+        //  Executes the command by calling a function in IImageServiceModal class.
         /// </summary>
         /// <param name="args">Function arguments</param>
         /// <param name="result">If the value is true then the process is successfully completed</param>

@@ -46,6 +46,7 @@ namespace ImageService.Modal
         {
             result = true;
             string strReturn = "file added successfully";
+
             //check if file exist
             if (!File.Exists(@path))
             {
