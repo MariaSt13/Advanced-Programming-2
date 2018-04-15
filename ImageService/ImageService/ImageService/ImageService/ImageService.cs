@@ -120,7 +120,21 @@ namespace ImageService
         /// <param name="args">argumnets </param>
         public void onMessage(object sender, MessageRecievedEventArgs args)
         {
-            eventLog1.WriteEntry(args.Message);
+            MessageTypeEnum status= args.Status;
+            string message = args.Message;
+
+            switch (status)
+            {
+                case (MessageTypeEnum.INFO):
+                    eventLog1.WriteEntry(message, EventLogEntryType.Information);
+                    break;
+                case (MessageTypeEnum.FAIL):
+                    eventLog1.WriteEntry(message, EventLogEntryType.FailureAudit);
+                    break;
+                case (MessageTypeEnum.WARNING):
+                    eventLog1.WriteEntry(message, EventLogEntryType.Warning);
+                    break;
+            }
         }
 
         /// <summary>

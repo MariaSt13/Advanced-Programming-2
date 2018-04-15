@@ -77,7 +77,7 @@ namespace ImageService.Modal
             }
             catch (Exception e)
             {
-                this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.INFO);
+                this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.FAIL);
             }
             
 
@@ -108,7 +108,7 @@ namespace ImageService.Modal
                 string directoryName = Path.GetDirectoryName(newPath);
                 newPath = "";
                 newPath = directoryName + "\\" + fileName;
-                strReturn = "file name was changed";
+                strReturn = "A file with the same name already exists, so the filename has changed";
             }
 
             string thumbnailsPathByYear = thumbnailsPath + "\\" + picDate.Year;
@@ -133,7 +133,7 @@ namespace ImageService.Modal
           
             catch (IOException ex)
             {
-                this.m_logging.Log(ex.Message + Path.GetFileName(path), Logging.Modal.MessageTypeEnum.INFO);
+                this.m_logging.Log(ex.Message + Path.GetFileName(path), Logging.Modal.MessageTypeEnum.FAIL);
             }
 
             createThumbnails(folderPathByYearAndMonth + "\\" + Path.GetFileName(newPath), thumbnailsPathByYearAndMonth + "\\");
@@ -159,7 +159,7 @@ namespace ImageService.Modal
                 }
                 catch (ArgumentException e)
                 {
-                    this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.INFO);
+                    this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.FAIL);
                 }
                 string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
                 return DateTime.Parse(dateTaken);
