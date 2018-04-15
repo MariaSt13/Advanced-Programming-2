@@ -22,10 +22,15 @@ namespace ImageService.Server
         #endregion
 
         #region Properties
-        public event EventHandler<CommandRecievedEventArgs> CommandRecieved;  
+        public event EventHandler<CommandRecievedEventArgs> CommandRecieved;
         // The event that notifies about a new Command being recieved
         #endregion
 
+        /// <summary>
+        /// constructor.
+        /// </summary>
+        /// <param name="logging">ILoggingService object</param>
+        /// <param name="imageController">IImageController ocject</param>
         public ImageServer(ILoggingService logging, IImageController imageController)
         {
             m_logging = logging;
@@ -35,14 +40,16 @@ namespace ImageService.Server
            
         }
 
+        /// <summary>
+        /// This function reads all the paths from the Config file,
+        /// and creates a handler for each path.
+        /// </summary>
         public void readPath()
         {
-            this.m_logging.Log("server: read path", Logging.Modal.MessageTypeEnum.INFO);
             string paths = ConfigurationManager.AppSettings["Handler"];
             string[] pathArray = paths.Split(';');
             for ( int i =0; i < pathArray.Length; i++)
             {
-                this.m_logging.Log("server: read path in loop. the path:" + pathArray[i], Logging.Modal.MessageTypeEnum.INFO);
                 IDirectoyHandler handle = new DirectoyHandler(this.m_controller,this.m_logging);
                 CommandRecieved += handle.OnCommandRecieved;
                 handle.DirectoryClose += OnDirctoryClose;
@@ -57,7 +64,7 @@ namespace ImageService.Server
         /// <param name="args"></param>
         public void OnDirctoryClose(object sender, DirectoryCloseEventArgs args)
         {
-            this.m_logging.Log("server: OnDirctoryClose", Logging.Modal.MessageTypeEnum.INFO);
+            this.m_logging.Log("Close hendler", Logging.Modal.MessageTypeEnum.INFO);
             IDirectoyHandler handler = (IDirectoyHandler)sender;
             CommandRecieved -= handler.OnCommandRecieved;
         }
@@ -67,7 +74,7 @@ namespace ImageService.Server
         /// </summary>
         public void Close()
         {
-            this.m_logging.Log("server: Close", Logging.Modal.MessageTypeEnum.INFO);
+            this.m_logging.Log("Close server", Logging.Modal.MessageTypeEnum.INFO);
             CommandRecieved?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CloseCommand,null,null));
         }
 
