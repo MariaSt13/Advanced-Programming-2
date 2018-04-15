@@ -46,10 +46,18 @@ namespace ImageService.Controller.Handlers
         private void OnCreated(object source, FileSystemEventArgs e)
         {
             this.m_logging.Log("handler : OnCreated", Logging.Modal.MessageTypeEnum.INFO);
-            string[] args = {e.FullPath};
             bool result;
-            string strResult = this.m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, args, out result);
-            this.m_logging.Log(strResult, Logging.Modal.MessageTypeEnum.INFO);
+            string path = e.FullPath;
+            string[] args = { path };
+            string fileExtension = Path.GetExtension(path).ToLower();
+            string[] legalExtensions = {".gif", ".png", ".jpg", ".bmp" };
+
+            //check if file extension is legal
+            if (legalExtensions.Contains(fileExtension))
+            {
+                string strResult = this.m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, args, out result);
+                this.m_logging.Log(strResult, Logging.Modal.MessageTypeEnum.INFO);
+            }
         }
 
         //for the close only !!!!!!!!!!!

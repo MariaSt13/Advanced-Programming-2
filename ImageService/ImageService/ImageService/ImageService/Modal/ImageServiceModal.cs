@@ -19,6 +19,12 @@ namespace ImageService.Modal
         private static Regex r = new Regex(":");
 
         #endregion
+        /// <summary>
+        /// constrcutor.
+        /// </summary>
+        /// <param name="outputFolder">output folder path</param>
+        /// <param name="size">size of thumbnail</param>
+        /// <param name="m_logging">logging object</param>
         public ImageServiceModal(string outputFolder, int size, ILoggingService m_logging)
         {
             this.m_logging = m_logging;
@@ -27,9 +33,17 @@ namespace ImageService.Modal
             this.m_logging.Log("ImageModal: constructor", Logging.Modal.MessageTypeEnum.INFO);
         }
 
+        /// <summary>
+        /// This function creates "Thumbnails" and "Outpot" folders if they do not exist, 
+        /// And transfers the new image that was added to the appropriate 
+        /// location in Outpot folder a month and a year ago. 
+        /// In addition creates thumbnail.
+        /// </summary>
+        /// <param name="path">Path to file</param>
+        /// <param name="result">true if the process ended successfully</param>
+        /// <returns></returns>
         public string AddFile(string path, out bool result)
         {
-            this.m_logging.Log("ImageModal::: AddFile " + path, Logging.Modal.MessageTypeEnum.INFO);
             result = true;
             string strReturn = "file added successfully";
             if (!File.Exists(@path))
