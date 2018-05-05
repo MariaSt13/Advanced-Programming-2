@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
+        xmlns:controls="clr-namespace:GUI.Views"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Settings">
+                <controls:SettingsView x:Name="settings" RenderTransformOrigin="0.849,0.44"></controls:SettingsView>
+            </TabItem>
+            <TabItem Header="Logs">
+                <controls:LogView x:Name="logs"></controls:LogView>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
