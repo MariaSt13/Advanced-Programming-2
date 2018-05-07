@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,13 @@ namespace GUI.Views
     /// </summary>
     public partial class LogView : UserControl
     {
+        private LogViewModel vm;
+
         public LogView()
         {
             InitializeComponent();
+            vm = new LogViewModel();
+            this.DataContext = vm;
         }
     }
 }

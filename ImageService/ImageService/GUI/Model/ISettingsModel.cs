@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUI.Model
 {
-    public class ISettingsModel
+    public interface ISettingsModel
     {
         string OutputDirectory { get; set; }
         string SourceName { get; set; }
