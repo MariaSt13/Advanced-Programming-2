@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Commands">
+      <HintPath>..\..\..\..\..\..\..\..\..\..\..\Downloads\Commands.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -60,13 +63,6 @@
     <Compile Include="Model\ISettingsModel.cs" />
     <Compile Include="Model\LogModel.cs" />
     <Compile Include="Model\SettingsModel.cs" />
-    <Compile Include="obj\Debug\App.g.cs" />
-    <Compile Include="obj\Debug\App.g.i.cs" />
-    <Compile Include="obj\Debug\MainWindow.g.cs" />
-    <Compile Include="obj\Debug\MainWindow.g.i.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="Views\LogView.xaml.cs">
@@ -110,19 +106,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="obj\Debug\GUI.g.resources" />
-    <EmbeddedResource Include="obj\Debug\GUI.Properties.Resources.resources" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\Debug\GUI_MarkupCompile.cache" />
-    <None Include="obj\Debug\GUI_MarkupCompile.i.cache" />
-    <None Include="obj\Debug\GUI_MarkupCompile.lref" />
-    <None Include="obj\Debug\imageServiceGUI.csproj.GenerateResource.Cache" />
-    <None Include="obj\Debug\imageServiceGUI.csprojResolveAssemblyReference.cache" />
-    <None Include="obj\Debug\MainWindow.baml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -132,15 +119,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="obj\Debug\GUI.exe" />
-    <Content Include="obj\Debug\GUI.pdb" />
-    <Resource Include="obj\Debug\imageServiceGUI.csproj.FileListAbsolute.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="obj\Debug\TempPE\" />
-    <Folder Include="obj\Debug\Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
