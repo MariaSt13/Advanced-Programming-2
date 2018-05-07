@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace GUI.Views
     /// </summary>
     public partial class SettingsView : UserControl
     {
+        private SettingsViewModel vm;
         public SettingsView()
         {
             InitializeComponent();
+            vm = new SettingsViewModel();
+            this.DataContext = vm;
         }
     }
 }

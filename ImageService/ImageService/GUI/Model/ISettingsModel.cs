@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace GUI.Model
 {
-    class ISettingsModel
+    public class ISettingsModel
     {
+        string OutputDirectory { get; set; }
+        string SourceName { get; set; }
+        string LogName { get; set; }
+        int ThumbnailSize { get; set; }
     }
 }
