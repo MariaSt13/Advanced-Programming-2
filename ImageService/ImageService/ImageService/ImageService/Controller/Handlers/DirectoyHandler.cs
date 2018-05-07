@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ImageService.Infrastructure.Enums;
 
 namespace ImageService.Controller.Handlers
 {
@@ -66,7 +65,7 @@ namespace ImageService.Controller.Handlers
             //check if file extension is legal
             if (legalExtensions.Contains(fileExtension))
             {
-                string strResult = this.m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, args, out result);
+                string strResult = this.m_controller.ExecuteCommand((int)CommandEnum.CommandEnum.NewFileCommand, args, out result);
                 if (result == true)
                 {
                     this.m_logging.Log(strResult, Logging.Modal.MessageTypeEnum.INFO);
@@ -90,12 +89,12 @@ namespace ImageService.Controller.Handlers
             switch (e.CommandID)
             {
                 //close command
-                case ((int)CommandEnum.CloseCommand):
+                case ((int)CommandEnum.CommandEnum.CloseCommand):
                     this.OnClose();
                     break;
 
                 //add new file command
-                case ((int)CommandEnum.NewFileCommand):
+                case ((int)CommandEnum.CommandEnum.NewFileCommand):
                     break;
             }
         }

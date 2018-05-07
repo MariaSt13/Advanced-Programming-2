@@ -1,6 +1,5 @@
 ﻿using ImageService.Controller;
 using ImageService.Controller.Handlers;
-using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
 using System;
 using System.Collections.Generic;
@@ -73,7 +72,7 @@ namespace ImageService.Server
         /// </summary>
         public void Close()
         {
-            CommandRecieved?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CloseCommand,null,null));
+            CommandRecieved?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.CloseCommand,null,null));
         }
 
     }
