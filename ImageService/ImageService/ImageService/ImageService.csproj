@@ -61,7 +61,6 @@
     <Compile Include="ImageService\Modal\Event\DirectoryCloseEventArgs.cs" />
     <Compile Include="ImageService\Modal\IImageServiceModal.cs" />
     <Compile Include="ImageService\Modal\ImageServiceModal.cs" />
-    <Compile Include="Infrastructure\Enums\CommandEnum.cs" />
     <Compile Include="Logging\ILoggingService.cs" />
     <Compile Include="ImageService\ImageService.cs">
       <SubType>Component</SubType>
@@ -94,6 +93,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CommandEnum\CommandEnum.csproj">
+      <Project>{acd07749-b7fb-4383-ad80-8bc53dadfd36}</Project>
+      <Name>CommandEnum</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
