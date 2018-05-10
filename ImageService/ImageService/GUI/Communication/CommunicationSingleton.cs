@@ -43,7 +43,8 @@ namespace GUI.Communication
                 // Get result from server
                 int result = reader.ReadInt32();
             }
-            client.Close();
+            client.Close();
+
         }
     }
 }
