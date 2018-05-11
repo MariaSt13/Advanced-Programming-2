@@ -1,4 +1,6 @@
 ﻿using ImageService.Commands;
+using ImageService.Logging.Modal;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,12 @@ namespace ImageService.ImageService.Commands
     {
         public string Execute(string[] args, out bool result)
         {
-            throw new NotImplementedException();
+            result = true;
+            JObject logMessage = new JObject();
+            JArray argArray = new JArray(args);
+            logMessage["log"] = argArray;
+            return logMessage.ToString();
+
         }
     }
 }
