@@ -240,4 +240,8 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+<<<<<<< HEAD
 ImageService/ImageService/ImageService/ImageService/App.config
+=======
+ImageService/ImageService/ImageService.sln
+>>>>>>> c47acc22d7d23e10a2e13f3fe64ab76875fc6b52
