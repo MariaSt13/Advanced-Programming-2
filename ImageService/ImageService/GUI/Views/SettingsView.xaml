@@ -7,10 +7,39 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TextBlock Text="Settings" FontSize="25" Foreground="Blue" FontWeight="Bold"  HorizontalAlignment="Center"></TextBlock>
-        <TextBlock Text="Output Directory:" Margin="0,34,0,-34" FontWeight="Bold"/>
-        <TextBlock Text="Source Name:" Margin="0,54,0,-54" FontWeight="Bold"/>
-        <TextBlock Text="Log Name:" Margin="0,75,0,-75" FontWeight="Bold"/>
-        <TextBlock Text="Thumbnail Size:" Margin="0,99,0,-99" FontWeight="Bold"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110" />
+            <ColumnDefinition Width="400" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="1" Margin="95,5" Text="Settings" FontSize="25" Foreground="Blue" FontWeight="Bold"></TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Output Directory:" FontWeight="Bold"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding OutputDirectory}" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Source Name:" FontWeight="Bold"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SourceName}"  />
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Log Name:"  FontWeight="Bold"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding LogName}" />
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Thumbnail Size:"  FontWeight="Bold"/>
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding ThumbnailSize}" />
+        <Button    Grid.Row="5" Grid.Column="0" Margin="0,5,10,0" Grid.ColumnSpan="2" IsEnabled="False" Content="Remove" x:Name="removeButton" />
+        <ListBox Grid.Row="6" Grid.Column="0"   Margin="0,0,10,0" Grid.ColumnSpan="2" SelectionChanged="listBox_SelectionChanged">
+            <ListBox.Items>
+                <ListBoxItem Content="Item 1" />
+                <ListBoxItem Content="Item 1" />
+                <ListBoxItem Content="Item 2" />
+                <ListBoxItem Content="Item 3" />
+                <ListBoxItem Content="Item 4" />
+            </ListBox.Items>
+        </ListBox>
+
     </Grid>
+
 </UserControl>

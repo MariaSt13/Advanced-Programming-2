@@ -1,4 +1,5 @@
-﻿using GUI.ViewModel;
+﻿using GUI.Model;
+using GUI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,11 @@ namespace GUI.Views
             InitializeComponent();
             vm = new SettingsViewModel();
             this.DataContext = vm;
+        }
+
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.removeButton.IsEnabled = true;
         }
     }
 }

@@ -240,3 +240,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+ImageService/ImageService/ImageService/ImageService/App.config

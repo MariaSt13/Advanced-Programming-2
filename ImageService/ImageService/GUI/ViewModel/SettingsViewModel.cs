@@ -13,9 +13,9 @@ namespace GUI.ViewModel
         private ISettingsModel model;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public SettingsViewModel(ISettingsModel model)
+        public SettingsViewModel()
         {
-            this.model = model;
+            this.model = new SettingsModel();
         }
 
         public void NotifyPropertyChanged(string propName)
