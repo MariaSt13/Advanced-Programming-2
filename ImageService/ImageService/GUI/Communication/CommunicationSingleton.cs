@@ -33,16 +33,16 @@ namespace GUI.Communication
             TcpClient client = new TcpClient();
             client.Connect(ep);
             Console.WriteLine("You are connected");
-            using (NetworkStream stream = client.GetStream())
-            using (BinaryReader reader = new BinaryReader(stream))
-            using (BinaryWriter writer = new BinaryWriter(stream))
-            {
+            NetworkStream stream = client.GetStream();
+            BinaryReader reader = new BinaryReader(stream);
+            BinaryWriter writer = new BinaryWriter(stream);
+            
                 // Send data to server
                 int num = int.Parse(Console.ReadLine());
                 writer.Write(num);
                 // Get result from server
                 int result = reader.ReadInt32();
-            }
+            
             client.Close();
 
         }

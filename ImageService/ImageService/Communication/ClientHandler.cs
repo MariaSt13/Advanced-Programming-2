@@ -10,22 +10,35 @@ namespace Communication
 {
     class ClientHandler : IClientHandler
     {
+        private NetworkStream stream;
+        private StreamReader reader;
+        private StreamWriter writer;
+
         public void HandleClient(TcpClient client)
         {
+            this.stream = client.GetStream();
+            this.reader = new StreamReader(stream);
+            this.writer = new StreamWriter(stream);
+
             new Task(() =>
             {
                 while (client.Connected)
                 {
-                    NetworkStream stream = client.GetStream();
-                    StreamReader reader = new StreamReader(stream);
-                    StreamWriter writer = new StreamWriter(stream);
-
                     string commandLine = reader.ReadLine();
                     Console.WriteLine("Got command: {0}", commandLine);
                    // string result = ExecuteCommand(commandLine, client);
                     //writer.Write(result);
                 }
             }).Start();
+        }
+
+        private void read()
+        {
+            string command = this.reader.ReadLine();
+        }
+        private void write(string message)
+        {
+            this.writer.Write(message);
         }
     }
 }

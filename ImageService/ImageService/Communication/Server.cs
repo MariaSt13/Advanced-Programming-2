@@ -13,10 +13,12 @@ namespace Communication
         private int port;
         private TcpListener listener;
         private IClientHandler ch;
+        private List<TcpClient> clients;
         public Server(int port, IClientHandler ch)
         {
             this.port = port;
             this.ch = ch;
+            this.clients = new List<TcpClient>();
         }
         public void Start()
         {
@@ -33,6 +35,7 @@ namespace Communication
                     {
                         TcpClient client = listener.AcceptTcpClient();
                         Console.WriteLine("Got new connection");
+                        this.clients.Add(client);
                         ch.HandleClient(client);
                     }
                     catch (SocketException)

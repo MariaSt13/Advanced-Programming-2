@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Commands">
-      <HintPath>..\..\..\..\..\..\Downloads\Commands.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -60,6 +57,7 @@
     <Compile Include="Communication\CommunicationSingleton.cs" />
     <Compile Include="Converters\ConnectedToBrushConverter.cs" />
     <Compile Include="Converters\TypeToBrushConverter.cs" />
+    <Compile Include="Model\ILogModel.cs" />
     <Compile Include="Model\ISettingsModel.cs" />
     <Compile Include="Model\LogModel.cs" />
     <Compile Include="Model\SettingsModel.cs" />
@@ -123,6 +121,10 @@
     <ProjectReference Include="..\CommandEnum\CommandEnum.csproj">
       <Project>{acd07749-b7fb-4383-ad80-8bc53dadfd36}</Project>
       <Name>CommandEnum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Communication\Communication.csproj">
+      <Project>{fa1113ee-b3bb-47b4-a6d9-33914449ca04}</Project>
+      <Name>Communication</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
