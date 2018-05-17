@@ -1,5 +1,4 @@
-﻿using ImageService.Commands;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageService.ImageService.Commands
+namespace ImageService.Commands
 {
     class GetConfigCommand : ICommand
     {

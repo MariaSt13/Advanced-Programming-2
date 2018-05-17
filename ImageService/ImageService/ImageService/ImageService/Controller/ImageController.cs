@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImageService.Modal;
-using ImageService.Commands;
 using ImageService.Logging;
+using ImageService.Commands;
 
 namespace ImageService.Controller
 {
@@ -25,7 +25,7 @@ namespace ImageService.Controller
             // Storing the Modal Of The System
             m_modal = modal;
             this.logger = logging;
-
+            
             //Dictinpry of commands
             commands = new Dictionary<int, ICommand>()
             {

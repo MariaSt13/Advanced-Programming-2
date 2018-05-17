@@ -24,10 +24,7 @@ namespace Communication
             {
                 while (client.Connected)
                 {
-                    string commandLine = reader.ReadLine();
-                    Console.WriteLine("Got command: {0}", commandLine);
-                   // string result = ExecuteCommand(commandLine, client);
-                    //writer.Write(result);
+                    this.read();
                 }
             }).Start();
         }
