@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Commands">
-      <HintPath>..\..\..\..\..\..\..\..\..\..\..\Downloads\Commands.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Downloads\Commands.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

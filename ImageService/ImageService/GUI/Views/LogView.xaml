@@ -8,5 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <TextBlock Text="Logs" FontSize="25" Foreground="Blue" FontWeight="Bold"  HorizontalAlignment="Center"></TextBlock>
+
     </Grid>
+
 </UserControl>

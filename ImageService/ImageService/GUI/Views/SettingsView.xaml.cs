@@ -22,7 +22,8 @@ namespace GUI.Views
     /// </summary>
     public partial class SettingsView : UserControl
     {
-        private SettingsViewModel vm;
+        private SettingsViewModel vm;
+
         public SettingsView()
         {
             InitializeComponent();

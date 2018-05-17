@@ -14,6 +14,7 @@ namespace GUI.ViewModel
         public void NotifyPropertyChanged(string propName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-        }
+        }
+
     }
 }
