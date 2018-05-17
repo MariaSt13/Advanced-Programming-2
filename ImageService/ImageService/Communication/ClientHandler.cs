@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Communication
 {
-    class ClientHandler : IClientHandler
+    public class ClientHandler : IClientHandler
     {
         private NetworkStream stream;
         private StreamReader reader;
@@ -32,11 +32,11 @@ namespace Communication
             }).Start();
         }
 
-        private void read()
+        public void read()
         {
             string command = this.reader.ReadLine();
         }
-        private void write(string message)
+        public void write(string message)
         {
             this.writer.Write(message);
         }

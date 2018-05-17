@@ -6,12 +6,14 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Communication;
 
 namespace GUI.Communication
 {
     class CommunicationSingleton
     {
         private static CommunicationSingleton instance;
+        private  IClientHandler clientHandler;
 
         private CommunicationSingleton() { }
 
@@ -33,17 +35,9 @@ namespace GUI.Communication
             TcpClient client = new TcpClient();
             client.Connect(ep);
             Console.WriteLine("You are connected");
-            NetworkStream stream = client.GetStream();
-            BinaryReader reader = new BinaryReader(stream);
-            BinaryWriter writer = new BinaryWriter(stream);
-            
-                // Send data to server
-                int num = int.Parse(Console.ReadLine());
-                writer.Write(num);
-                // Get result from server
-                int result = reader.ReadInt32();
-            
-            client.Close();
+            instance.clientHandler = new ClientHandler();
+            instance.clientHandler.HandleClient(client);
+           // client.Close();
 
         }
     }
