@@ -133,6 +133,10 @@
       <Project>{acd07749-b7fb-4383-ad80-8bc53dadfd36}</Project>
       <Name>CommandEnum</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Communication\Communication.csproj">
+      <Project>{fa1113ee-b3bb-47b4-a6d9-33914449ca04}</Project>
+      <Name>Communication</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

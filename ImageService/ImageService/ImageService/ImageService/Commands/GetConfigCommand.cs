@@ -22,7 +22,7 @@ namespace ImageService.Commands
             string[] pathArray = paths.Split(';');
             JArray arr = new JArray(pathArray);
             configObj["Handlers"] = arr;
-            return configObj.ToString();
+            return configObj.ToString().Replace("\n", "");
         }
     }
 }

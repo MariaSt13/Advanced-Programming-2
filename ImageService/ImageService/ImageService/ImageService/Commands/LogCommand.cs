@@ -16,7 +16,7 @@ namespace ImageService.Commands
             JObject logMessage = new JObject();
             JArray argArray = new JArray(args);
             logMessage["log"] = argArray;
-            return logMessage.ToString();
+            return logMessage.ToString().Replace("\n", "");
 
         }
     }

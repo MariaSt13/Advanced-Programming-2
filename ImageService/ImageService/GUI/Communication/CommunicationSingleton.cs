@@ -35,10 +35,15 @@ namespace GUI.Communication
             TcpClient client = new TcpClient();
             client.Connect(ep);
             Console.WriteLine("You are connected");
-            instance.clientHandler = new ClientHandler();
-            instance.clientHandler.HandleClient(client);
+            Instance.clientHandler = new ClientHandler();
+            Instance.clientHandler.HandleClient(client);
            // client.Close();
 
         }
+        public static void Write(string command)
+        {
+            Instance.clientHandler.write(command);
+        }
+
     }
 }
