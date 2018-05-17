@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,16 +10,28 @@ namespace GUI.Model
 
     public class SettingsModel : ISettingsModel
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        private string _LogName;
+        private string _OutputDirectory;
+        private string _SourceName;
+        private int _ThumbnailSize;
+
+        public void NotifyPropertyChanged(string propName)
+        {
+            this?.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
+
         public string LogName
         {
             get
             {
-                throw new NotImplementedException();
+                return this._LogName;
             }
 
             set
             {
-                throw new NotImplementedException();
+                this._LogName = value;
+                NotifyPropertyChanged("LogName");
             }
         }
 
@@ -26,12 +39,13 @@ namespace GUI.Model
         {
             get
             {
-                throw new NotImplementedException();
+                return this._OutputDirectory;
             }
 
             set
             {
-                throw new NotImplementedException();
+                this._OutputDirectory = value;
+                NotifyPropertyChanged("OutputDirectory");
             }
         }
 
@@ -39,12 +53,13 @@ namespace GUI.Model
         {
             get
             {
-                throw new NotImplementedException();
+                return this._SourceName;
             }
 
             set
             {
-                throw new NotImplementedException();
+                this._SourceName = value;
+                NotifyPropertyChanged("_SourceName");
             }
         }
 
@@ -52,12 +67,13 @@ namespace GUI.Model
         {
             get
             {
-                throw new NotImplementedException();
+                return this._ThumbnailSize;
             }
 
             set
             {
-                throw new NotImplementedException();
+                this._ThumbnailSize = value;
+                NotifyPropertyChanged("_ThumbnailSize");
             }
         }
     }

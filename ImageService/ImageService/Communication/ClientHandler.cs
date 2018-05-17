@@ -22,8 +22,8 @@ namespace Communication
 
                     string commandLine = reader.ReadLine();
                     Console.WriteLine("Got command: {0}", commandLine);
-                    string result = ExecuteCommand(commandLine, client);
-                    writer.Write(result);
+                   // string result = ExecuteCommand(commandLine, client);
+                    //writer.Write(result);
                 }
             }).Start();
         }

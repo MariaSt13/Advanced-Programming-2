@@ -30,7 +30,7 @@
         <TextBlock Grid.Row="4" Grid.Column="0" Text="Thumbnail Size:"  FontWeight="Bold"/>
         <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding ThumbnailSize}" />
         <Button    Grid.Row="5" Grid.Column="0" Margin="0,5,10,0" Grid.ColumnSpan="2" IsEnabled="False" Content="Remove" x:Name="removeButton" />
-        <ListBox Grid.Row="6" Grid.Column="0"   Margin="0,0,10,0" Grid.ColumnSpan="2" SelectionChanged="listBox_SelectionChanged">
+        <ListBox Grid.Row="6" Grid.Column="0" Margin="0,0,10,0" Grid.ColumnSpan="2" SelectedItem="{Binding selectedItem}">
             <ListBox.Items>
                 <ListBoxItem Content="Item 1" />
                 <ListBoxItem Content="Item 1" />

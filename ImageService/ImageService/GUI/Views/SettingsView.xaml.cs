@@ -29,10 +29,5 @@ namespace GUI.Views
             vm = new SettingsViewModel();
             this.DataContext = vm;
         }
-
-        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            this.removeButton.IsEnabled = true;
-        }
     }
 }
