@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Communication
 {
@@ -13,6 +15,7 @@ namespace Communication
         private NetworkStream stream;
         private StreamReader reader;
         private StreamWriter writer;
+        public event EventHandler<CommandRecievedEventArgs> ClientHandlerCommandRecieved;
 
         public void HandleClient(TcpClient client)
         {
@@ -31,10 +34,13 @@ namespace Communication
 
         public void read()
         {
-            string command = this.reader.ReadLine();
+            string output = this.reader.ReadLine();
+            CommandRecievedEventArgs deserializedProduct = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(output);
+            ClientHandlerCommandRecieved?.Invoke(this, deserializedProduct);
         }
-        public void write(string message)
+        public void write(CommandRecievedEventArgs command)
         {
+            string message =  JsonConvert.SerializeObject(command);
             this.writer.Write(message);
         }
     }

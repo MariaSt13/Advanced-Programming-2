@@ -2,6 +2,7 @@
 using Microsoft.Practices.Prism.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -12,90 +13,98 @@ using System.Windows.Input;
 namespace GUI.ViewModel
 {
     public class SettingsViewModel: INotifyPropertyChanged
-    { 
+    {
+        //INotifyPropertyChanged implementation
+        public event PropertyChangedEventHandler PropertyChanged;
         private ISettingsModel model;
         public ICommand RemoveCommand { get; private set; }
-        private object _selectedItem;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public event SelectionChangedEventHandler SelectionChanged;
 
         public SettingsViewModel()
         {
             this.model = new SettingsModel();
             this.RemoveCommand = new DelegateCommand<object>(this.OnRemove, this.CanRemove);
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
-            { NotifyPropertyChanged(e.PropertyName); };
+            { NotifyPropertyChanged("VM_" + e.PropertyName); };
+            this.PropertyChanged += PropertyChangedd;
+        }
+        private void PropertyChangedd(object sender, PropertyChangedEventArgs e)
+        {
+            var command = this.RemoveCommand as DelegateCommand<object>;
+            command.RaiseCanExecuteChanged();
         }
 
-
-        public void NotifyPropertyChanged(string propName)
+        protected void NotifyPropertyChanged(string name)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         private void OnRemove(object obj)
         {
-
+           this.model.Handlerslist.Remove(this.model.SelectedItem);
         }
 
         private bool CanRemove(object obj)
         {
-            if (this._selectedItem != null)
+            if (this.model.SelectedItem == null)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
-        public string OutputDirectory
+
+        // Properties
+        public string VM_OutputDirectory
         {
         get { return model.OutputDirectory; }
             set
             {
                 model.OutputDirectory = value;
-                NotifyPropertyChanged("OutputDirectory");
             }
         }
 
-        public string SourceName
+        public string VM_SourceName
         {
             get { return model.SourceName; }
             set
             {
                 model.SourceName = value;
-                NotifyPropertyChanged("SourceName");
             }
         }
 
-        public string LogName
+        public string VM_LogName
         {
             get { return model.LogName; }
             set
             {
                 model.LogName = value;
-                NotifyPropertyChanged("LogName");
             }
         }
 
-        public int ThumbnailSize
+        public int VM_ThumbnailSize
         {
             get { return model.ThumbnailSize; }
             set
             {
                 model.ThumbnailSize = value;
-                NotifyPropertyChanged("ThumbnailSize");
             }
         }
 
-        public object selectedItem
+        public object VM_selectedItem
         {
-            get { return this._selectedItem; }
+            get { return model.SelectedItem; }
             set
             {
-               this._selectedItem = value;
+               model.SelectedItem = value;
             }
         }
-
+        public ObservableCollection<object> VM_Handlerslist
+        {
+            get { return model.Handlerslist; }
+            set
+            {
+                model.Handlerslist = value;
+            }
+        }
     }
 }

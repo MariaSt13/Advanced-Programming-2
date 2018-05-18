@@ -22,23 +22,16 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="1" Margin="95,5" Text="Settings" FontSize="25" Foreground="Blue" FontWeight="Bold"></TextBlock>
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Output Directory:" FontWeight="Bold"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding OutputDirectory}" />
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding VM_OutputDirectory}" />
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Source Name:" FontWeight="Bold"/>
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SourceName}"  />
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding VM_SourceName}"  />
         <TextBlock Grid.Row="3" Grid.Column="0" Text="Log Name:"  FontWeight="Bold"/>
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding LogName}" />
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding VM_LogName}" />
         <TextBlock Grid.Row="4" Grid.Column="0" Text="Thumbnail Size:"  FontWeight="Bold"/>
-        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding ThumbnailSize}" />
-        <Button    Grid.Row="5" Grid.Column="0" Margin="0,5,10,0" Grid.ColumnSpan="2" IsEnabled="False" Content="Remove" x:Name="removeButton" />
-        <ListBox Grid.Row="6" Grid.Column="0" Margin="0,0,10,0" Grid.ColumnSpan="2" SelectedItem="{Binding selectedItem}">
-            <ListBox.Items>
-                <ListBoxItem Content="Item 1" />
-                <ListBoxItem Content="Item 1" />
-                <ListBoxItem Content="Item 2" />
-                <ListBoxItem Content="Item 3" />
-                <ListBoxItem Content="Item 4" />
-            </ListBox.Items>
-        </ListBox>
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding VM_ThumbnailSize}" />
+        <Button    Grid.Row="5" Grid.Column="0" Margin="0,5,10,0" Grid.ColumnSpan="2"  Command="{Binding RemoveCommand}" Content="Remove" x:Name="removeButton" />
+        <ListBox x:Name="HandlersListBox" Grid.Row="6" Grid.Column="0" Margin="0,0,10,0" Grid.ColumnSpan="2" SelectedItem="{Binding VM_selectedItem}" ItemsSource="{Binding VM_Handlerslist}"/>
+
 
     </Grid>
 

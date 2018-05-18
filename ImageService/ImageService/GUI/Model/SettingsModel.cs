@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Infrastructure;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -10,16 +12,40 @@ namespace GUI.Model
 
     public class SettingsModel : ISettingsModel
     {
+        //INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
-        private string _LogName;
-        private string _OutputDirectory;
-        private string _SourceName;
-        private int _ThumbnailSize;
+
+        //properties
+        private string _LogName = "_LogName text";
+        private string _OutputDirectory = "_OutputDirectory text";
+        private string _SourceName = "_SourceName text";
+        private int _ThumbnailSize = 80;
+        private object _SelectedItem;
+        private ObservableCollection<object> _Handlerslist = new ObservableCollection<object> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+        public SettingsModel()
+        {
+            Communication.CommunicationSingleton.Instance.SingletonCommandRecieved += CommandRecieved;
+            //Communication.CommunicationSingleton.Write(new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.GetConfigCommand, null, null));
+        }
+
+        private void CommandRecieved(object sender, CommandRecievedEventArgs e)
+        {
+            switch (e.CommandID)
+            {
+                //GetConfigCommand command
+                case ((int)CommandEnum.CommandEnum.GetConfigCommand):
+                    break;
+
+            }
+        }
 
         public void NotifyPropertyChanged(string propName)
         {
             this?.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
+
+        // the properties implementatio
 
         public string LogName
         {
@@ -74,6 +100,34 @@ namespace GUI.Model
             {
                 this._ThumbnailSize = value;
                 NotifyPropertyChanged("_ThumbnailSize");
+            }
+        }
+
+        public object SelectedItem
+        {
+            get
+            {
+                return this._SelectedItem;
+            }
+
+            set
+            {
+                this._SelectedItem = value;
+                NotifyPropertyChanged("SelectedItem");
+            }
+        }
+
+        public ObservableCollection<object> Handlerslist
+        {
+            get
+            {
+                return this._Handlerslist;
+            }
+
+            set
+            {
+                this._Handlerslist = value;
+                NotifyPropertyChanged("Handlelist");
             }
         }
     }

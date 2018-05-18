@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandEnum.cs" />
+    <Compile Include="CommandRecievedEventArgs.cs" />
+    <Compile Include="MessageRecievedEventArgs.cs" />
+    <Compile Include="MessageTypeEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

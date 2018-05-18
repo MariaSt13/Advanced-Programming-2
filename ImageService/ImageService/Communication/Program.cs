@@ -10,6 +10,8 @@ namespace Communication
     {
         static void Main(string[] args)
         {
+            Server server = new Server(80,new ClientHandler());
+            server.Start();
         }
     }
 }

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "ImageServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "imageServiceGUI", "GUI\imageServiceGUI.csproj", "{55BFD07E-7CD6-4386-9702-781F06AFBED0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandEnum", "CommandEnum\CommandEnum.csproj", "{ACD07749-B7FB-4383-AD80-8BC53DADFD36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "CommandEnum\Infrastructure.csproj", "{ACD07749-B7FB-4383-AD80-8BC53DADFD36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Communication", "Communication\Communication.csproj", "{FA1113EE-B3BB-47B4-A6D9-33914449CA04}"
 EndProject

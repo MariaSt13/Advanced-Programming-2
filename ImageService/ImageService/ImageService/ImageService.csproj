@@ -79,7 +79,6 @@
     <Compile Include="ImageService\Controller\Handlers\IDirectoyHandler.cs" />
     <Compile Include="ImageService\Controller\IImageController.cs" />
     <Compile Include="ImageService\Controller\ImageController.cs" />
-    <Compile Include="ImageService\Modal\Event\CommandRecievedEventArgs.cs" />
     <Compile Include="ImageService\Modal\Event\DirectoryCloseEventArgs.cs" />
     <Compile Include="ImageService\Modal\IImageServiceModal.cs" />
     <Compile Include="ImageService\Modal\ImageServiceModal.cs" />
@@ -91,8 +90,6 @@
       <DependentUpon>ImageService.cs</DependentUpon>
     </Compile>
     <Compile Include="Logging\LoggingService.cs" />
-    <Compile Include="Logging\Modal\MessageRecievedEventArgs.cs" />
-    <Compile Include="Logging\Modal\MessageTypeEnum.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
@@ -129,14 +126,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommandEnum\CommandEnum.csproj">
+    <ProjectReference Include="..\CommandEnum\Infrastructure.csproj">
       <Project>{acd07749-b7fb-4383-ad80-8bc53dadfd36}</Project>
-      <Name>CommandEnum</Name>
+      <Name>Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Communication\Communication.csproj">
       <Project>{fa1113ee-b3bb-47b4-a6d9-33914449ca04}</Project>
       <Name>Communication</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Logging\Modal\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Commands">
-      <HintPath>..\..\..\..\..\..\..\..\..\..\..\Downloads\Commands.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Downloads\Commands.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -122,9 +122,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommandEnum\CommandEnum.csproj">
+    <ProjectReference Include="..\CommandEnum\Infrastructure.csproj">
       <Project>{acd07749-b7fb-4383-ad80-8bc53dadfd36}</Project>
-      <Name>CommandEnum</Name>
+      <Name>Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Communication\Communication.csproj">
       <Project>{fa1113ee-b3bb-47b4-a6d9-33914449ca04}</Project>

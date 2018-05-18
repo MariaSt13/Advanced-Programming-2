@@ -1,5 +1,6 @@
 ﻿using ImageService.Controller;
 using ImageService.Modal.Event;
+using Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.IO;

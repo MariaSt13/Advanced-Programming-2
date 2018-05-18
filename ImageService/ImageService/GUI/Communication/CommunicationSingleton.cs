@@ -7,12 +7,14 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Communication;
+using Infrastructure;
 
 namespace GUI.Communication
 {
     class CommunicationSingleton
     {
         private static CommunicationSingleton instance;
+        public event EventHandler<CommandRecievedEventArgs> SingletonCommandRecieved;
         private  IClientHandler clientHandler;
 
         private CommunicationSingleton() { }
@@ -36,11 +38,18 @@ namespace GUI.Communication
             client.Connect(ep);
             Console.WriteLine("You are connected");
             Instance.clientHandler = new ClientHandler();
+            Instance.clientHandler.ClientHandlerCommandRecieved += ClientHandlerCommandRecievedHandle;
             Instance.clientHandler.HandleClient(client);
            // client.Close();
 
         }
-        public static void Write(string command)
+
+        private static void ClientHandlerCommandRecievedHandle(object sender, CommandRecievedEventArgs e)
+        {
+            Instance.SingletonCommandRecieved?.Invoke(Instance, e);
+        }
+
+        public static void Write(CommandRecievedEventArgs command)
         {
             Instance.clientHandler.write(command);
         }
