@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text.RegularExpressions;
+using Infrastructure;
 
 namespace ImageService.Modal
 {
@@ -77,7 +78,7 @@ namespace ImageService.Modal
             }
             catch (Exception e)
             {
-                this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.FAIL);
+                this.m_logging.Log(e.Message,MessageTypeEnum.FAIL);
             }
             
 
@@ -133,7 +134,7 @@ namespace ImageService.Modal
           
             catch (IOException ex)
             {
-                this.m_logging.Log(ex.Message + Path.GetFileName(path), Logging.Modal.MessageTypeEnum.FAIL);
+                this.m_logging.Log(ex.Message + Path.GetFileName(path), MessageTypeEnum.FAIL);
             }
 
             createThumbnails(folderPathByYearAndMonth + "\\" + Path.GetFileName(newPath), thumbnailsPathByYearAndMonth + "\\");
@@ -159,7 +160,7 @@ namespace ImageService.Modal
                 }
                 catch (ArgumentException e)
                 {
-                    this.m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.FAIL);
+                    this.m_logging.Log(e.Message, MessageTypeEnum.FAIL);
                 }
                 string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
                 return DateTime.Parse(dateTaken);

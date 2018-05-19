@@ -63,7 +63,7 @@ namespace ImageService.Server
         /// <param name="args"></param>
         public void OnDirctoryClose(object sender, DirectoryCloseEventArgs args)
         {
-            this.m_logging.Log("Close hendler", Logging.Modal.MessageTypeEnum.INFO);
+            this.m_logging.Log("Close hendler", MessageTypeEnum.INFO);
             IDirectoyHandler handler = (IDirectoyHandler)sender;
             CommandRecieved -= handler.OnCommandRecieved;
         }

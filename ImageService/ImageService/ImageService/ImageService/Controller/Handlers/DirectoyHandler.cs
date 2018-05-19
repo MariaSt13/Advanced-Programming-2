@@ -69,11 +69,11 @@ namespace ImageService.Controller.Handlers
                 string strResult = this.m_controller.ExecuteCommand((int)CommandEnum.CommandEnum.NewFileCommand, args, out result);
                 if (result == true)
                 {
-                    this.m_logging.Log(strResult, Logging.Modal.MessageTypeEnum.INFO);
+                    this.m_logging.Log(strResult, MessageTypeEnum.INFO);
                 }
                 else
                 {
-                    this.m_logging.Log(strResult, Logging.Modal.MessageTypeEnum.FAIL);
+                    this.m_logging.Log(strResult, MessageTypeEnum.FAIL);
                 }
            
             }

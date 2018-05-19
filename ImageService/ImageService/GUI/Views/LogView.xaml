@@ -4,22 +4,41 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI.Views"
+             xmlns:localConvertor="clr-namespace:GUI.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <localConvertor:TypeToBrushConverter x:Key="myTypeToBrushConverter" />
+    </UserControl.Resources>
+
     <Grid>
         <TextBlock Text="Logs" FontSize="25" Foreground="Blue" FontWeight="Bold"  HorizontalAlignment="Center"></TextBlock>
 
 
         <ListView HorizontalAlignment = "Left" Height = "240" Margin = "5,40,0,0" 
          VerticalAlignment = "Top" Width = "495" x:Name = "MessageList" ItemsSource="{Binding VM_MessageList}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
 
             <ListView.View>
+                
                 <GridView>
-                    <GridViewColumn Header = "Type" DisplayMemberBinding = "{Binding Status}" 
-                  Width = "50" />
+                    <GridViewColumn Header = "Type" Width = "80" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Background="{Binding Status, Converter={StaticResource myTypeToBrushConverter}}">
+                                    <TextBlock Text="{Binding Status}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
                     <GridViewColumn Header = "Message" DisplayMemberBinding = "{Binding Message}" 
-                  Width = "445"/>
+                  Width = "415"/>
 
                 </GridView>
             </ListView.View>

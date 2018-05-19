@@ -13,7 +13,7 @@ namespace GUI.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private ObservableCollection<MessageRecievedEventArgs> _MessageList = new ObservableCollection<MessageRecievedEventArgs> { new MessageRecievedEventArgs("vmfkvf",MessageTypeEnum.FAIL)};
+        private ObservableCollection<MessageRecievedEventArgs> _MessageList = new ObservableCollection<MessageRecievedEventArgs> { new MessageRecievedEventArgs("vmfkvf\n\n",MessageTypeEnum.INFO), new MessageRecievedEventArgs("vmfkvf\n\n", MessageTypeEnum.WARNING) };
 
         public LogModel()
         {

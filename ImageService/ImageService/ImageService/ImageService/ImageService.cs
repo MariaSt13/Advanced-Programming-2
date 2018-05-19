@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using ImageService.Logging;
 using ImageService.Server;
-using ImageService.Logging.Modal;
 using ImageService.Modal;
 using ImageService.Controller;
 using System.Configuration;
+using Infrastructure;
 
 namespace ImageService
 {
