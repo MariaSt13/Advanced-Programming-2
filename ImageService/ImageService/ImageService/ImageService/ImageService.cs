@@ -14,6 +14,7 @@ using ImageService.Modal;
 using ImageService.Controller;
 using System.Configuration;
 using Infrastructure;
+using Communication;
 
 namespace ImageService
 {
@@ -110,6 +111,11 @@ namespace ImageService
             this.modal = new ImageServiceModal(outputFolder, size,logging);
             this.controller = new ImageController(modal, logging);
             this.m_imageServer = new ImageServer(this.logging, this.controller);
+
+            //start server
+            IClientHandler clientHandler = new ClientHandler();
+            Communication.Server server = new Communication.Server(8000, clientHandler);
+            server.Start();
 
         }
 

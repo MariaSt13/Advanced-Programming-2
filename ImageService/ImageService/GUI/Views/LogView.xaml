@@ -13,7 +13,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <TextBlock Text="Logs" FontSize="25" Foreground="Blue" FontWeight="Bold"  HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Text="Logs" FontSize="25" Foreground= "Blue" FontWeight="Bold"  HorizontalAlignment="Center"></TextBlock>
 
 
         <ListView HorizontalAlignment = "Left" Height = "240" Margin = "5,40,0,0" 

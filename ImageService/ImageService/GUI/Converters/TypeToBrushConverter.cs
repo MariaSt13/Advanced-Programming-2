@@ -17,13 +17,13 @@ namespace GUI.Converters
             switch ((MessageTypeEnum)value)
             {
                 case MessageTypeEnum.FAIL:
-                    returnVal = "red";
+                    returnVal = "IndianRed";
                     break;
                 case MessageTypeEnum.INFO:
-                    returnVal = "green";
+                    returnVal = "LightGreen";
                     break;
                 case MessageTypeEnum.WARNING:
-                    returnVal = "yellow";
+                    returnVal = "khaki";
                     break;
             }
 

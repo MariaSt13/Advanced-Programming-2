@@ -46,6 +46,7 @@ namespace Communication
                 Console.WriteLine("Server stopped");
             });
             task.Start();
+            
         }
 
         public void Stop()
