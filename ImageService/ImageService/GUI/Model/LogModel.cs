@@ -34,7 +34,7 @@ namespace GUI.Model
                     {
                         type = int.Parse(arg[i]);
                         message = arg[i + 1];
-                        _MessageList.Add(new MessageRecievedEventArgs(message,(MessageTypeEnum)type));
+                        MessageList.Add(new MessageRecievedEventArgs(message,(MessageTypeEnum)type));
                     }
                     break;
 
