@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Infrastructure;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,9 @@ namespace ImageService.Commands
         public string Execute(string[] args, out bool result)
         {
             result = true;
-            JObject logMessage = new JObject();
-            JArray argArray = new JArray(args);
-            logMessage["log"] = argArray;
-            return logMessage.ToString().Replace("\n", "");
+            CommandRecievedEventArgs command =
+               new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.LogCommand, args, null);
+            return JsonConvert.SerializeObject(command);
 
         }
     }
