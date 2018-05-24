@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Infrastructure;
+using System.Collections;
 
 namespace ImageService.Logging
 {
     public class LoggingService : ILoggingService
     {
-        Dictionary<string, MessageTypeEnum> logs;
+        ArrayList logs;
         /// <summary>
         /// event for gitting a message.
         /// </summary>
@@ -14,12 +15,12 @@ namespace ImageService.Logging
 
         public LoggingService()
         {
-            this.logs = new Dictionary<string, MessageTypeEnum>();
+            this.logs = new ArrayList();
         }
 
-        public Dictionary<string, MessageTypeEnum> GetLogs()
+        public string [] GetLogs()
         {
-            return this.logs;
+            return (String[])logs.ToArray(typeof(string));
         }
 
         /// <summary>
@@ -29,7 +30,8 @@ namespace ImageService.Logging
         /// <param name="type"> type of message </param>
         public void Log(string message, MessageTypeEnum type)
         {
-            this.logs.Add(message, type);
+            this.logs.Add(type.ToString());
+            this.logs.Add(message);
             MessageRecieved.Invoke(this, new MessageRecievedEventArgs(message, type));
         }
     }
