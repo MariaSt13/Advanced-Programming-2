@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -47,6 +48,16 @@ namespace Communication
             });
             task.Start();
             
+        }
+
+        public void writeAll(string message)
+        {
+            foreach (TcpClient client in clients)
+            {
+                NetworkStream stream = client.GetStream();
+                StreamWriter writer = new StreamWriter(stream);
+                writer.Write(message);
+            }
         }
 
         public void Stop()
