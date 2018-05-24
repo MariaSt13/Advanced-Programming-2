@@ -15,6 +15,7 @@ namespace Communication
         private TcpListener listener;
         private IClientHandler ch;
         private List<TcpClient> clients;
+        public event EventHandler<EventArgs> newConnection;
         public Server(int port, IClientHandler ch)
         {
             this.port = port;
@@ -35,6 +36,7 @@ namespace Communication
                     try
                     {
                         TcpClient client = listener.AcceptTcpClient();
+                        newConnection?.Invoke(this);
                         Console.WriteLine("Got new connection");
                         this.clients.Add(client);
                         ch.HandleClient(client);

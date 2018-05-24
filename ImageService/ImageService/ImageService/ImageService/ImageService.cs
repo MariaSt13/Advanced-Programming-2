@@ -15,12 +15,14 @@ using ImageService.Controller;
 using System.Configuration;
 using Infrastructure;
 using Communication;
+using Newtonsoft.Json;
 
 namespace ImageService
 {
     public partial class ImageService : ServiceBase
 
     {
+        private IClientHandler clientHandler;
         private System.Diagnostics.EventLog eventLog1;
         private ImageServer m_imageServer;          
         private IImageServiceModal modal;
@@ -109,16 +111,39 @@ namespace ImageService
             logging.MessageRecieved += onMessage;
 
             //start server
-            IClientHandler clientHandler = new ClientHandler();
+            this.clientHandler = new ClientHandler();
             this.server = new Communication.Server(8000, clientHandler);
 
             // create image modal, controller and server
             this.modal = new ImageServiceModal(outputFolder, size,logging);
             this.controller = new ImageController(modal, logging, clientHandler);
             this.m_imageServer = new ImageServer(this.logging, this.controller);
-
+            this.clientHandler.ClientHandlerCommandRecieved += ClientHandlerCommandRecievedHandle;
+            server.newConnection += newConnectionHandler;
             server.Start();
 
+        }
+
+        public void ClientHandlerCommandRecievedHandle(object sender, CommandRecievedEventArgs e)
+        {
+            bool result;
+            string message = this.controller.ExecuteCommand(e.CommandID, e.Args, out result);
+            if (e.CommandID == (int)CommandEnum.CommandEnum.CloseCommand)
+            {
+                this.server.writeAll(message);
+            }
+            else
+            {
+                this.clientHandler.write(message);
+            }
+        }
+
+        public void newConnectionHandler(object sender, EventArgs e)
+        {
+            bool result;
+            string[] logs = this.logging.GetLogs();
+            string message = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand,logs, out result);
+            this.clientHandler.write(message);
         }
 
         /// <summary>
@@ -143,6 +168,10 @@ namespace ImageService
                     eventLog1.WriteEntry(message, EventLogEntryType.Warning);
                     break;
             }
+            string[] argv = {status.ToString(),message};
+            bool result;
+            string messagee = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand, argv, out result);
+            this.server.writeAll(messagee);
         }
 
         /// <summary>

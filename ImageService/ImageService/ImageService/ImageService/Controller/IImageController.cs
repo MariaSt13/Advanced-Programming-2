@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,7 @@ namespace ImageService.Controller
         /// <param name="result"> bool that says if action was succes or fail</param>
         /// <returns></returns>
         string ExecuteCommand(int commandID, string[] args, out bool result);
+
+        void ClientHandlerCommandRecievedHandle(object sender, CommandRecievedEventArgs e);
     }
 }

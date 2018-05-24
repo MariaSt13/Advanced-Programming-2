@@ -38,9 +38,8 @@ namespace Communication
             CommandRecievedEventArgs deserializedProduct = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(output);
             ClientHandlerCommandRecieved?.Invoke(this, deserializedProduct);
         }
-        public void write(CommandRecievedEventArgs command)
+        public void write(string message)
         {
-            string message =  JsonConvert.SerializeObject(command);
             this.writer.Write(message);
         }
     }

@@ -16,7 +16,6 @@ namespace ImageService.Controller
         private IImageServiceModal m_modal;
         private Dictionary<int, ICommand> commands;
         private ILoggingService logger;
-        private IClientHandler clientHandler;
 
         /// <summary>
         /// constractor. 
@@ -29,8 +28,6 @@ namespace ImageService.Controller
             // Storing the Modal Of The System
             m_modal = modal;
             this.logger = logging;
-            this.clientHandler = clientHandler;
-            this.clientHandler.ClientHandlerCommandRecieved += ClientHandlerCommandRecievedHandle; 
 
             //Dictinpry of commands
             commands = new Dictionary<int, ICommand>()
@@ -42,11 +39,6 @@ namespace ImageService.Controller
             
         }
 
-        private void ClientHandlerCommandRecievedHandle(object sender, CommandRecievedEventArgs e)
-        {
-            bool result;
-            this.ExecuteCommand(e.CommandID, e.Args, out result);
-        }
         /// <summary>
         /// Exucte sent command
         /// </summary>
