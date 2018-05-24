@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ImageService.Modal;
 using ImageService.Logging;
 using ImageService.Commands;
+using Communication;
+using Infrastructure;
 
 namespace ImageService.Controller
 {
@@ -14,23 +16,36 @@ namespace ImageService.Controller
         private IImageServiceModal m_modal;
         private Dictionary<int, ICommand> commands;
         private ILoggingService logger;
+        private IClientHandler clientHandler;
 
         /// <summary>
         /// constractor. 
         /// </summary>
         /// <param name="modal">The modal object</param>
         /// <param name="logging"> The logger </param>
-        public ImageController(IImageServiceModal modal, ILoggingService logging)
+        public ImageController(IImageServiceModal modal, ILoggingService logging,
+            IClientHandler clientHandler)
         {
             // Storing the Modal Of The System
             m_modal = modal;
             this.logger = logging;
-            
+            this.clientHandler = clientHandler;
+            this.clientHandler.ClientHandlerCommandRecieved += ClientHandlerCommandRecievedHandle; 
+
             //Dictinpry of commands
             commands = new Dictionary<int, ICommand>()
             {
-                {0, new NewFileCommand(m_modal, logger) }
+                {(int)CommandEnum.CommandEnum.NewFileCommand, new NewFileCommand(m_modal, logger) },
+                { (int)CommandEnum.CommandEnum.GetConfigCommand, new GetConfigCommand()},
+                {(int)CommandEnum.CommandEnum.LogCommand, new LogCommand() }
             };
+            
+        }
+
+        private void ClientHandlerCommandRecievedHandle(object sender, CommandRecievedEventArgs e)
+        {
+            bool result;
+            this.ExecuteCommand(e.CommandID, e.Args, out result);
         }
         /// <summary>
         /// Exucte sent command

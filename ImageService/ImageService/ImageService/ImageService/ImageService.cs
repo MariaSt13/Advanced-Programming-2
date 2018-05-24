@@ -26,6 +26,7 @@ namespace ImageService
         private IImageServiceModal modal;
         private IImageController controller;
         private ILoggingService logging;
+        private Communication.Server server;
 
         public enum ServiceState
         {
@@ -106,15 +107,16 @@ namespace ImageService
             //create logging modal and add to event
             this.logging = new LoggingService();
             logging.MessageRecieved += onMessage;
-            
-            // create image modal, controller and server
-            this.modal = new ImageServiceModal(outputFolder, size,logging);
-            this.controller = new ImageController(modal, logging);
-            this.m_imageServer = new ImageServer(this.logging, this.controller);
 
             //start server
             IClientHandler clientHandler = new ClientHandler();
-            Communication.Server server = new Communication.Server(8000, clientHandler);
+            this.server = new Communication.Server(8000, clientHandler);
+
+            // create image modal, controller and server
+            this.modal = new ImageServiceModal(outputFolder, size,logging);
+            this.controller = new ImageController(modal, logging, clientHandler);
+            this.m_imageServer = new ImageServer(this.logging, this.controller);
+
             server.Start();
 
         }
@@ -160,6 +162,9 @@ namespace ImageService
             // Update the service state to stopped.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
+            //stop server
+            this.server.Stop();
         }
 
         /// <summary>
