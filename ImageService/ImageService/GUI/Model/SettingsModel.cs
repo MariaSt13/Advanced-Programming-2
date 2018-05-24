@@ -35,6 +35,15 @@ namespace GUI.Model
             {
                 //GetConfigCommand command
                 case ((int)CommandEnum.CommandEnum.GetConfigCommand):
+                    string[] args = e.Args;
+                    this.OutputDirectory = args[0];
+                    this.SourceName = args[1];
+                    this.LogName = args[2];
+                    this.ThumbnailSize = int.Parse(args[3]);
+                    string[] pathArray = args[4].Split(';');
+                    foreach( string path in pathArray) {
+                        this.Handlerslist.Add(path);
+                    }
                     break;
 
             }

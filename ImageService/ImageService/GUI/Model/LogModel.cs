@@ -27,6 +27,15 @@ namespace GUI.Model
             {
                 //GetConfigCommand command
                 case ((int)CommandEnum.CommandEnum.LogCommand):
+                    string[] arg = e.Args;
+                    int type;
+                    string message;
+                    for (int i = 0; i < arg.Length; i += 2)
+                    {
+                        type = int.Parse(arg[i]);
+                        message = arg[i + 1];
+                        _MessageList.Add(new MessageRecievedEventArgs(message,(MessageTypeEnum)type));
+                    }
                     break;
 
             }
