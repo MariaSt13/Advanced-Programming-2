@@ -109,18 +109,20 @@ namespace ImageService
             //create logging modal and add to event
             this.logging = new LoggingService();
             logging.MessageRecieved += onMessage;
-
+            eventLog1.WriteEntry("////");
             //start server
             this.clientHandler = new ClientHandler();
             this.server = new Communication.Server(8000, clientHandler);
-
+            eventLog1.WriteEntry("///////");
             // create image modal, controller and server
             this.modal = new ImageServiceModal(outputFolder, size,logging);
             this.controller = new ImageController(modal, logging, clientHandler);
             this.m_imageServer = new ImageServer(this.logging, this.controller);
             this.clientHandler.ClientHandlerCommandRecieved += ClientHandlerCommandRecievedHandle;
             server.newConnection += newConnectionHandler;
+
             server.Start();
+            logging.Log("start server",MessageTypeEnum.INFO);
 
         }
 

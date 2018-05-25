@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Communication
         private TcpListener listener;
         private IClientHandler ch;
         private List<TcpClient> clients;
-        public event EventHandler<EventArgs> newConnection;
+        public event EventHandler<MessageRecievedEventArgs> newConnection;
         public Server(int port, IClientHandler ch)
         {
             this.port = port;
@@ -36,7 +37,7 @@ namespace Communication
                     try
                     {
                         TcpClient client = listener.AcceptTcpClient();
-                        newConnection?.Invoke(this);
+                        newConnection?.Invoke(this,new MessageRecievedEventArgs("new connection",MessageTypeEnum.INFO));
                         Console.WriteLine("Got new connection");
                         this.clients.Add(client);
                         ch.HandleClient(client);

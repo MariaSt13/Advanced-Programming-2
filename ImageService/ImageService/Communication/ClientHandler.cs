@@ -17,6 +17,11 @@ namespace Communication
         private StreamWriter writer;
         public event EventHandler<CommandRecievedEventArgs> ClientHandlerCommandRecieved;
 
+        public ClientHandler()
+        {
+
+        }
+
         public void HandleClient(TcpClient client)
         {
             this.stream = client.GetStream();

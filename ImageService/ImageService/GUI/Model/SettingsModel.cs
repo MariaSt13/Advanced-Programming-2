@@ -16,17 +16,17 @@ namespace GUI.Model
         public event PropertyChangedEventHandler PropertyChanged;
 
         //properties
-        private string _LogName = "_LogName text";
-        private string _OutputDirectory = "_OutputDirectory text";
-        private string _SourceName = "_SourceName text";
-        private int _ThumbnailSize = 80;
+        private string _LogName;
+        private string _OutputDirectory;
+        private string _SourceName;
+        private int _ThumbnailSize;
         private object _SelectedItem;
         private ObservableCollection<object> _Handlerslist = new ObservableCollection<object> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
         public SettingsModel()
         {
             Communication.CommunicationSingleton.Instance.SingletonCommandRecieved += CommandRecieved;
-            //Communication.CommunicationSingleton.Write(new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.GetConfigCommand, null, null));
+            Communication.CommunicationSingleton.Connect();
         }
 
         private void CommandRecieved(object sender, CommandRecievedEventArgs e)
