@@ -145,9 +145,9 @@ namespace ImageService
         {
             logging.Log("start new connection...", MessageTypeEnum.INFO);
             bool result;
-            //string[] logs = this.logging.GetLogs();
-            //string message = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand,logs, out result);
-            //this.clientHandler.write(message);
+            string[] logs = this.logging.GetLogs();
+            string message = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand,logs, out result);
+            this.clientHandler.write(message);
         }
 
         /// <summary>

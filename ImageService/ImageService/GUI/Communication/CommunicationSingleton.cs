@@ -47,7 +47,7 @@ namespace GUI.Communication
 
             }
 
-            //connected
+            //HandleClient
             Instance.clientHandler.ClientHandlerCommandRecieved += ClientHandlerCommandRecievedHandle;
             Instance.clientHandler.HandleClient(client);
 
