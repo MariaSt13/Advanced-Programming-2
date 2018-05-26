@@ -13,8 +13,7 @@ namespace GUI.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private ObservableCollection<MessageRecievedEventArgs> _MessageList = new ObservableCollection<MessageRecievedEventArgs> {
-            new MessageRecievedEventArgs("vmfkvf\n\n",MessageTypeEnum.INFO), new MessageRecievedEventArgs("vmfkvf\n\n", MessageTypeEnum.WARNING), new MessageRecievedEventArgs("vmfkvf\n\n", MessageTypeEnum.FAIL) };
+        private ObservableCollection<MessageRecievedEventArgs> _MessageList = new ObservableCollection<MessageRecievedEventArgs> { };
 
         public LogModel()
         {
@@ -28,13 +27,31 @@ namespace GUI.Model
                 //GetConfigCommand command
                 case ((int)CommandEnum.CommandEnum.LogCommand):
                     string[] arg = e.Args;
-                    int type;
+                    string type;
+                    MessageTypeEnum typeEnum = MessageTypeEnum.FAIL;
                     string message;
                     for (int i = 0; i < arg.Length; i += 2)
                     {
-                        type = int.Parse(arg[i]);
+                        type =arg[i];
+                        switch (type)
+                        {
+                            case "INFO":
+                                typeEnum = MessageTypeEnum.INFO;
+                                break;
+                            case "WARNING":
+                                typeEnum = MessageTypeEnum.WARNING;
+                                break;
+                            case "FAIL":
+                                typeEnum = MessageTypeEnum.FAIL;
+                                break;
+
+                        }
                         message = arg[i + 1];
-                        MessageList.Add(new MessageRecievedEventArgs(message,(MessageTypeEnum)type));
+                        App.Current.Dispatcher.Invoke((Action)delegate // <--- HERE
+                        {
+                            MessageList.Add(new MessageRecievedEventArgs(message, typeEnum));
+                        });
+                      
                     }
                     break;
 

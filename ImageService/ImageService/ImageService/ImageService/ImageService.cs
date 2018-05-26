@@ -186,6 +186,7 @@ namespace ImageService
             string[] argv = {status.ToString(),message};
             bool result;
             string messagee = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand, argv, out result);
+            //this.clientHandler.write(messagee);
             //this.server.writeAll(messagee);
         }
 
