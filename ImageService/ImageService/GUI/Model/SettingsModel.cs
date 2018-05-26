@@ -41,7 +41,10 @@ namespace GUI.Model
                     this.ThumbnailSize = int.Parse(args[3]);
                     string[] pathArray = args[4].Split(';');
                     foreach( string path in pathArray) {
-                        this.Handlerslist.Add(path);
+                        App.Current.Dispatcher.Invoke((Action)delegate // <--- HERE
+                        {
+                            this.Handlerslist.Add(path);
+                        });
                     }
                     break;
 

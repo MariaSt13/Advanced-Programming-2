@@ -16,11 +16,10 @@ namespace Communication
         private BinaryReader reader;
         private BinaryWriter writer;
         public event EventHandler<CommandRecievedEventArgs> ClientHandlerCommandRecieved;
+        //Helper for Thread Safety
+        private static object m_lock = new object();
 
-        public ClientHandler()
-        {
-
-        }
+        public ClientHandler() { }
 
         public void HandleClient(TcpClient client)
         {
@@ -45,7 +44,10 @@ namespace Communication
         }
         public void write(string message)
         {
-            this.writer.Write(message);
+            lock (m_lock)
+            {
+                this.writer.Write(message);
+            }
         }
     }
 }

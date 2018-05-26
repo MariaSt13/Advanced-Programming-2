@@ -35,9 +35,9 @@ namespace GUI.ViewModel
         private void connectServerHandle(object sender, MessageRecievedEventArgs e)
         {
             //get config
-            CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.GetConfigCommand, null, null);
+          /*  CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.GetConfigCommand, null, null);
             string str = JsonConvert.SerializeObject(command);
-            Communication.CommunicationSingleton.Write(str);
+            Communication.CommunicationSingleton.Write(str);*/
         }
 
         private void PropertyChangedd(object sender, PropertyChangedEventArgs e)

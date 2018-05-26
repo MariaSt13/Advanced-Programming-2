@@ -9,16 +9,20 @@ using System.Threading.Tasks;
 using Communication;
 using Infrastructure;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace GUI.Communication
 {
-    public class CommunicationSingleton
+    public class CommunicationSingleton:INotifyPropertyChanged
     {
         private static CommunicationSingleton instance;
         public event EventHandler<MessageRecievedEventArgs> connectServer;
         public event EventHandler<CommandRecievedEventArgs> SingletonCommandRecieved;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private  IClientHandler clientHandler;
         private bool _isConnected;
+
         //Helper for Thread Safety
         private static object m_lock = new object();
 
@@ -40,7 +44,7 @@ namespace GUI.Communication
                     instance._isConnected = false;
                     Instance.clientHandler = new ClientHandler();
                     }
-                     }
+                }
                 return instance;
             }
         }
@@ -57,7 +61,7 @@ namespace GUI.Communication
             {
 
             }
-            instance._isConnected = true;
+            instance.isConnected = true;
             //HandleClient
             Instance.clientHandler.ClientHandlerCommandRecieved += ClientHandlerCommandRecievedHandle;
             Instance.clientHandler.HandleClient(client);
@@ -79,10 +83,14 @@ namespace GUI.Communication
         // Properties
         public bool isConnected
         {
-            get { return Instance._isConnected; }
+            get
+            {
+                return _isConnected;
+            }
             set
             {
-                Instance._isConnected = value;
+               _isConnected = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("isConnected"));
             }
         }
 

@@ -14,7 +14,7 @@
         <localConvertor:ConnectedToBrushConverter x:Key="myTypeToBrushConverter" />
     </Window.Resources>
 
-    <Grid Background ="{Binding Source={x:Static localCommunicationSingleton:CommunicationSingleton.Instance}, Path=isConnected, Converter={StaticResource myTypeToBrushConverter}}">
+    <Grid Background ="{Binding Source={x:Static localCommunicationSingleton:CommunicationSingleton.Instance},Mode=TwoWay, Path=isConnected, Converter={StaticResource myTypeToBrushConverter}}">
         <TabControl>
             <TabItem Header="Settings">
                 <controls:SettingsView x:Name="settings" RenderTransformOrigin="0.849,0.44"></controls:SettingsView>

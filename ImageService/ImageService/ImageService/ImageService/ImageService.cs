@@ -137,17 +137,21 @@ namespace ImageService
             }
             else
             {
+                logging.Log("write." + e.CommandID, MessageTypeEnum.INFO);
                 this.clientHandler.write(message);
             }
         }
 
         public void newConnectionHandler(object sender, MessageRecievedEventArgs e)
         {
-            logging.Log("start new connection...", MessageTypeEnum.INFO);
+            logging.Log("start new connection.", MessageTypeEnum.INFO);
+            System.Threading.Thread.Sleep(5000);
+            logging.Log("Ok new connection.", MessageTypeEnum.INFO);
             bool result;
-            //string[] logs = this.logging.GetLogs();
-            //string message = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand,logs, out result);
-            //this.clientHandler.write(message);
+             string[] logs = this.logging.GetLogs();
+             string message = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.GetConfigCommand,null, out result);
+            logging.Log("message." + message, MessageTypeEnum.INFO);
+            this.clientHandler.write(message);
         }
 
         /// <summary>

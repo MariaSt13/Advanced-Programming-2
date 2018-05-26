@@ -15,11 +15,11 @@ namespace GUI.Converters
             bool boolValue = (bool)value;
             if (boolValue == false)
             {
-                return "Gray";
+                return "gray";
             }
             else
             {
-                return "LightGray";
+                return "white";
             }
         }
 
@@ -27,9 +27,9 @@ namespace GUI.Converters
         {
             switch ((string)value)
             {
-                case "Gray":
+                case "gray":
                     return false;
-                case "LightGray":
+                case "white":
                     return true;
             }
             return false;
