@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Threading;
 
 namespace Communication
 {
@@ -17,7 +18,7 @@ namespace Communication
         private BinaryWriter writer;
         public event EventHandler<CommandRecievedEventArgs> ClientHandlerCommandRecieved;
         //Helper for Thread Safety
-        private static object m_lock = new object();
+        private Mutex mutex = new Mutex();
 
         public ClientHandler() { }
 
@@ -44,10 +45,10 @@ namespace Communication
         }
         public void write(string message)
         {
-            lock (m_lock)
-            {
-                this.writer.Write(message);
-            }
+            this.mutex.WaitOne();
+            this.writer.Write(message);
+            this.mutex.ReleaseMutex();
+            
         }
     }
 }
