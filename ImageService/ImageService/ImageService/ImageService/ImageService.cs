@@ -130,15 +130,23 @@ namespace ImageService
         {
             logging.Log("commandRecived." + e.CommandID, MessageTypeEnum.INFO);
             bool result;
-            string message = this.controller.ExecuteCommand(e.CommandID, e.Args, out result);
-            logging.Log("send message." + message, MessageTypeEnum.INFO);
-            logging.Log("array." + e.Args, MessageTypeEnum.INFO);
+            string message;  
             if (e.CommandID == (int)CommandEnum.CommandEnum.CloseCommand)
             {
+                message = this.controller.ExecuteCommand(e.CommandID, e.Args, out result);
+                logging.Log("send message close" + message, MessageTypeEnum.INFO);
                 this.server.writeAll(message);
+
+            } else if(e.CommandID == (int)CommandEnum.CommandEnum.LogCommand) {
+                string[] logs = this.logging.GetLogs();
+                message = this.controller.ExecuteCommand(e.CommandID, logs, out result);
+                logging.Log("send message logs" + message, MessageTypeEnum.INFO);
+                this.clientHandler.write(message);
             }
             else
             {
+                message = this.controller.ExecuteCommand(e.CommandID, e.Args, out result);
+                logging.Log("send message args" + message, MessageTypeEnum.INFO);
                 this.clientHandler.write(message);
             }
         }
