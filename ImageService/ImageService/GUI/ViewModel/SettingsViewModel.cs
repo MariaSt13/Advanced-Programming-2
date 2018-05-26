@@ -29,15 +29,14 @@ namespace GUI.ViewModel
             { NotifyPropertyChanged("VM_" + e.PropertyName); };
             this.PropertyChanged += PropertyChangedd;
             Communication.CommunicationSingleton.Instance.connectServer += connectServerHandle;
-            Communication.CommunicationSingleton.Connect();
         }
 
         private void connectServerHandle(object sender, MessageRecievedEventArgs e)
         {
             //get config
-          /*  CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.GetConfigCommand, null, null);
+            CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.GetConfigCommand, null, null);
             string str = JsonConvert.SerializeObject(command);
-            Communication.CommunicationSingleton.Write(str);*/
+            Communication.CommunicationSingleton.Write(str);
         }
 
         private void PropertyChangedd(object sender, PropertyChangedEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using GUI.Model;
 using Infrastructure;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +21,16 @@ namespace GUI.ViewModel
             this.model = new LogModel();
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             { NotifyPropertyChanged("VM_" + e.PropertyName); };
+            Communication.CommunicationSingleton.Instance.connectServer += connectServerHandle;
+            Communication.CommunicationSingleton.Connect();
+        }
+
+        private void connectServerHandle(object sender, MessageRecievedEventArgs e)
+        {
+            //get log
+            CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.LogCommand, null, null);
+            string str = JsonConvert.SerializeObject(command);
+            Communication.CommunicationSingleton.Write(str);
         }
 
         public void NotifyPropertyChanged(string propName)
