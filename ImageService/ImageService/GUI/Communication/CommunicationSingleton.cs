@@ -15,12 +15,11 @@ namespace GUI.Communication
     class CommunicationSingleton
     {
         private static CommunicationSingleton instance;
+        public event EventHandler<MessageRecievedEventArgs> connectServer;
         public event EventHandler<CommandRecievedEventArgs> SingletonCommandRecieved;
         private  IClientHandler clientHandler;
 
-        private CommunicationSingleton() {
-
-        }
+        private CommunicationSingleton() {}
 
         public static CommunicationSingleton Instance
         {
@@ -39,15 +38,21 @@ namespace GUI.Communication
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
             TcpClient client = new TcpClient();
-            client.Connect(ep);
-            //Console.WriteLine("You are connected");
+            try
+            {
+                client.Connect(ep);
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            //connected
             Instance.clientHandler.ClientHandlerCommandRecieved += ClientHandlerCommandRecievedHandle;
             Instance.clientHandler.HandleClient(client);
-            CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.GetConfigCommand, null, null);
-            string str = JsonConvert.SerializeObject(command);
-            Write(str);
-            // client.Close();
 
+            //invoke event connectServer
+            Instance.connectServer?.Invoke(Instance, new MessageRecievedEventArgs("connect",MessageTypeEnum.INFO));
         }
 
         private static void ClientHandlerCommandRecievedHandle(object sender, CommandRecievedEventArgs e)

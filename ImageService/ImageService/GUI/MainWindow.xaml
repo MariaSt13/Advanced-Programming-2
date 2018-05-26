@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:controls="clr-namespace:GUI.Views"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
+    <Grid Background="Gray">
         <TabControl>
             <TabItem Header="Settings">
                 <controls:SettingsView x:Name="settings" RenderTransformOrigin="0.849,0.44"></controls:SettingsView>

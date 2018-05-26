@@ -13,8 +13,8 @@ namespace Communication
     public class ClientHandler : IClientHandler
     {
         private NetworkStream stream;
-        private StreamReader reader;
-        private StreamWriter writer;
+        private BinaryReader reader;
+        private BinaryWriter writer;
         public event EventHandler<CommandRecievedEventArgs> ClientHandlerCommandRecieved;
 
         public ClientHandler()
@@ -25,12 +25,12 @@ namespace Communication
         public void HandleClient(TcpClient client)
         {
             this.stream = client.GetStream();
-            this.reader = new StreamReader(stream);
-            this.writer = new StreamWriter(stream);
+            this.reader = new BinaryReader(stream);
+            this.writer = new BinaryWriter(stream);
 
             new Task(() =>
             {
-                while (client.Connected)
+                while (true)
                 {
                     this.read();
                 }
@@ -39,7 +39,7 @@ namespace Communication
 
         public void read()
         {
-            string output = this.reader.ReadLine();
+            string output = this.reader.ReadString();
             CommandRecievedEventArgs deserializedProduct = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(output);
             ClientHandlerCommandRecieved?.Invoke(this, deserializedProduct);
         }

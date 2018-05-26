@@ -128,6 +128,7 @@ namespace ImageService
 
         public void ClientHandlerCommandRecievedHandle(object sender, CommandRecievedEventArgs e)
         {
+            logging.Log("commandRecived." + e.CommandID, MessageTypeEnum.INFO);
             bool result;
             string message = this.controller.ExecuteCommand(e.CommandID, e.Args, out result);
             if (e.CommandID == (int)CommandEnum.CommandEnum.CloseCommand)
@@ -140,12 +141,13 @@ namespace ImageService
             }
         }
 
-        public void newConnectionHandler(object sender, EventArgs e)
+        public void newConnectionHandler(object sender, MessageRecievedEventArgs e)
         {
+            logging.Log("start new connection...", MessageTypeEnum.INFO);
             bool result;
-            string[] logs = this.logging.GetLogs();
-            string message = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand,logs, out result);
-            this.clientHandler.write(message);
+            //string[] logs = this.logging.GetLogs();
+            //string message = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand,logs, out result);
+            //this.clientHandler.write(message);
         }
 
         /// <summary>
@@ -173,7 +175,7 @@ namespace ImageService
             string[] argv = {status.ToString(),message};
             bool result;
             string messagee = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand, argv, out result);
-            this.server.writeAll(messagee);
+            //this.server.writeAll(messagee);
         }
 
         /// <summary>
