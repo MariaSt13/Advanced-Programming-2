@@ -1,4 +1,5 @@
-﻿using GUI.Model;
+﻿using GUI.Communication;
+using GUI.Model;
 using Infrastructure;
 using Microsoft.Practices.Prism.Commands;
 using Newtonsoft.Json;
@@ -28,7 +29,7 @@ namespace GUI.ViewModel
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             { NotifyPropertyChanged("VM_" + e.PropertyName); };
             this.PropertyChanged += PropertyChangedd;
-            Communication.CommunicationSingleton.Instance.connectServer += connectServerHandle;
+            CommunicationSingleton.Instance.connectServer += connectServerHandle;
         }
 
         private void connectServerHandle(object sender, MessageRecievedEventArgs e)
@@ -52,7 +53,12 @@ namespace GUI.ViewModel
 
         private void OnRemove(object obj)
         {
-           this.model.Handlerslist.Remove(this.model.SelectedItem);
+            string[] args = { this.model.SelectedItem.ToString() };
+            this.model.Handlerslist.Remove(this.model.SelectedItem);
+            CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.CloseCommand, args, null);
+            string str = JsonConvert.SerializeObject(command);
+            CommunicationSingleton.Write(str);
+
         }
 
         private bool CanRemove(object obj)
