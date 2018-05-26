@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace ImageService.Server
         private string _LogName;
         private int _ThumbnailSize;
         private List<string> _Handlers;
+        public event EventHandler<CommandRecievedEventArgs> clickRemove;
 
         private appConfigManager()
         {
@@ -105,6 +107,8 @@ namespace ImageService.Server
         }
         public void removeHandler(string handler)
         {
+            string[] arg = { handler };
+            connectServer?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.CloseCommand, arg, null);
             for (int i = 0; i < _Handlers.Count; i++)
             {
                 if (_Handlers[i].Equals(handler))

@@ -99,7 +99,14 @@ namespace ImageService.Controller.Handlers
                     break;
             }
         }
-
+        public void OnRemove(object sender, CommandRecievedEventArgs e)
+        {
+            string path = e.Args[0];
+            if(path.Equals(this.m_path))
+            {
+                this.OnClose();
+            }
+        }
         /// <summary>
         /// when close command recieved
         /// </summary>

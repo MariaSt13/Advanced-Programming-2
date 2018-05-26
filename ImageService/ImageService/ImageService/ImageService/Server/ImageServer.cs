@@ -53,6 +53,7 @@ namespace ImageService.Server
                 CommandRecieved += handle.OnCommandRecieved;
                 handle.DirectoryClose += OnDirctoryClose;
                 handle.StartHandleDirectory(pathArray[i]);
+                appConfigManager.Instance.clickRemove += handle.OnRemove;
             }
         }
 
@@ -66,6 +67,7 @@ namespace ImageService.Server
             this.m_logging.Log("Close hendler", MessageTypeEnum.INFO);
             IDirectoyHandler handler = (IDirectoyHandler)sender;
             CommandRecieved -= handler.OnCommandRecieved;
+            appConfigManager.Instance.clickRemove -= handler.OnRemove;
         }
 
         /// <summary>
