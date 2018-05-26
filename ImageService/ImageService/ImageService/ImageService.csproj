@@ -82,6 +82,7 @@
     <Compile Include="ImageService\Modal\Event\DirectoryCloseEventArgs.cs" />
     <Compile Include="ImageService\Modal\IImageServiceModal.cs" />
     <Compile Include="ImageService\Modal\ImageServiceModal.cs" />
+    <Compile Include="ImageService\Server\appConfigManager.cs" />
     <Compile Include="Logging\ILoggingService.cs" />
     <Compile Include="ImageService\ImageService.cs">
       <SubType>Component</SubType>
