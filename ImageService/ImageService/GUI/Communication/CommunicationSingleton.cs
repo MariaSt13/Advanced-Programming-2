@@ -18,8 +18,11 @@ namespace GUI.Communication
         public event EventHandler<MessageRecievedEventArgs> connectServer;
         public event EventHandler<CommandRecievedEventArgs> SingletonCommandRecieved;
         private  IClientHandler clientHandler;
+        private bool _isConnected;
 
-        private CommunicationSingleton() {}
+        private CommunicationSingleton() {
+            _isConnected = false;
+        }
 
         public static CommunicationSingleton Instance
         {
@@ -46,7 +49,7 @@ namespace GUI.Communication
             {
 
             }
-
+            instance._isConnected = true;
             //HandleClient
             Instance.clientHandler.ClientHandlerCommandRecieved += ClientHandlerCommandRecievedHandle;
             Instance.clientHandler.HandleClient(client);
@@ -63,6 +66,16 @@ namespace GUI.Communication
         public static void Write(string command)
         {
             Instance.clientHandler.write(command);
+        }
+
+        // Properties
+        public bool isConnected
+        {
+            get { return instance._isConnected; }
+            set
+            {
+                instance._isConnected = value;
+            }
         }
 
     }

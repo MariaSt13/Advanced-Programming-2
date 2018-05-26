@@ -13,7 +13,7 @@
         <localConvertor:ConnectedToBrushConverter x:Key="myTypeToBrushConverter" />
     </Window.Resources>
 
-    <Grid Background="{Binding backroundColor, Converter={StaticResource myTypeToBrushConverter}}">
+    <Grid Background="{Binding isConnected, Converter={StaticResource myTypeToBrushConverter}}">
         <TabControl>
             <TabItem Header="Settings">
                 <controls:SettingsView x:Name="settings" RenderTransformOrigin="0.849,0.44"></controls:SettingsView>
