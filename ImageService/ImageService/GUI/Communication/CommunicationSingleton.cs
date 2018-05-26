@@ -12,27 +12,35 @@ using Newtonsoft.Json;
 
 namespace GUI.Communication
 {
-    class CommunicationSingleton
+    public class CommunicationSingleton
     {
         private static CommunicationSingleton instance;
         public event EventHandler<MessageRecievedEventArgs> connectServer;
         public event EventHandler<CommandRecievedEventArgs> SingletonCommandRecieved;
         private  IClientHandler clientHandler;
         private bool _isConnected;
+        //Helper for Thread Safety
+        private static object m_lock = new object();
+
 
         private CommunicationSingleton() {
-            _isConnected = false;
+            
         }
 
         public static CommunicationSingleton Instance
         {
             get
             {
-                if (instance == null)
+
+                lock (m_lock)
                 {
+                    if (instance == null)
+                    {
                     instance = new CommunicationSingleton();
+                    instance._isConnected = false;
                     Instance.clientHandler = new ClientHandler();
-                }
+                    }
+                     }
                 return instance;
             }
         }
@@ -71,10 +79,10 @@ namespace GUI.Communication
         // Properties
         public bool isConnected
         {
-            get { return instance._isConnected; }
+            get { return Instance._isConnected; }
             set
             {
-                instance._isConnected = value;
+                Instance._isConnected = value;
             }
         }
 

@@ -13,7 +13,7 @@ namespace GUI.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool boolValue = (bool)value;
-            if (boolValue)
+            if (boolValue == false)
             {
                 return "Gray";
             }
