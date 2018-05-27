@@ -109,7 +109,7 @@ namespace ImageService
             this.logging = new LoggingService();
             logging.MessageRecieved += onMessage;
             
-            //creare server and client handler
+            //create server and client handler
             this.clientHandler = new ClientHandler();
             this.server = new Communication.Server(8000, clientHandler);
             // create image modal, controller and image server
@@ -166,7 +166,7 @@ namespace ImageService
         /// <param name="e"></param>
         public void newConnectionHandler(object sender, MessageRecievedEventArgs e)
         {
-            logging.Log("start new connection.", MessageTypeEnum.INFO);
+            logging.Log("start a new connection", MessageTypeEnum.INFO);
         }
 
         /// <summary>
