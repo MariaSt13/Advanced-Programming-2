@@ -57,9 +57,9 @@ namespace GUI.Communication
             {
                 client.Connect(ep);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-
+                return;
             }
             instance.isConnected = true;
             //HandleClient

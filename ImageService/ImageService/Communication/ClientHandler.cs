@@ -64,7 +64,7 @@ namespace Communication
             {
                 writer.Write(message);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 writer.Dispose();
             }

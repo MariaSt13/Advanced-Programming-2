@@ -41,10 +41,25 @@ namespace GUI.Model
                     this.ThumbnailSize = int.Parse(args[3]);
                     string[] pathArray = args[4].Split(';');
                     foreach( string path in pathArray) {
-                        App.Current.Dispatcher.Invoke((Action)delegate // <--- HERE
+                        App.Current.Dispatcher.Invoke((Action)delegate
                         {
                             this.Handlerslist.Add(path);
                         });
+                    }
+                    break;
+
+                //GetConfigCommand command
+                case ((int)CommandEnum.CommandEnum.CloseCommand):
+                    string handlerPath = e.Args[0];
+                    for (int i = 0; i < _Handlerslist.Count; i++)
+                    {
+                        if (_Handlerslist[i].Equals(handlerPath))
+                        {
+                            App.Current.Dispatcher.Invoke((Action)delegate
+                            {
+                                _Handlerslist.RemoveAt(i);
+                            });
+                        }
                     }
                     break;
 

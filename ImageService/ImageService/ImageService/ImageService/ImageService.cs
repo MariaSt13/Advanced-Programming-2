@@ -154,11 +154,6 @@ namespace ImageService
         public void newConnectionHandler(object sender, MessageRecievedEventArgs e)
         {
             logging.Log("start new connection.", MessageTypeEnum.INFO);
-            //System.Threading.Thread.Sleep(3000); 
-            bool result;
-          // string[] logs = this.logging.GetLogs();
-           // string message = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.GetConfigCommand,null, out result);
-            //this.clientHandler.write(message);
         }
 
         /// <summary>
