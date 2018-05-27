@@ -61,6 +61,11 @@ namespace GUI.ViewModel
 
         }
 
+        /// <summary>
+        /// check if remove button can be clicked
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         private bool CanRemove(object obj)
         {
             if (this.model.SelectedItem == null)

@@ -23,11 +23,19 @@ namespace GUI.Model
         private object _SelectedItem;
         private ObservableCollection<object> _Handlerslist = new ObservableCollection<object> { };
 
+        /// <summary>
+        /// constructor.
+        /// </summary>
         public SettingsModel()
         {
             Communication.CommunicationSingleton.Instance.SingletonCommandRecieved += CommandRecieved;
         }
 
+        /// <summary>
+        /// recieved command
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">args </param>
         private void CommandRecieved(object sender, CommandRecievedEventArgs e)
         {
             switch (e.CommandID)
@@ -39,7 +47,9 @@ namespace GUI.Model
                     this.SourceName = args[1];
                     this.LogName = args[2];
                     this.ThumbnailSize = int.Parse(args[3]);
+                    //get handler split by ';'
                     string[] pathArray = args[4].Split(';');
+                    //add to list
                     foreach( string path in pathArray) {
                         App.Current.Dispatcher.Invoke((Action)delegate
                         {
@@ -48,8 +58,9 @@ namespace GUI.Model
                     }
                     break;
 
-                //GetConfigCommand command
+                //CloseCommand command
                 case ((int)CommandEnum.CommandEnum.CloseCommand):
+                    //close a command
                     string handlerPath = e.Args[0];
                     for (int i = 0; i < _Handlerslist.Count; i++)
                     {
@@ -62,16 +73,19 @@ namespace GUI.Model
                         }
                     }
                     break;
-
             }
         }
 
+        /// <summary>
+        /// PropertyChanged
+        /// </summary>
+        /// <param name="propName"></param>
         public void NotifyPropertyChanged(string propName)
         {
             this?.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
 
-        // the properties implementatio
+        // the properties implementation
 
         public string LogName
         {

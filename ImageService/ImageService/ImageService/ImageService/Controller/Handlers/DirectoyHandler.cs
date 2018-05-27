@@ -99,9 +99,16 @@ namespace ImageService.Controller.Handlers
                     break;
             }
         }
+
+        /// <summary>
+        /// command to remove handler
+        /// </summary>
+        /// <param name="sender"> sender </param>
+        /// <param name="e"> args</param>
         public void OnRemove(object sender, CommandRecievedEventArgs e)
         {
             string path = e.Args[0];
+            //check if this handler is the one to remove.
             if(path.Equals(this.m_path))
             {
                 this.OnClose();

@@ -13,18 +13,24 @@ namespace GUI.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private ObservableCollection<MessageRecievedEventArgs> _MessageList = new ObservableCollection<MessageRecievedEventArgs> { };
+        private ObservableCollection<MessageRecievedEventArgs> _MessageList =
+            new ObservableCollection<MessageRecievedEventArgs> { };
 
         public LogModel()
         {
             Communication.CommunicationSingleton.Instance.SingletonCommandRecieved += CommandRecieved;
         }
 
+        /// <summary>
+        /// recieved command
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">args</param>
         private void CommandRecieved(object sender, CommandRecievedEventArgs e)
         {
             switch (e.CommandID)
             {
-                //GetConfigCommand command
+                //GetLogCommand command
                 case ((int)CommandEnum.CommandEnum.LogCommand):
                     string[] arg = e.Args;
                     string type;
@@ -32,7 +38,7 @@ namespace GUI.Model
                     string message;
                     for (int i = 0; i < arg.Length; i += 2)
                     {
-                        type =arg[i];
+                        type = arg[i];
                         switch (type)
                         {
                             case "INFO":
@@ -44,10 +50,10 @@ namespace GUI.Model
                             case "FAIL":
                                 typeEnum = MessageTypeEnum.FAIL;
                                 break;
-
                         }
                         message = arg[i + 1];
-                        App.Current.Dispatcher.Invoke((Action)delegate // <--- HERE
+                        //add message to list
+                        App.Current.Dispatcher.Invoke((Action)delegate
                         {
                             MessageList.Add(new MessageRecievedEventArgs(message, typeEnum));
                         });
@@ -58,6 +64,10 @@ namespace GUI.Model
             }
         }
 
+        /// <summary>
+        /// PropertyChanged event
+        /// </summary>
+        /// <param name="propName"></param>
         public void NotifyPropertyChanged(string propName)
         {
             this?.PropertyChanged(this, new PropertyChangedEventArgs(propName));

@@ -13,6 +13,12 @@ namespace ImageService.Commands
 {
     class GetConfigCommand : ICommand
     {
+        /// <summary>
+        /// Execute get config command. return paramets from app config.
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="result"></param>
+        /// <returns>a serialize CommandRecievedEventArgs object</returns>
         public string Execute(string[] args, out bool result)
         {
             result = true;

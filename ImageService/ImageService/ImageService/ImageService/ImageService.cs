@@ -109,35 +109,49 @@ namespace ImageService
             this.logging = new LoggingService();
             logging.MessageRecieved += onMessage;
             
-            //start server
+            //creare server and client handler
             this.clientHandler = new ClientHandler();
             this.server = new Communication.Server(8000, clientHandler);
-            // create image modal, controller and server
+            // create image modal, controller and image server
             this.modal = new ImageServiceModal(outputFolder, size,logging);
             this.controller = new ImageController(modal, logging, clientHandler);
             this.m_imageServer = new ImageServer(this.logging, this.controller);
+
+            //sign to events
             this.clientHandler.ClientHandlerCommandRecieved += ClientHandlerCommandRecievedHandle;
             server.newConnection += newConnectionHandler;
 
             logging.Log("In OnStart", MessageTypeEnum.INFO);
+            //start server
             server.Start();
 
         }
 
+        /// <summary>
+        /// Happens when there is a new message wrom client
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">args</param>
         public void ClientHandlerCommandRecievedHandle(object sender, CommandRecievedEventArgs e)
         {
             bool result;
             string message;  
+            //close command
             if (e.CommandID == (int)CommandEnum.CommandEnum.CloseCommand)
             {
                 message = this.controller.ExecuteCommand(e.CommandID, e.Args, out result);
+                //write to all clients
                 this.server.writeAll(message);
 
+                //log command
             } else if(e.CommandID == (int)CommandEnum.CommandEnum.LogCommand) {
+                //get all the logs from start service
                 string[] logs = this.logging.GetLogs();
                 message = this.controller.ExecuteCommand(e.CommandID, logs, out result);
                 this.clientHandler.write(message);
             }
+            
+            //other commands
             else
             {
                 message = this.controller.ExecuteCommand(e.CommandID, e.Args, out result);
@@ -145,6 +159,11 @@ namespace ImageService
             }
         }
 
+        /// <summary>
+        /// happens when there is a new connection in the server.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void newConnectionHandler(object sender, MessageRecievedEventArgs e)
         {
             logging.Log("start new connection.", MessageTypeEnum.INFO);
@@ -175,6 +194,7 @@ namespace ImageService
             string[] argv = {status.ToString(),message};
             bool result;
             string messagee = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand, argv, out result);
+            //write log to all clients.
             this.server.writeAll(messagee);
         }
 

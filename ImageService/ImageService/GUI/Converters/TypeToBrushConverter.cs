@@ -9,6 +9,9 @@ using System.Globalization;
 
 namespace GUI.Converters
 {
+    /// <summary>
+    /// type of log message convert
+    /// </summary>
     public class TypeToBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -16,12 +19,15 @@ namespace GUI.Converters
             string returnVal = "";
             switch ((MessageTypeEnum)value)
             {
+                //error
                 case MessageTypeEnum.FAIL:
                     returnVal = "IndianRed";
                     break;
+                 // info
                 case MessageTypeEnum.INFO:
                     returnVal = "LightGreen";
                     break;
+                // warning
                 case MessageTypeEnum.WARNING:
                     returnVal = "khaki";
                     break;
@@ -35,13 +41,13 @@ namespace GUI.Converters
             MessageTypeEnum e = 0;
             switch ((string)value)
             {
-                case "red":
+                case "IndianRed":
                     e = MessageTypeEnum.FAIL;
                     break;
-                case "green":
+                case "LightGreen":
                     e = MessageTypeEnum.INFO;
                     break;
-                case "yellow":
+                case "khaki":
                     e = MessageTypeEnum.WARNING;
                     break;
             }

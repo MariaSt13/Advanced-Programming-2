@@ -10,11 +10,15 @@
 
     <UserControl.Resources>
         <localConvertor:TypeToBrushConverter x:Key="myTypeToBrushConverter" />
+        <Style x:Key="Header">
+            <Setter Property="TextBlock.FontSize" Value="25"></Setter>
+            <Setter Property="TextBlock.Foreground" Value="Blue"></Setter>
+            <Setter Property="TextBlock.FontWeight" Value="Bold"></Setter>
+            <Setter Property="TextBlock.HorizontalAlignment" Value="Center"></Setter>
+        </Style>
     </UserControl.Resources>
-
     <Grid>
-        <TextBlock Text="Logs" FontSize="25" Foreground= "Blue" FontWeight="Bold"  HorizontalAlignment="Center"></TextBlock>
-
+        <TextBlock Style="{StaticResource Header}" Text="Logs" ></TextBlock>
 
         <ListView HorizontalAlignment = "Left" Height = "240" Margin = "5,40,0,0" 
          VerticalAlignment = "Top" Width = "495" x:Name = "MessageList" ItemsSource="{Binding VM_MessageList}">

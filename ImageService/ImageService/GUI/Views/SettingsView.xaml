@@ -6,6 +6,13 @@
              xmlns:local="clr-namespace:GUI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="Header">
+            <Setter Property="TextBlock.FontSize" Value="25"></Setter>
+            <Setter Property="TextBlock.Foreground" Value="Blue"></Setter>
+            <Setter Property="TextBlock.FontWeight" Value="Bold"></Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

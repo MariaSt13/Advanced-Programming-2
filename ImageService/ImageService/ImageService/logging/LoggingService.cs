@@ -13,11 +13,18 @@ namespace ImageService.Logging
         /// </summary>
         public event EventHandler<MessageRecievedEventArgs> MessageRecieved;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         public LoggingService()
         {
             this.logs = new ArrayList();
         }
 
+        /// <summary>
+        /// return an array of all logs.
+        /// </summary>
+        /// <returns></returns>
         public string [] GetLogs()
         {
             return (String[])logs.ToArray(typeof(string));
