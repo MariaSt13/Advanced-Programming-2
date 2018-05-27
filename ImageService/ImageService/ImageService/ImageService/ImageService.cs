@@ -95,7 +95,6 @@ namespace ImageService
             serviceStatus.dwWaitHint = 100000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-            eventLog1.WriteEntry("In OnStart");
 
             // Update the service state to Running.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
@@ -109,11 +108,10 @@ namespace ImageService
             //create logging modal and add to event
             this.logging = new LoggingService();
             logging.MessageRecieved += onMessage;
-            eventLog1.WriteEntry("////");
+            
             //start server
             this.clientHandler = new ClientHandler();
             this.server = new Communication.Server(8000, clientHandler);
-            eventLog1.WriteEntry("///////");
             // create image modal, controller and server
             this.modal = new ImageServiceModal(outputFolder, size,logging);
             this.controller = new ImageController(modal, logging, clientHandler);
@@ -121,32 +119,28 @@ namespace ImageService
             this.clientHandler.ClientHandlerCommandRecieved += ClientHandlerCommandRecievedHandle;
             server.newConnection += newConnectionHandler;
 
+            logging.Log("In OnStart", MessageTypeEnum.INFO);
             server.Start();
-            logging.Log("start server",MessageTypeEnum.INFO);
 
         }
 
         public void ClientHandlerCommandRecievedHandle(object sender, CommandRecievedEventArgs e)
         {
-          //  logging.Log("commandRecived." + e.CommandID, MessageTypeEnum.INFO);
             bool result;
             string message;  
             if (e.CommandID == (int)CommandEnum.CommandEnum.CloseCommand)
             {
                 message = this.controller.ExecuteCommand(e.CommandID, e.Args, out result);
-               // logging.Log("send message close" + message, MessageTypeEnum.INFO);
                 this.server.writeAll(message);
 
             } else if(e.CommandID == (int)CommandEnum.CommandEnum.LogCommand) {
                 string[] logs = this.logging.GetLogs();
                 message = this.controller.ExecuteCommand(e.CommandID, logs, out result);
-                //logging.Log("send message logs" + message, MessageTypeEnum.INFO);
                 this.clientHandler.write(message);
             }
             else
             {
                 message = this.controller.ExecuteCommand(e.CommandID, e.Args, out result);
-               // logging.Log("send message args" + message, MessageTypeEnum.INFO);
                 this.clientHandler.write(message);
             }
         }
@@ -181,8 +175,6 @@ namespace ImageService
             string[] argv = {status.ToString(),message};
             bool result;
             string messagee = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand, argv, out result);
-            //this.clientHandler.write(messagee);
-            
             this.server.writeAll(messagee);
         }
 
@@ -197,7 +189,8 @@ namespace ImageService
             serviceStatus.dwWaitHint = 100000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-            eventLog1.WriteEntry("In onStop.");
+            logging.Log("In onStop.", MessageTypeEnum.INFO);
+
             this.m_imageServer.Close();
 
             // Update the service state to stopped.  
@@ -213,7 +206,7 @@ namespace ImageService
         /// </summary>
         protected override void OnContinue()
         {
-            eventLog1.WriteEntry("In OnContinue.");
+            logging.Log("In OnContinue.", MessageTypeEnum.INFO);
         }
     }
 }
