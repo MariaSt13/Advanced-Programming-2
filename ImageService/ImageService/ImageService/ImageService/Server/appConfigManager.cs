@@ -108,7 +108,7 @@ namespace ImageService.Server
         public void removeHandler(string handler)
         {
             string[] arg = { handler };
-            connectServer?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.CloseCommand, arg, null);
+            clickRemove?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.CloseCommand, arg, null));
             for (int i = 0; i < _Handlers.Count; i++)
             {
                 if (_Handlers[i].Equals(handler))

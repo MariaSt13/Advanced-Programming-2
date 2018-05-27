@@ -128,25 +128,25 @@ namespace ImageService
 
         public void ClientHandlerCommandRecievedHandle(object sender, CommandRecievedEventArgs e)
         {
-            logging.Log("commandRecived." + e.CommandID, MessageTypeEnum.INFO);
+          //  logging.Log("commandRecived." + e.CommandID, MessageTypeEnum.INFO);
             bool result;
             string message;  
             if (e.CommandID == (int)CommandEnum.CommandEnum.CloseCommand)
             {
                 message = this.controller.ExecuteCommand(e.CommandID, e.Args, out result);
-                logging.Log("send message close" + message, MessageTypeEnum.INFO);
+               // logging.Log("send message close" + message, MessageTypeEnum.INFO);
                 this.server.writeAll(message);
 
             } else if(e.CommandID == (int)CommandEnum.CommandEnum.LogCommand) {
                 string[] logs = this.logging.GetLogs();
                 message = this.controller.ExecuteCommand(e.CommandID, logs, out result);
-                logging.Log("send message logs" + message, MessageTypeEnum.INFO);
+                //logging.Log("send message logs" + message, MessageTypeEnum.INFO);
                 this.clientHandler.write(message);
             }
             else
             {
                 message = this.controller.ExecuteCommand(e.CommandID, e.Args, out result);
-                logging.Log("send message args" + message, MessageTypeEnum.INFO);
+               // logging.Log("send message args" + message, MessageTypeEnum.INFO);
                 this.clientHandler.write(message);
             }
         }
@@ -187,7 +187,8 @@ namespace ImageService
             bool result;
             string messagee = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand, argv, out result);
             //this.clientHandler.write(messagee);
-            //this.server.writeAll(messagee);
+            
+            this.server.writeAll(messagee);
         }
 
         /// <summary>

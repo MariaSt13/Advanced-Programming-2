@@ -15,7 +15,7 @@ namespace Communication
     {
         private NetworkStream stream;
         private BinaryReader reader;
-        private BinaryWriter writer;
+        private BinaryWriter writer = null;
         public event EventHandler<CommandRecievedEventArgs> ClientHandlerCommandRecieved;
         //Helper for Thread Safety
         private Mutex mutex = new Mutex();
@@ -45,10 +45,31 @@ namespace Communication
         }
         public void write(string message)
         {
-            this.mutex.WaitOne();
-            this.writer.Write(message);
-            this.mutex.ReleaseMutex();
+          
+            if (writer != null)
+            {
+                this.mutex.WaitOne();
+                this.writer.Write(message);
+                this.mutex.ReleaseMutex();
+            }
             
+        }
+
+        public void writeToClient(string message, TcpClient client)
+        {
+            NetworkStream stream = client.GetStream();
+            BinaryWriter writer = new BinaryWriter(stream);
+            this.mutex.WaitOne();
+            try 
+            {
+                writer.Write(message);
+            }
+            catch (Exception e)
+            {
+                writer.Dispose();
+            }
+            this.mutex.ReleaseMutex();
+
         }
     }
 }

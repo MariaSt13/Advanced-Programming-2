@@ -96,7 +96,7 @@ namespace GUI.Model
             set
             {
                 this._SourceName = value;
-                NotifyPropertyChanged("_SourceName");
+                NotifyPropertyChanged("SourceName");
             }
         }
 
@@ -110,7 +110,7 @@ namespace GUI.Model
             set
             {
                 this._ThumbnailSize = value;
-                NotifyPropertyChanged("_ThumbnailSize");
+                NotifyPropertyChanged("ThumbnailSize");
             }
         }
 

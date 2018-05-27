@@ -13,5 +13,6 @@ namespace Communication
         event EventHandler<CommandRecievedEventArgs> ClientHandlerCommandRecieved;
         void HandleClient(TcpClient client);
         void write(string message);
+        void writeToClient(string message, TcpClient client);
     }
 }

@@ -57,9 +57,10 @@ namespace Communication
         {
             foreach (TcpClient client in clients)
             {
-                NetworkStream stream = client.GetStream();
-                StreamWriter writer = new StreamWriter(stream);
-                writer.Write(message);
+                if (client.Connected)
+                {
+                    ch.writeToClient(message, client);
+                }
             }
         }
 
