@@ -137,6 +137,7 @@ namespace WebApplication2.Controllers
 
         public ActionResult ImageWebView()   
         {
+            communicationModel.Connect();
             imageWebModel.CountNumOfPictures();
             return View(imageWebModel);
         }

@@ -11,13 +11,18 @@ namespace WebApplication2.Models
     {
         private List<Student> _students;
         private int _numOfPictures;
-
+        private bool _connect;
         public ImageWebModel()
         {
             this.students = readStudentsInfo();
-
+            this.connect = communicationModel.Instance.isConnected;
         }
 
+        public bool connect
+        {
+            get { return _connect; }
+            set { _connect = value; }
+        }
         public int numOfPictures
         {
             get { return _numOfPictures; }
@@ -37,7 +42,7 @@ namespace WebApplication2.Models
         private List<Student> readStudentsInfo()
         {
             List<Student> list = new List<Student>();
-            string[] lines = File.ReadAllLines(HttpContext.Current.Server.MapPath("App_Data/student_info.txt"));
+            string[] lines = File.ReadAllLines(HttpContext.Current.Server.MapPath("/App_Data/student_info.txt"));
             for (int i = 0; i < lines.Length; i++)
             {
                 string[] info = lines[i].Split(' ');
