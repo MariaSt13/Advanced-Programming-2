@@ -60,9 +60,10 @@ namespace WebApplication2.Models
             return list;
         }
 
-        public void CountNumOfPictures()
+        public void CountNumOfPictures(string path)
         {
-            string path = HttpContext.Current.Server.MapPath("../PhotosOutput");
+            path += "/Thumbnails";
+          //  string path = HttpContext.Current.Server.MapPath("../PhotosOutput/Thumbnails");
             int fileCount = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).Length;
             this.numOfPictures =  fileCount;
         }

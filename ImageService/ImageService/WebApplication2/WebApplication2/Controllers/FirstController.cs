@@ -138,7 +138,8 @@ namespace WebApplication2.Controllers
 
         public ActionResult ImageWebView()   
         {
-            imageWebModel.CountNumOfPictures();
+            configModel.getConfig();
+            imageWebModel.CountNumOfPictures(configModel.OutputDirectory);
             return View(imageWebModel);
         }
         public ActionResult LogsView()
