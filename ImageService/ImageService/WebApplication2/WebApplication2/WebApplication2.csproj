@@ -139,13 +139,9 @@
     <Content Include="scripts\jquery-3.0.0.slim.js" />
     <Content Include="scripts\jquery-3.0.0.slim.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
-<<<<<<< HEAD
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-=======
-    <Content Include="Web.config" />
->>>>>>> c20ec50e28fd241ff816df12a23bcf2213036911
     <Content Include="Views\First\Create.cshtml" />
     <Content Include="Views\First\Details.cshtml" />
   </ItemGroup>
