@@ -10,6 +10,7 @@ namespace WebApplication2.Controllers
 {
     public class FirstController : Controller
     {
+        static ImageWebModel imageWebModel  = new ImageWebModel();
         static List<Employee> employees = new List<Employee>()
         {
           new Employee  { FirstName = "Moshe", LastName = "Aron", Email = "Stam@stam", Salary = 10000, Phone = "08-8888888" },
@@ -132,6 +133,25 @@ namespace WebApplication2.Controllers
                 i++;
             }
             return RedirectToAction("Error");
+        }
+
+        public ActionResult ImageWebView()   
+        {
+            imageWebModel.readStudentsInfo();
+            imageWebModel.CountNumOfPictures();
+            return View(imageWebModel);
+        }
+        public ActionResult LogsView()
+        {
+            return View();
+        }
+        public ActionResult PhotosView()
+        {
+            return View();
+        }
+        public ActionResult ConfigView()
+        {
+            return View();
         }
     }
 }
