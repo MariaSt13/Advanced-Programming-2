@@ -5,3 +5,32 @@
 
 <h2>Photos</h2>
 
+@model WebApplication2.Models.PhotosModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/album.css" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    <div class="container" id="tourpackages-carousel">
+        <div class="row">
+            <div class="col-xs-18 col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img src="../PhotosOutput/IMG_0005.JPG" alt="" style="border-radius:50%">
+                    <div class="caption">
+                        <h4>Thumbnail label</h4>
+                        <p>date:</p>
+                        <p><a href="#" class="btn btn-info btn-xs" role="button">view</a> <a href="#" class="btn btn-default btn-xs" role="button">delete</a></p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End row -->
+
+    </div><!-- End container -->
+</body>
+</html>
+

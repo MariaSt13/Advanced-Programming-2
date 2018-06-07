@@ -140,6 +140,7 @@
     <Content Include="scripts\jquery-3.0.0.slim.js" />
     <Content Include="scripts\jquery-3.0.0.slim.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="album.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
