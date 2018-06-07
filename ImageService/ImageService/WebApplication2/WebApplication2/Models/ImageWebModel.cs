@@ -14,12 +14,10 @@ namespace WebApplication2.Models
 
         public ImageWebModel()
         {
-            //this.students = readStudentsInfo();
-           // this.numOfPictures = CountNumOfPictures();
+            this.students = readStudentsInfo();
 
         }
 
-        [Display(Name = "FirstName")]
         public int numOfPictures
         {
             get { return _numOfPictures; }
@@ -36,16 +34,17 @@ namespace WebApplication2.Models
             }
         }
 
-        public void readStudentsInfo()
+        private List<Student> readStudentsInfo()
         {
             List<Student> list = new List<Student>();
-            string[] lines = System.IO.File.ReadAllLines(HttpContext.Current.Server.MapPath("../App_Data/student_info.txt"));
-            for (int i = 0; i < lines.Length; i +=3)
+            string[] lines = File.ReadAllLines(HttpContext.Current.Server.MapPath("App_Data/student_info.txt"));
+            for (int i = 0; i < lines.Length; i++)
             {
-                Student s = new Student(lines[i], lines[i + 1], lines[i + 2]);
+                string[] info = lines[i].Split(' ');
+                Student s = new Student(info[0], info[1], info[2]);
                 list.Add(s);
             }
-            this.students = list;
+            return list;
         }
 
         public void CountNumOfPictures()

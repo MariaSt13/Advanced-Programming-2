@@ -137,7 +137,6 @@ namespace WebApplication2.Controllers
 
         public ActionResult ImageWebView()   
         {
-            imageWebModel.readStudentsInfo();
             imageWebModel.CountNumOfPictures();
             return View(imageWebModel);
         }
