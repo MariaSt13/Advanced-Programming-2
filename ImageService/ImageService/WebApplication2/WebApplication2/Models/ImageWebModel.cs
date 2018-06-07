@@ -14,14 +14,22 @@ namespace WebApplication2.Models
         private bool _connect;
         public ImageWebModel()
         {
+            communicationModel.Connect();
             this.students = readStudentsInfo();
-            this.connect = communicationModel.Instance.isConnected;
+            this._connect = communicationModel.Instance.isConnected;
         }
 
-        public bool connect
+        public string connect
         {
-            get { return _connect; }
-            set { _connect = value; }
+            get {
+                if (this._connect == true)
+                {
+                    return "Connceted";
+                } else
+                {
+                    return "Not Connected";
+                }
+            }
         }
         public int numOfPictures
         {

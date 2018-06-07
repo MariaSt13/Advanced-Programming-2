@@ -1,6 +1,7 @@
 ﻿using Communication;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -12,8 +13,10 @@ namespace WebApplication2.Models
     {
         private static communicationModel instance;
         private static object m_lock = new object();
-        private IClientHandler clientHandler;
         private bool _isConnected;
+        private NetworkStream stream;
+        private BinaryReader reader;
+        private BinaryWriter writer = null;
 
         private communicationModel() { }
 
@@ -30,7 +33,6 @@ namespace WebApplication2.Models
                     {
                         instance = new communicationModel();
                         instance._isConnected = false;
-                        Instance.clientHandler = new ClientHandler();
                     }
                 }
                 return instance;
@@ -65,8 +67,10 @@ namespace WebApplication2.Models
             //connection success
            Instance.isConnected = true;
 
-            //HandleClient
-            Instance.clientHandler.HandleClient(client);
+            // get streams
+            Instance.stream = client.GetStream();
+            Instance.reader = new BinaryReader(Instance.stream);
+            Instance.writer = new BinaryWriter(Instance.stream);
         }
 
         /// <summary>
@@ -75,7 +79,13 @@ namespace WebApplication2.Models
         /// <param name="command"></param>
         public static void Write(string command)
         {
-            Instance.clientHandler.write(command);
+            Instance.writer.Write(command);
+        }
+
+        public static string read()
+        {
+            string output = Instance.reader.ReadString();
+            return output;
         }
     }
 }

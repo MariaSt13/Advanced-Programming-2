@@ -11,6 +11,7 @@ namespace WebApplication2.Controllers
     public class FirstController : Controller
     {
         static ImageWebModel imageWebModel  = new ImageWebModel();
+        static ConfigModel configModel = new ConfigModel();
         static List<Employee> employees = new List<Employee>()
         {
           new Employee  { FirstName = "Moshe", LastName = "Aron", Email = "Stam@stam", Salary = 10000, Phone = "08-8888888" },
@@ -137,7 +138,6 @@ namespace WebApplication2.Controllers
 
         public ActionResult ImageWebView()   
         {
-            communicationModel.Connect();
             imageWebModel.CountNumOfPictures();
             return View(imageWebModel);
         }
@@ -151,7 +151,8 @@ namespace WebApplication2.Controllers
         }
         public ActionResult ConfigView()
         {
-            return View();
+            configModel.getConfig();
+            return View(configModel);
         }
     }
 }
