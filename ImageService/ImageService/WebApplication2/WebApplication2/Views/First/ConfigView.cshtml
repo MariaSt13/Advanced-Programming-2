@@ -14,5 +14,8 @@
 <p><b>Handlers:</b></p>
 @foreach (var item in Model.Handlerslist)
 {
-    <p>@Html.DisplayFor(model => item)</p>
+    if (item.Length != 0)
+    {
+        @Html.ActionLink(item, "DeleteHendlerView", new { name = item })
+    }
 }

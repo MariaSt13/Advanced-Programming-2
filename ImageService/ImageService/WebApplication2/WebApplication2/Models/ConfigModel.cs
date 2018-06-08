@@ -55,5 +55,14 @@ namespace WebApplication2.Models
                 this.Handlerslist.Add(path);
             }
         }
+
+        public void deleteHendler(string name)
+        {
+            string[] args = { name };
+            CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.CloseCommand, args, null);
+            string str = JsonConvert.SerializeObject(command);
+            communicationModel.Write(str);
+            string output = communicationModel.read();
+        }
     }
 }

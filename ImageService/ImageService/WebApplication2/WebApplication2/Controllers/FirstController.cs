@@ -13,7 +13,7 @@ namespace WebApplication2.Controllers
         static ImageWebModel imageWebModel  = new ImageWebModel();
         static PhotosModel photosModel = new PhotosModel();
         static ConfigModel configModel = new ConfigModel();
-
+        static LogsModel logsModel = new LogsModel();
 
         public  FirstController()
         {
@@ -144,6 +144,15 @@ namespace WebApplication2.Controllers
             return RedirectToAction("Error");
         }
 
+        public ActionResult DeleteHendlerView(string name)
+        {
+            return View((object)name);
+        }
+        public ActionResult DeleteHendler(string name)
+        {
+            configModel.deleteHendler(name);
+            return RedirectToAction("ConfigView");
+        }
         public ActionResult ImageWebView()   
         {
             configModel.getConfig();
@@ -152,7 +161,8 @@ namespace WebApplication2.Controllers
         }
         public ActionResult LogsView()
         {
-            return View();
+            logsModel.getLogs();
+            return View(logsModel);
         }
 
         public ActionResult ViewPhotoView(Photo p)

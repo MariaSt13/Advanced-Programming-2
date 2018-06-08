@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "DeleteHendlerView";
+}
+
+@model string
+<h2>DeleteHendler</h2>
+<p>Are you sure you want to delete @Model ?</p>
+<input type="button" id="btnOk" value="OK" />
+<input type="button" id="btnCancel" value="CANCEL" onclick="@("window.location.href='" + @Url.Action("ConfigView", "First") + "'");" />
+
+
+<script>
+    $("#btnOk").click(function () {
+        document.getElementById("btnOk").disabled = true;
+        document.getElementById("btnCancel").disabled = true;
+        window.location.href = '@Url.Action("DeleteHendler", "First", new { name = Model })';
+    });
+
+</script>
+
+

@@ -186,6 +186,7 @@
     <Content Include="Views\First\ImageWebView.cshtml" />
     <Content Include="Views\First\ConfigView.cshtml" />
     <Content Include="Views\First\ViewPhotoView.cshtml" />
+    <Content Include="Views\First\DeleteHendlerView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

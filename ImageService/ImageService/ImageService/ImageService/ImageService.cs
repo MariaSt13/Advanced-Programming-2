@@ -195,7 +195,7 @@ namespace ImageService
             bool result;
             string messagee = this.controller.ExecuteCommand((int)CommandEnum.CommandEnum.LogCommand, argv, out result);
             //write log to all clients.
-            this.server.writeAll(messagee);
+          //  this.server.writeAll(messagee);
         }
 
         /// <summary>
