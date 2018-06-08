@@ -10,7 +10,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="~/album.css" rel="stylesheet" />
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -18,18 +17,26 @@
 <body>
     <div class="container" id="tourpackages-carousel">
         <div class="row">
-            <div class="col-xs-18 col-sm-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="../PhotosOutput/IMG_0005.JPG" alt="" style="border-radius:50%">
-                    <div class="caption">
-                        <h4>Thumbnail label</h4>
-                        <p>date:</p>
-                        <p><a href="#" class="btn btn-info btn-xs" role="button">view</a> <a href="#" class="btn btn-default btn-xs" role="button">delete</a></p>
+            @foreach (var item in Model.photos)
+            {  
+                <div class="col-xs-18 col-sm-6 col-md-3">
+                    <div class="thumbnail">
+                        <img src= @item.Path alt="" style="border-radius:50%">
+                        <div class="caption">
+                            <h4>@item.Name</h4>
+                            <p> @item.Year <br> @item.Month</p>
+                            <p><a href="#" class="btn btn-info btn-md" onclick="location.href='@Url.Action("ViewPhotoView", "First",item)'" role="button">view</a> <a href="#" class="btn btn-danger btn-md" role="button">delete</a></p>
+
+                            <script>
+                            function myFunction() {
+                                @Html.ActionLink("Home", "Index", "First")
+                               }
+                            </script>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </div><!-- End row -->
-
     </div><!-- End container -->
 </body>
 </html>

@@ -140,7 +140,6 @@
     <Content Include="scripts\jquery-3.0.0.slim.js" />
     <Content Include="scripts\jquery-3.0.0.slim.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
-    <Content Include="album.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -161,6 +160,7 @@
     <Compile Include="Models\ImageWebModel.cs" />
     <Compile Include="Models\LogsModel.cs" />
     <Compile Include="Models\PhotosModel.cs" />
+    <Compile Include="Models\ViewPhotoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +185,7 @@
     <Content Include="Views\First\LogsView.cshtml" />
     <Content Include="Views\First\ImageWebView.cshtml" />
     <Content Include="Views\First\ConfigView.cshtml" />
+    <Content Include="Views\First\ViewPhotoView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -11,7 +11,15 @@ namespace WebApplication2.Controllers
     public class FirstController : Controller
     {
         static ImageWebModel imageWebModel  = new ImageWebModel();
+        static PhotosModel photosModel = new PhotosModel();
         static ConfigModel configModel = new ConfigModel();
+
+
+        public  FirstController()
+        {
+
+        }
+
         static List<Employee> employees = new List<Employee>()
         {
           new Employee  { FirstName = "Moshe", LastName = "Aron", Email = "Stam@stam", Salary = 10000, Phone = "08-8888888" },
@@ -146,9 +154,15 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
+
+        public ActionResult ViewPhotoView(Photo p)
+        {
+            ViewPhotoModel viewPhotoModel = new ViewPhotoModel(p);
+            return View(viewPhotoModel);
+        }
         public ActionResult PhotosView()
         {
-            return View();
+            return View(photosModel);
         }
         public ActionResult ConfigView()
         {
