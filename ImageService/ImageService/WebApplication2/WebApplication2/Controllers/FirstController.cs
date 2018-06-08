@@ -188,7 +188,8 @@ namespace WebApplication2.Controllers
 
         public ActionResult PhotosView()
         {
-            photosModel = new PhotosModel();
+            configModel.getConfig();
+            photosModel = new PhotosModel(configModel.OutputDirectory);
             return View(photosModel);
         }
         public ActionResult ConfigView()

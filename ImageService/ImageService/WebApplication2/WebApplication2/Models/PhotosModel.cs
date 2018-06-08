@@ -9,16 +9,18 @@ namespace WebApplication2.Models
     public class PhotosModel
     {
         private List<Photo> _photos;
+        string outputDirectory;
 
-        public PhotosModel()
+        public PhotosModel(string outputDirectory)
         {
+            this.outputDirectory = outputDirectory;
             this._photos = readPhotosInfo();
         }
 
         private List<Photo> readPhotosInfo()
         {
             string[] photosPaths;
-            string path = "C:/Users/linoy cohen/Documents/GitHub/Advanced-Programming-2/ImageService/ImageService/WebApplication2/WebApplication2/PhotosOutput/Thumbnails";
+            string path = outputDirectory + "/Thumbnails";
             try
             {
                 photosPaths = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
