@@ -11,14 +11,11 @@ namespace WebApplication2.Controllers
     public class FirstController : Controller
     {
         static ImageWebModel imageWebModel  = new ImageWebModel();
-        static PhotosModel photosModel = new PhotosModel();
+        static PhotosModel photosModel;
         static ConfigModel configModel = new ConfigModel();
         static LogsModel logsModel = new LogsModel();
+        static DeletePhotoModel deletePhotoModel = new DeletePhotoModel();
 
-        public  FirstController()
-        {
-
-        }
 
         static List<Employee> employees = new List<Employee>()
         {
@@ -165,13 +162,33 @@ namespace WebApplication2.Controllers
             return View(logsModel);
         }
 
-        public ActionResult ViewPhotoView(Photo p)
+        public ActionResult ViewPhotoView(string name, string year, string month)
         {
-            ViewPhotoModel viewPhotoModel = new ViewPhotoModel(p);
+            string yearNum = year.Split(':')[1];
+            string monthNum = month.Split(':')[1];
+            string path = "../PhotosOutput" + "/" + yearNum + "/" + monthNum + "/" + name;
+            ViewPhotoModel viewPhotoModel = new ViewPhotoModel(new Photo(path,name,year,month));
             return View(viewPhotoModel);
         }
+
+        public ActionResult DeletePhotoView(string name, string year, string month)
+        {
+            string yearNum = year.Split(':')[1];
+            string monthNum = month.Split(':')[1];
+            string path = "../PhotosOutput/Thumbnails" + "/" + yearNum + "/" + monthNum + "/" + name;
+            deletePhotoModel.photo = (new Photo(path, name, year, month));
+            return View(deletePhotoModel);
+        }
+
+        public ActionResult DeletePhoto()
+        {
+            deletePhotoModel.Delete();
+            return RedirectToAction("PhotosView");
+        }
+
         public ActionResult PhotosView()
         {
+            photosModel = new PhotosModel();
             return View(photosModel);
         }
         public ActionResult ConfigView()

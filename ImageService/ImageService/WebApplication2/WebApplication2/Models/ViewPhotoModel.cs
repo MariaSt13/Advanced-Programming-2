@@ -9,9 +9,9 @@ namespace WebApplication2.Models
     {
         private Photo _photo;
 
-        public ViewPhotoModel(Photo p )
+        public ViewPhotoModel(Photo p)
         {
-            this.photo = p;
+            _photo = p;
         }
 
 
@@ -20,11 +20,11 @@ namespace WebApplication2.Models
         {
             get
             {
-                return this.photo;
+                return this._photo;
             }
             set
             {
-                this.photo = value;
+                this._photo = value;
             }
         }
 

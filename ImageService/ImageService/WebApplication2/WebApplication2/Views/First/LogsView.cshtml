@@ -15,6 +15,17 @@
         <th>Message</th>
     </tr>
     
+@foreach (var item in Model.MessageList)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Message)
+        </td>
+    </tr>
+}
 
 </table>
 <script>
