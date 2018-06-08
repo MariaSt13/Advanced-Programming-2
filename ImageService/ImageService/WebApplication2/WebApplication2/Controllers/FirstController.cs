@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Infrastructure;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -156,10 +157,15 @@ namespace WebApplication2.Controllers
             imageWebModel.CountNumOfPictures(configModel.OutputDirectory);
             return View(imageWebModel);
         }
-        public ActionResult LogsView()
+        public ActionResult LogsView(string searchString)
         {
             logsModel.getLogs();
-            return View(logsModel);
+            var list = from l in logsModel.MessageList select l;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                list = list.Where(s => s.Status.ToString().Contains(searchString));
+            }
+            return View(list);
         }
 
         public ActionResult ViewPhotoView(string name, string year, string month)
