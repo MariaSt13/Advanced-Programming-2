@@ -21,11 +21,11 @@
             {  
                 <div class="col-xs-18 col-sm-6 col-md-3">
                     <div class="thumbnail">
-                        <img src= @item.Path alt="" style="border-radius:50%">
+                        <img src= @item.Path alt=""  class="img-circle">
                         <div class="caption">
                             <h4>@item.Name</h4>
                             <p> @item.Year <br> @item.Month</p>
-                            <p><a href="#" class="btn btn-info btn-md" onclick="location.href='@Url.Action("ViewPhotoView", "First",item)'" role="button">view</a> <a href="#" class="btn btn-danger btn-md" role="button">delete</a></p>
+                            <p><a href="#" class="btn btn-info btn-md" onclick="location.href='@Url.Action("ViewPhotoView", "First", new {name = item.Name, year = item.Year, month = item.Month})'" role="button">view</a> <a href="#" class="btn btn-danger btn-md" onclick="location.href='@Url.Action("DeletePhotoView", "First", new {name = item.Name, year = item.Year, month = item.Month})'" role="button">delete</a></p>
 
                             <script>
                             function myFunction() {

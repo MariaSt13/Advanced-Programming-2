@@ -17,8 +17,16 @@ namespace WebApplication2.Models
 
         private List<Photo> readPhotosInfo()
         {
-            string path = HttpContext.Current.Server.MapPath("PhotosOutput/Thumbnails");
-            string[] photosPaths = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+            string[] photosPaths;
+            string path = "C:/Users/linoy cohen/Documents/GitHub/Advanced-Programming-2/ImageService/ImageService/WebApplication2/WebApplication2/PhotosOutput/Thumbnails";
+            try
+            {
+                photosPaths = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+            }
+            catch (Exception)
+            {
+                return new List<Photo>();
+            }
 
             List<Photo> list = new List<Photo>();
            

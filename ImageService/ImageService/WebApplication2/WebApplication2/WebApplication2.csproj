@@ -152,6 +152,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DeletePhotoModel.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\communicationModel.cs" />
@@ -186,6 +187,7 @@
     <Content Include="Views\First\ImageWebView.cshtml" />
     <Content Include="Views\First\ConfigView.cshtml" />
     <Content Include="Views\First\ViewPhotoView.cshtml" />
+    <Content Include="Views\First\DeletePhotoView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

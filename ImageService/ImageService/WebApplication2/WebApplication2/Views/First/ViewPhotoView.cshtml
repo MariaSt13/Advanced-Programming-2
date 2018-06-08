@@ -3,20 +3,20 @@
     ViewBag.Title = "ViewPhotoView";
 }
 
-<h2>ViewPhotoView</h2>
-
-
 @model WebApplication2.Models.ViewPhotoModel
 
 <!DOCTYPE html>
 <html>
 <body>
-                        
-   <img src=@Model.photo.Path alt="" style="border-radius:50%">
-                      
+    <p>Photo path:@Model.photo.Path </p>
+    <img src=@Model.photo.Path>
+    <p>Photo name: @Model.photo.Name </p>
+    <p>@Model.photo.Year </p>
+    <p>@Model.photo.Month</p>
+    <p><a href="#" class="btn btn-danger btn-md" onclick="location.href='@Url.Action("DeletePhotoView", "First",new {name = @Model.photo.Name, year = @Model.photo.Year, month = @Model.photo.Month})'" role="button">delete</a>
+
 </body>
 </html>
-
 
 
 
