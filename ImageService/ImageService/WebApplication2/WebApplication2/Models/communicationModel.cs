@@ -53,6 +53,9 @@ namespace WebApplication2.Models
                 _isConnected = value;
             }
         }
+        /// <summary>
+        /// connect to server.
+        /// </summary>
         public static void Connect()
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
@@ -87,7 +90,10 @@ namespace WebApplication2.Models
                 Instance.writer.Write(command);
             }
         }
-
+        /// <summary>
+        /// read a message from server.
+        /// </summary>
+        /// <returns></returns>
         public static string read()
         {
             if (Instance.reader != null)

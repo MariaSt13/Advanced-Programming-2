@@ -10,10 +10,14 @@ namespace WebApplication2.Models
 {
     public class ConfigModel
     {
+        /// <summary>
+        /// constructor.
+        /// </summary>
         public ConfigModel()
         {
             this.Handlerslist = new List<string>();
         }
+
         [DataType(DataType.Text)]
         [Display(Name = "OutputDirectory")]
         public string OutputDirectory { get; set; }
@@ -34,14 +38,21 @@ namespace WebApplication2.Models
         [Display(Name = "Handlerslist")]
         public List<string> Handlerslist { get; set; }
 
+        /// <summary>
+        /// get config from server.
+        /// </summary>
         public void getConfig()
         {
+            // create new get config command
             CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.GetConfigCommand, null, null);
             string str = JsonConvert.SerializeObject(command);
+            //write requast
             communicationModel.Write(str);
+            // read answer
             string output = communicationModel.read();
             CommandRecievedEventArgs deserializedProduct = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(output);
             string[] args = deserializedProduct.Args;
+            //get config 
             this.OutputDirectory = args[0];
             this.SourceName = args[1];
             this.LogName = args[2];
@@ -56,12 +67,18 @@ namespace WebApplication2.Models
             }
         }
 
+        /// <summary>
+        /// send delete hendler requast to server
+        /// </summary>
+        /// <param name="name">the name of hendler to remove</param>
         public void deleteHendler(string name)
         {
             string[] args = { name };
             CommandRecievedEventArgs command = new CommandRecievedEventArgs((int)CommandEnum.CommandEnum.CloseCommand, args, null);
             string str = JsonConvert.SerializeObject(command);
+            //write requast
             communicationModel.Write(str);
+            //get confirm that the hendler is deleted
             string output = communicationModel.read();
         }
     }

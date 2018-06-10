@@ -17,187 +17,111 @@ namespace WebApplication2.Controllers
         static LogsModel logsModel = new LogsModel();
         static DeletePhotoModel deletePhotoModel = new DeletePhotoModel();
 
-
-        static List<Employee> employees = new List<Employee>()
-        {
-          new Employee  { FirstName = "Moshe", LastName = "Aron", Email = "Stam@stam", Salary = 10000, Phone = "08-8888888" },
-          new Employee  { FirstName = "Dor", LastName = "Nisim", Email = "Stam@stam", Salary = 2000, Phone = "08-8888888" },
-          new Employee   { FirstName = "Mor", LastName = "Sinai", Email = "Stam@stam", Salary = 500, Phone = "08-8888888" },
-          new Employee   { FirstName = "Dor", LastName = "Nisim", Email = "Stam@stam", Salary = 20, Phone = "08-8888888" },
-          new Employee   { FirstName = "Dor", LastName = "Nisim", Email = "Stam@stam", Salary = 700, Phone = "08-8888888" }
-        };
-        // GET: First
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult AjaxView()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public JObject GetEmployee()
-        {
-            JObject data = new JObject();
-            data["FirstName"] = "Kuky";
-            data["LastName"] = "Mopy";
-            return data;
-        }
-
-        [HttpPost]
-        public JObject GetEmployee(string name, int salary)
-        {
-            foreach (var empl in employees)
-            {
-                if (empl.Salary > salary || name.Equals(name))
-                {
-                    JObject data = new JObject();
-                    data["FirstName"] = empl.FirstName;
-                    data["LastName"] = empl.LastName;
-                    data["Salary"] = empl.Salary;
-                    return data;
-                }
-            }
-            return null;
-        }
-
-        // GET: First/Details
-        public ActionResult Details()
-        {
-            return View(employees);
-        }
-
-        // GET: First/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: First/Create
-        [HttpPost]
-        public ActionResult Create(Employee emp)
-        {
-            try
-            {
-                employees.Add(emp);
-
-                return RedirectToAction("Details");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: First/Edit/5
-        public ActionResult Edit(int id)
-        {
-            foreach (Employee emp in employees) {
-                if (emp.ID.Equals(id)) { 
-                    return View(emp);
-                }
-            }
-            return View("Error");
-        }
-
-        // POST: First/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, Employee empT)
-        {
-            try
-            {
-                foreach (Employee emp in employees)
-                {
-                    if (emp.ID.Equals(id))
-                    {
-                        emp.copy(empT);
-                        return RedirectToAction("Index");
-                    }
-                }
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return RedirectToAction("Error");
-            }
-        }
-
-        // GET: First/Delete/5
-        public ActionResult Delete(int id)
-        {
-            int i = 0;
-            foreach (Employee emp in employees)
-            {
-                if (emp.ID.Equals(id))
-                {
-                    employees.RemoveAt(i);
-                    return RedirectToAction("Details");
-                }
-                i++;
-            }
-            return RedirectToAction("Error");
-        }
-
+        /// <summary>
+        /// action for confirm hendler delete page
+        /// </summary>
+        /// <param name="name">the name of the handler</param>
+        /// <returns></returns>
         public ActionResult DeleteHendlerView(string name)
         {
             return View((object)name);
         }
+        /// <summary>
+        /// action happens when a handler is deleted. redirect to config after delete.
+        /// </summary>
+        /// <param name="name">handler name</param>
+        /// <returns></returns>
         public ActionResult DeleteHendler(string name)
         {
             configModel.deleteHendler(name);
             return RedirectToAction("ConfigView");
         }
+        /// <summary>
+        /// main page view.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ImageWebView()   
         {
             configModel.getConfig();
             imageWebModel.CountNumOfPictures(configModel.OutputDirectory);
             return View(imageWebModel);
         }
+        /// <summary>
+        /// log page view.
+        /// </summary>
+        /// <param name="searchString">string in search box</param>
+        /// <returns></returns>
         public ActionResult LogsView(string searchString)
         {
+            //get all logs
             logsModel.getLogs();
             var list = from l in logsModel.MessageList select l;
+            //check if there is string in search box
             if (!String.IsNullOrEmpty(searchString))
             {
+                //choose only logs where the type is the type that was searched.
                 list = list.Where(s => s.Status.ToString().Contains(searchString));
             }
             return View(list);
         }
-
+        /// <summary>
+        /// view photo page.
+        /// </summary>
+        /// <param name="name">name of photo</param>
+        /// <param name="year">year that the photo was taken</param>
+        /// <param name="month">minth that the photo was taken</param>
+        /// <returns></returns>
         public ActionResult ViewPhotoView(string name, string year, string month)
         {
             string yearNum = year.Split(':')[1];
             string monthNum = month.Split(':')[1];
+            //create path of original photo
             string path = "../PhotosOutput" + "/" + yearNum + "/" + monthNum + "/" + name;
             ViewPhotoModel viewPhotoModel = new ViewPhotoModel(new Photo(path,name,year,month));
             return View(viewPhotoModel);
         }
 
+        /// <summary>
+        /// confirm delete photo page
+        /// </summary>
+        /// <param name="name">name of photo</param>
+        /// <param name="year">year that the photo was taken</param>
+        /// <param name="month">month that the photo was taken</param>
+        /// <returns></returns>
         public ActionResult DeletePhotoView(string name, string year, string month)
         {
             string yearNum = year.Split(':')[1];
             string monthNum = month.Split(':')[1];
+            //create thumbnail path
             string path = "../PhotosOutput/Thumbnails" + "/" + yearNum + "/" + monthNum + "/" + name;
             deletePhotoModel.photo = (new Photo(path, name, year, month));
             return View(deletePhotoModel);
         }
 
+        /// <summary>
+        /// action happens when a photo is deleted. redirect to photos after delete.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult DeletePhoto()
         {
             deletePhotoModel.Delete();
             return RedirectToAction("PhotosView");
         }
 
+        /// <summary>
+        /// photos page view.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult PhotosView()
         {
             configModel.getConfig();
             photosModel = new PhotosModel(configModel.OutputDirectory);
             return View(photosModel);
         }
+        /// <summary>
+        /// config page view.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ConfigView()
         {
             configModel.getConfig();

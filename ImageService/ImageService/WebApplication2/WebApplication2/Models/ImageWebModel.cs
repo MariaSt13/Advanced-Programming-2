@@ -12,6 +12,7 @@ namespace WebApplication2.Models
         private List<Student> _students;
         private int _numOfPictures;
         private bool _connect;
+
         public ImageWebModel()
         {
             communicationModel.Connect();
@@ -19,6 +20,9 @@ namespace WebApplication2.Models
             this._connect = communicationModel.Instance.isConnected;
         }
 
+        /// <summary>
+        /// if server is connected
+        /// </summary>
         public string connect
         {
             get {
@@ -47,6 +51,10 @@ namespace WebApplication2.Models
             }
         }
 
+        /// <summary>
+        /// read the students info from file and return list of students.
+        /// </summary>
+        /// <returns></returns>
         private List<Student> readStudentsInfo()
         {
             List<Student> list = new List<Student>();
@@ -60,11 +68,21 @@ namespace WebApplication2.Models
             return list;
         }
 
+        /// <summary>
+        /// count number of pictures in output dirctory
+        /// </summary>
+        /// <param name="path">path to output dirctory</param>
         public void CountNumOfPictures(string path)
         {
             path += "/Thumbnails";
-          //  string path = HttpContext.Current.Server.MapPath("../PhotosOutput/Thumbnails");
-            int fileCount = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).Length;
+            int fileCount;
+            try
+            {
+                 fileCount = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).Length;
+            } catch
+            {
+                fileCount = 0;
+            }
             this.numOfPictures =  fileCount;
         }
     }

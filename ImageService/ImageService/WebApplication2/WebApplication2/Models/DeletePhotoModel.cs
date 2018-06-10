@@ -10,7 +10,9 @@ namespace WebApplication2.Models
     {
         private Photo _photo;
 
-
+        /// <summary>
+        /// delete the original photo and the thumbnail
+        /// </summary>
         public void Delete()
         {
             string yearNum = _photo.Year.Split(':')[1];
