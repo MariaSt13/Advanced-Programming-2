@@ -11,10 +11,10 @@ namespace WebApplication2.Models
         /// <summary>
         /// constructor.
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="name"></param>
-        /// <param name="year"></param>
-        /// <param name="month"></param>
+        /// <param name="path">path of photo</param>
+        /// <param name="name">name of photo</param>
+        /// <param name="year">the yeat the photo was taken</param>
+        /// <param name="month">the month the photo was taken</param>
         public Photo(string path, string name, string year, string month)
         {
             this.Path = path;

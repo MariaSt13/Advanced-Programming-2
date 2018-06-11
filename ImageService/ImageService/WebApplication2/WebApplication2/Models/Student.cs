@@ -11,9 +11,9 @@ namespace WebApplication2.Models
         /// <summary>
         /// constructor.
         /// </summary>
-        /// <param name="first"></param>
-        /// <param name="last"></param>
-        /// <param name="id"></param>
+        /// <param name="first">first name of student</param>
+        /// <param name="last">last name of student</param>
+        /// <param name="id">id of student</param>
         public Student(string first, string last, string id)
         {
             this.FirstName = first;

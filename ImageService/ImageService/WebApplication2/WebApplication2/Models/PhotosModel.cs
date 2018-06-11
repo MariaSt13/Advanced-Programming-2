@@ -14,7 +14,7 @@ namespace WebApplication2.Models
         /// <summary>
         /// constructor.
         /// </summary>
-        /// <param name="outputDirectory"></param>
+        /// <param name="outputDirectory">path to output directory</param>
         public PhotosModel(string outputDirectory)
         {
             this.outputDirectory = outputDirectory;
