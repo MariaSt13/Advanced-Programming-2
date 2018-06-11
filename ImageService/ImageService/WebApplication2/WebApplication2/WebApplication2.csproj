@@ -143,8 +143,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\First\Create.cshtml" />
-    <Content Include="Views\First\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -171,14 +169,10 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\First\Index.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\First\Edit.cshtml" />
-    <Content Include="Views\First\Error.cshtml" />
-    <Content Include="Views\First\AjaxView.cshtml" />
     <Content Include="scripts\jquery-3.0.0.min.map" />
     <Content Include="scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Views\First\PhotosView.cshtml" />

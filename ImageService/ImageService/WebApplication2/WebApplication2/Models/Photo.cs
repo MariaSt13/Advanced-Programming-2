@@ -8,6 +8,13 @@ namespace WebApplication2.Models
 {
     public class Photo
     {
+        /// <summary>
+        /// constructor.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="name"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
         public Photo(string path, string name, string year, string month)
         {
             this.Path = path;
@@ -15,6 +22,7 @@ namespace WebApplication2.Models
             this.Year = year;
             this.Month = month;
         }
+
         [DataType(DataType.Text)]
         [Display(Name = "Path")]
         public string Path { get; set; }

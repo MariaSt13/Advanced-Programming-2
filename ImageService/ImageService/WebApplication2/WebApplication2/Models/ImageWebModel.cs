@@ -13,6 +13,9 @@ namespace WebApplication2.Models
         private int _numOfPictures;
         private bool _connect;
 
+        /// <summary>
+        /// constructor.
+        /// </summary>
         public ImageWebModel()
         {
             communicationModel.Connect();
@@ -35,11 +38,19 @@ namespace WebApplication2.Models
                 }
             }
         }
+
+        /// <summary>
+        /// numOfPictures get and set.
+        /// </summary>
         public int numOfPictures
         {
             get { return _numOfPictures; }
             set { _numOfPictures = value; }
         }
+
+        /// <summary>
+        /// students get and set.
+        /// </summary>
         public List<Student> students
         {
             get {
@@ -79,7 +90,7 @@ namespace WebApplication2.Models
             try
             {
                  fileCount = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).Length;
-            } catch
+            } catch(Exception)
             {
                 fileCount = 0;
             }

@@ -8,13 +8,19 @@ namespace WebApplication2.Models
 {
     public class Student
     {
-
+        /// <summary>
+        /// constructor.
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="last"></param>
+        /// <param name="id"></param>
         public Student(string first, string last, string id)
         {
             this.FirstName = first;
             this.LastName = last;
             this.ID = id;  
         }
+
         [DataType(DataType.Text)]
         [Display(Name = "ID")]
         public string ID { get; set; }

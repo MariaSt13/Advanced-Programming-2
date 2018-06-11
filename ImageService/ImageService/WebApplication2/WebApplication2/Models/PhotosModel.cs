@@ -11,12 +11,20 @@ namespace WebApplication2.Models
         private List<Photo> _photos;
         string outputDirectory;
 
+        /// <summary>
+        /// constructor.
+        /// </summary>
+        /// <param name="outputDirectory"></param>
         public PhotosModel(string outputDirectory)
         {
             this.outputDirectory = outputDirectory;
             this._photos = readPhotosInfo();
         }
 
+        /// <summary>
+        /// this function create list of photos.
+        /// </summary>
+        /// <returns>list of photos</returns>
         private List<Photo> readPhotosInfo()
         {
             string[] photosPaths;
@@ -27,6 +35,7 @@ namespace WebApplication2.Models
             }
             catch (Exception)
             {
+                //return empty list
                 return new List<Photo>();
             }
 
@@ -34,16 +43,23 @@ namespace WebApplication2.Models
            
             for (int i = 0; i < photosPaths.Length; i++)
             {
+                //get detaile of each photo
                 string photoName = Path.GetFileName(photosPaths[i]);
                 string month = Path.GetFileName(Path.GetDirectoryName(photosPaths[i]));
                 string year = Path.GetFileName(Path.GetDirectoryName(Path.GetDirectoryName(photosPaths[i])));
                 string photoPath = "../PhotosOutput/Thumbnails/" + year + "/" + month + "/" + photoName;
+
+                //create photo and add to list
                 Photo photo = new Photo(photoPath, photoName, "Year:" + year, "Month:"+month);
                 list.Add(photo);
             }
             return list;
         }
 
+
+        /// <summary>
+        /// photos get and set.
+        /// </summary>
         public List<Photo> photos
         {
             get

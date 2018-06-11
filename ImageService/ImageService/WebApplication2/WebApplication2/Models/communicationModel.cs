@@ -18,6 +18,9 @@ namespace WebApplication2.Models
         private BinaryReader reader;
         private BinaryWriter writer;
 
+        /// <summary>
+        /// constructor.
+        /// </summary>
         private communicationModel() { }
 
         /// <summary>
@@ -42,6 +45,9 @@ namespace WebApplication2.Models
             }
         }
 
+        /// <summary>
+        /// isConnected get and set.
+        /// </summary>
         public bool isConnected
         {
             get
@@ -53,6 +59,7 @@ namespace WebApplication2.Models
                 _isConnected = value;
             }
         }
+
         /// <summary>
         /// connect to server.
         /// </summary>
@@ -90,6 +97,7 @@ namespace WebApplication2.Models
                 Instance.writer.Write(command);
             }
         }
+
         /// <summary>
         /// read a message from server.
         /// </summary>

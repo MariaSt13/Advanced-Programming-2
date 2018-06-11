@@ -26,6 +26,7 @@ namespace WebApplication2.Controllers
         {
             return View((object)name);
         }
+
         /// <summary>
         /// action happens when a handler is deleted. redirect to config after delete.
         /// </summary>
@@ -36,6 +37,7 @@ namespace WebApplication2.Controllers
             configModel.deleteHendler(name);
             return RedirectToAction("ConfigView");
         }
+
         /// <summary>
         /// main page view.
         /// </summary>
@@ -46,6 +48,7 @@ namespace WebApplication2.Controllers
             imageWebModel.CountNumOfPictures(configModel.OutputDirectory);
             return View(imageWebModel);
         }
+
         /// <summary>
         /// log page view.
         /// </summary>
@@ -64,6 +67,7 @@ namespace WebApplication2.Controllers
             }
             return View(list);
         }
+
         /// <summary>
         /// view photo page.
         /// </summary>
@@ -118,6 +122,7 @@ namespace WebApplication2.Controllers
             photosModel = new PhotosModel(configModel.OutputDirectory);
             return View(photosModel);
         }
+
         /// <summary>
         /// config page view.
         /// </summary>

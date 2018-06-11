@@ -9,13 +9,18 @@ namespace WebApplication2.Models
     {
         private Photo _photo;
 
+        /// <summary>
+        /// constrcutor.
+        /// </summary>
+        /// <param name="p"></param>
         public ViewPhotoModel(Photo p)
         {
             _photo = p;
         }
 
-
-
+        /// <summary>
+        /// photo get and set.
+        /// </summary>
         public Photo photo
         {
             get

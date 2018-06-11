@@ -24,6 +24,9 @@ namespace WebApplication2.Models
             File.Delete(orignaPhotolPath);
         }
 
+        /// <summary>
+        /// photo get and set.
+        /// </summary>
         public Photo photo
         {
             get
