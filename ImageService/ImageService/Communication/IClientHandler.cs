@@ -15,6 +15,8 @@ namespace Communication
     {
         // message recieved
         event EventHandler<CommandRecievedEventArgs> ClientHandlerCommandRecieved;
+        // message recieved
+        event EventHandler<CommandRecievedEventArgsByte> ClientHandlerCommandRecievedByte;
         // handle client
         void HandleClient(TcpClient client);
         // write a message to client

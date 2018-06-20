@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CommandEnum.cs" />
     <Compile Include="CommandRecievedEventArgs.cs" />
+    <Compile Include="CommandRecievedEventArgsByte.cs" />
     <Compile Include="MessageRecievedEventArgs.cs" />
     <Compile Include="MessageTypeEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

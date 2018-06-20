@@ -16,6 +16,9 @@ using System.Configuration;
 using Infrastructure;
 using Communication;
 using Newtonsoft.Json;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace ImageService
 {
@@ -110,7 +113,7 @@ namespace ImageService
             logging.MessageRecieved += onMessage;
             
             //create server and client handler
-            this.clientHandler = new ClientHandler();
+            this.clientHandler = new ByteClinetHandler();
             this.server = new Communication.Server(8000, clientHandler);
             // create image modal, controller and image server
             this.modal = new ImageServiceModal(outputFolder, size,logging);
@@ -119,9 +122,11 @@ namespace ImageService
 
             //sign to events
             this.clientHandler.ClientHandlerCommandRecieved += ClientHandlerCommandRecievedHandle;
+            this.clientHandler.ClientHandlerCommandRecievedByte += ClientHandlerCommandRecievedHandleByte;
             server.newConnection += newConnectionHandler;
 
             logging.Log("In OnStart", MessageTypeEnum.INFO);
+            this.logging.Log(System.Threading.Thread.CurrentThread.ManagedThreadId.ToString(), MessageTypeEnum.INFO);
             //start server
             server.Start();
 
@@ -156,6 +161,25 @@ namespace ImageService
             {
                 message = this.controller.ExecuteCommand(e.CommandID, e.Args, out result);
                 this.clientHandler.write(message);
+            }
+        }
+
+        public void ClientHandlerCommandRecievedHandleByte(object sender, CommandRecievedEventArgsByte e)
+        {
+
+            this.logging.Log(System.Threading.Thread.CurrentThread.ManagedThreadId.ToString(), MessageTypeEnum.INFO);
+            this.logging.Log("linoy add file to handler",MessageTypeEnum.INFO);
+            byte[] byteArray = e.Args;
+            using (MemoryStream inputStream = new MemoryStream(byteArray))
+            {
+                using (var image = Image.FromStream(inputStream))
+                {
+                    string path = "C:\\Users\\linoy cohen\\Desktop\\linoy";
+                    string imagePath = path + "\\" + DateTime.Now.Date.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".jpg";
+                    Image bitmap = new Bitmap(image);
+                    bitmap.Save(imagePath, ImageFormat.Jpeg);
+                    clientHandler.write("finish");
+                }
             }
         }
 

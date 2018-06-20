@@ -20,6 +20,7 @@ namespace Communication
         private BinaryReader reader;
         private BinaryWriter writer = null;
         public event EventHandler<CommandRecievedEventArgs> ClientHandlerCommandRecieved;
+        public event EventHandler<CommandRecievedEventArgsByte> ClientHandlerCommandRecievedByte;
         //Helper for Thread Safety
         private Mutex mutex = new Mutex();
         /// <summary>
