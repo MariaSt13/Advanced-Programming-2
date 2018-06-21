@@ -1,5 +1,6 @@
 package com.example.linoycohen.imageservice;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,8 +14,6 @@ import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
@@ -25,7 +24,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 
 public class ImageServiceService extends Service {
 
@@ -34,10 +32,9 @@ public class ImageServiceService extends Service {
     InputStream input;
 
     public ImageServiceService(){}
+
     @Nullable
     @Override
-
-
     public IBinder onBind(Intent intent)
     {
         return null;
@@ -85,13 +82,11 @@ public class ImageServiceService extends Service {
                                             flag = false;
                                             try {
                                                 socket.close();
-                                                flag = false;
                                             } catch (IOException e) {
                                                 e.printStackTrace();
                                             }
                                         }
-                                        }
-
+                                    }
                                 };
                                 thread.start();
                             }
@@ -106,10 +101,13 @@ public class ImageServiceService extends Service {
     }
 
     public void startTransfer() {
-        // Getting the Camera Folder
+        //Notification progress bar
+        NotificationHelper helper = new NotificationHelper(this);
+        Notification.Builder builder = helper.getChannelNotification("Picture Transfer", "Transfer in progress");
+        builder.setProgress(100,0, false);
+        helper.getManager().notify(1, builder.build());
 
-        //NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-      //  NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
+        // Getting the Camera Folder
         File dcim = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM + "/Camera");
         if (dcim == null) {
             return;
@@ -117,36 +115,33 @@ public class ImageServiceService extends Service {
         File[] pics = dcim.listFiles();
         int count = 0;
         if (pics != null) {
-         //   builder.setContentTitle("Picture Transfer").setContentText("Transfer in progress").setPriority(NotificationCompat.PRIORITY_LOW);
             for (File pic : pics) {
                 try {
-           //         builder.setContentText("Half way through").setProgress(100, 50, false);
-             //       notificationManager.notify(1, builder.build());
                     FileInputStream fis = new FileInputStream(pic);
                     Bitmap bm = BitmapFactory.decodeStream(fis);
                     byte[] imgbyte = getBytesFromBitmap(bm);
                     //sends the message to the server
                     output.write(imgbyte);
+                    output.flush();
 
                     int i;
-                    char c;
                     byte[] str = new byte[7];
                     // reads till the end of the stream
-                    while((i = input.read(str))!=-1) {
-
-                        //if(i == 7){
+                    while((i = input.read(str))!= -1) {
                             break;
-                        //}
-
                     }
-
+                    if(count == (pics.length / 2)) {
+                        builder.setContentText("Half way through").setProgress(100, 50, false);
+                        helper.getManager().notify(1, builder.build());
+                    }
+                    count++;
                 } catch (Exception e) {
                     Log.e("TCP", "S: Error", e);
                 }
             }
             // At the End
-            //builder.setContentText("Download complete").setProgress(0, 0, false);
-            //notificationManager.notify(1, builder.build());
+            builder.setContentText("Download complete").setProgress(0, 0, false);
+            helper.getManager().notify(1, builder.build());
         }
     }
 

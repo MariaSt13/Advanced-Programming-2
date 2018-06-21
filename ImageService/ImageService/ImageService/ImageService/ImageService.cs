@@ -164,23 +164,32 @@ namespace ImageService
             }
         }
 
+        /// <summary>
+        /// command recived with byte array
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void ClientHandlerCommandRecievedHandleByte(object sender, CommandRecievedEventArgsByte e)
         {
-
-            this.logging.Log(System.Threading.Thread.CurrentThread.ManagedThreadId.ToString(), MessageTypeEnum.INFO);
-            this.logging.Log("linoy add file to handler",MessageTypeEnum.INFO);
             byte[] byteArray = e.Args;
-            using (MemoryStream inputStream = new MemoryStream(byteArray))
+            try
             {
-                using (var image = Image.FromStream(inputStream))
+                using (MemoryStream inputStream = new MemoryStream(byteArray))
                 {
-                    string path = "C:\\Users\\linoy cohen\\Desktop\\linoy";
-                    string imagePath = path + "\\" + DateTime.Now.Date.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".jpg";
-                    Image bitmap = new Bitmap(image);
-                    bitmap.Save(imagePath, ImageFormat.Jpeg);
-                    clientHandler.write("finish");
+                    using (var image = Image.FromStream(inputStream))
+                    {
+                        string path = appConfigManager.Instance.Handlers.Split(';')[0];
+                        string imagePath = path + "\\" + DateTime.Now.Date.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".jpg";
+                        Image bitmap = new Bitmap(image);
+                        bitmap.Save(imagePath, ImageFormat.Jpeg);
+                        clientHandler.write("finish");
+                    }
                 }
+            }catch (Exception ex)
+            {
+                this.logging.Log(ex.ToString(), MessageTypeEnum.INFO);
             }
+
         }
 
         /// <summary>

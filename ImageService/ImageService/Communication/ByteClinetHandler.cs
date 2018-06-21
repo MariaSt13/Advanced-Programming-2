@@ -25,6 +25,10 @@ namespace Communication
         public ByteClinetHandler(){}
 
 
+        /// <summary>
+        /// Handles a client.
+        /// </summary>
+        /// <param name="client"> the tcp client to handle </param>
         public void HandleClient(TcpClient client)
         {
             // get streams
@@ -40,32 +44,32 @@ namespace Communication
                     this.read();
                 }
             }).Start();
-
-
         }
         
-        
         /// <summary>
-        /// read a message and deserialize it to CommandRecievedEventArgs object.
+        /// read a message 
         /// </summary>
         public void read()
         {
+            int i = 0;
             List<byte> b = new List<byte>();
             Byte[] temp;
             Byte[] data = new byte[6790];
-            int i = 0;
 
             do
             {
                 i = stream.Read(data, 0, data.Length);
                 temp = new byte[i];
-                for (int n = 0; n < i; n++)
+                for (int j = 0; j < i; j++)
                 {
-                    temp[n] = data[n];
-                    b.Add(temp[n]);
+                    temp[j] = data[j];
+                    b.Add(temp[j]);
                 }
                 System.Threading.Thread.Sleep(300);
             } while (stream.DataAvailable || i == data.Length);
+
+            stream.Flush();
+
             if (i != 0)
             {
                 byte[] byteArrayIn = b.ToArray();
@@ -73,12 +77,20 @@ namespace Communication
             }
         }
 
-
+        /// <summary>
+        /// write a message.
+        /// </summary>
+        /// <param name="message"> the message to write</param>
         public void write(string message)
         {
             this.writer.Write(message);
         }
 
+        /// <summary>
+        /// write to specific client.
+        /// </summary>
+        /// <param name="message"> the message to write </param>
+        /// <param name="client">the tcp client to write to</param>
         public void writeToClient(string message, TcpClient client)
         {
             throw new NotImplementedException();
